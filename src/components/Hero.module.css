@@ -1,0 +1,18 @@
+.hero { position: relative; overflow: clip; }
+.grid {
+  display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); align-items: center; gap: var(--space-2xl);
+  min-height: min(calc(100svh - var(--header-h)), 860px); padding-block: var(--space-2xl);
+}
+.copy { display: grid; gap: var(--space-lg); align-content: center; }
+.title {
+  font-size: var(--text-display); line-height: 1.02; letter-spacing: var(--tracking-display); font-weight: 400;
+  max-width: 11ch; color: var(--color-on-field);
+}
+.lede { font-size: var(--text-lead); line-height: 1.5; color: var(--color-on-field-2); max-width: 34ch; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); margin-top: var(--space-xs); }
+.pdf { color: var(--color-on-field); font-size: var(--text-md); min-height: 44px; display: inline-flex; align-items: center; }
+
+@media (max-width: 60rem) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); min-height: 0; padding-block: var(--space-xl) var(--space-2xl); }
+  .title { max-width: 12ch; }
+}

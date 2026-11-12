@@ -1,0 +1,26 @@
+{
+  "name": "kurak-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3210",
+    "build": "next build",
+    "start": "next start --port 3210",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "16.4.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
+    "typescript": "^5"
+  }
+}

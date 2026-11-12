@@ -1,0 +1,20 @@
+.band { margin-top: var(--section-gap-s); padding-block: var(--section-gap-s); }
+.title { color: var(--color-on-field); margin-bottom: var(--space-2xl); }
+.list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.item { display: grid; grid-template-columns: 44px minmax(0, 1fr); align-items: center; align-content: start; gap: var(--space-md); padding: 0 var(--space-lg); border-left: 1.5px dashed var(--color-field-rule); }
+.item:first-child { padding-left: 0; border-left: 0; }
+.item:last-child { padding-right: 0; }
+.patch { width: 44px; height: 44px; display: block; }
+.text { grid-column: 1 / -1; }
+.itemTitle { font-size: var(--text-xl); line-height: 1.1; font-weight: 400; color: var(--color-on-field); }
+.text { color: var(--color-on-field-2); }
+@media (max-width: 60rem) {
+  .list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-2xl); }
+  .item:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .item:nth-child(even) { padding-right: 0; }
+}
+@media (max-width: 40rem) {
+  .list { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+  .item, .item:nth-child(even) { padding: var(--space-lg) 0; border-left: 0; border-top: 1.5px dashed var(--color-field-rule); }
+  .item:first-child { border-top: 0; padding-top: 0; }
+}

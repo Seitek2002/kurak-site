@@ -1,0 +1,19 @@
+.head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-lg); margin-bottom: var(--space-2xl); }
+.all { flex-shrink: 0; }
+.grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--gap-columns); }
+.person { display: flex; flex-direction: column; gap: var(--space-xs); }
+.person > :first-child { margin-bottom: var(--space-sm); }
+.name { font-size: var(--text-xl); line-height: 1.1; font-weight: 400; }
+.role { font-weight: 600; }
+.exp { color: var(--color-ink-2); font-size: var(--text-sm); }
+.line { color: var(--color-ink-2); font-size: var(--text-sm); margin-top: var(--space-2xs); }
+
+@media (max-width: 70rem) {
+  .grid {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(14rem, 40%);
+    overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); padding-bottom: var(--space-md);
+  }
+  .person { scroll-snap-align: start; }
+}
+@media (max-width: 40rem) { .grid { grid-auto-columns: minmax(13rem, 72%); } }

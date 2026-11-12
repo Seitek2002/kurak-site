@@ -1,0 +1,83 @@
+/* Hallmark · shape: the quilt menu, eight patches around the client's business, the page sews them into a brief · genre: playful · theme: custom · job: hire · idea: "Курак means patchwork: every service is a patch, and the visitor sews their own marketing quilt that becomes the brief" · vibe: "bold Bishkek patchwork, stitched into one system"
+ * paper: oklch(97% 0.006 250) · accent: oklch(67% 0.19 29) · display: Dela Gothic One · body: Onest · hero: the quilt on indigo felt, eight category patches around a paper patch that says your business, each a link into the menu · nav: indigo bar, wordmark with patch mark, four links, the selection quilt and the one action · footer: a stitched seam of the eight colours over contacts and the partner line · imagery: none, the patches are the brand's own geometry · signature: the selection quilt that grows one patch per service and prefills the brief
+ * axes: light/display-heavy/chromatic-red · posture: full-palette (field indigo, eight category roles, red signal, ink) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: H, eight colours compete; each colour is one direction everywhere, ink carries all text, and the red signal is the only filled button */
+/* Hallmark · waive 39b · the service rows are accordion headers set at display size, each row is a whole category of the menu · a 44px row would bury the eight directions of Курак */
+/* Hallmark · dismissed 59 · ten blocks are the concept document's own list for the Курак home page, each tied to a stage of the client path */
+/* Hallmark · waive 44c · theme: custom, hero fills min(100svh, 860px) · the quilt and the copy of Курак share one centred band on the first screen */
+/* Hallmark · waive 72 · span.fill is inline, dashed, no background · it marks a missing Курак fact around a word, it is not a box of running text */
+/* Hallmark · dismissed 28a · the portrait image only renders once the agency sends 2D portraits, and it sits below the fold of Курак */
+/* Hallmark · waive 80 · the patches are the agency's name drawn as geometry, every patch is a link to its service category · Курак is Kyrgyz patchwork, the quilt is the menu itself */
+/* Hallmark · waive 23 · the eight patch colours are category roles of the full palette posture, not the red accent · the red signal stays on buttons and focus */
+@import url("../styles/tokens.css");
+@import url("../styles/base.css");
+
+html { scroll-padding-top: calc(var(--header-h) + var(--space-lg)); scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { font-feature-settings: "ss01" 0; }
+main { display: block; }
+h4, h5, h6 { margin: 0; }
+
+/* ---------- Кнопки: одна заливка на страницу, красная ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+  min-height: 52px; padding: 0 var(--space-lg);
+  border: 1px solid var(--color-accent); border-radius: var(--radius-pill);
+  background: var(--color-accent); color: var(--color-accent-ink);
+  font: 600 var(--text-md)/1 var(--font-body); white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.btn:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn[aria-busy="true"] { cursor: progress; }
+.btn--s { min-height: 44px; padding: 0 var(--space-md); font-size: var(--text-sm); }
+.btn--quiet { background: transparent; color: var(--color-ink); border-color: var(--color-edge); }
+.btn--quiet:hover { background: var(--color-paper-2); border-color: var(--color-ink); }
+.on-field .btn--quiet { color: var(--color-on-field); border-color: var(--color-on-field-2); }
+.on-field .btn--quiet:hover { background: var(--color-field-2); border-color: var(--color-on-field); }
+.on-field :focus-visible, .on-field .btn:focus-visible { outline-color: var(--color-focus-on-field); }
+
+.link {
+  color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
+  transition: text-decoration-color var(--dur-short) var(--ease-out);
+}
+.link:hover { text-decoration-color: currentColor; }
+
+/* ---------- Пропуск (данные, которых ещё нет): пунктирный стежок ---------- */
+.fill {
+  padding: var(--space-3xs) var(--space-xs); line-height: inherit; border: 1.5px dashed currentColor; border-radius: 4px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+/* ---------- Секции ---------- */
+.section { padding-block: var(--section-gap) 0; }
+.section-head { display: grid; gap: var(--space-md); margin-bottom: var(--space-2xl); }
+.h-section { font-size: var(--text-section); line-height: 1.04; letter-spacing: var(--tracking-display); font-weight: 400; max-width: 22ch; }
+.lead { font-size: var(--text-lead); line-height: 1.5; color: var(--color-ink-2); max-width: 52ch; }
+.on-field { background: var(--color-field); color: var(--color-on-field); }
+.on-field .lead { color: var(--color-on-field-2); }
+
+.skip {
+  position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast);
+  padding: var(--space-xs) var(--space-md); border-radius: var(--radius-input);
+  background: var(--color-paper); color: var(--color-ink);
+}
+.skip:focus-visible { top: var(--space-md); }
+
+/* Лоскуты по направлениям: --c и --c-deep */
+[data-cat="smm"] { --c: var(--cat-smm); --c-deep: var(--cat-smm-deep); }
+[data-cat="pr"] { --c: var(--cat-pr); --c-deep: var(--cat-pr-deep); }
+[data-cat="events"] { --c: var(--cat-events); --c-deep: var(--cat-events-deep); }
+[data-cat="brand"] { --c: var(--cat-brand); --c-deep: var(--cat-brand-deep); }
+[data-cat="sales"] { --c: var(--cat-sales); --c-deep: var(--cat-sales-deep); }
+[data-cat="digital"] { --c: var(--cat-digital); --c-deep: var(--cat-digital-deep); }
+[data-cat="team"] { --c: var(--cat-team); --c-deep: var(--cat-team-deep); }
+[data-cat="invest"] { --c: var(--cat-invest); --c-deep: var(--cat-invest-deep); }
+
+/* Одна проявка на страницу: только под .js, без скрипта всё видно */
+.js [data-reveal] { opacity: 0; transform: translateY(12px); transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out); transition-delay: calc(var(--i, 0) * 60ms); }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js [data-reveal] { opacity: 1; transform: none; transition: none; } }

@@ -1,0 +1,28 @@
+.head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+.grid { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--color-ink); }
+/* Сет = строка: лоскуты сета, название, состав, кнопка */
+.card {
+  display: grid; grid-template-columns: 168px minmax(0, 4fr) minmax(0, 5fr) auto; align-items: center; gap: var(--space-xl);
+  padding-block: var(--space-xl); border-top: 1px solid var(--color-ink);
+}
+.quilt { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-self: start; transform: rotate(-3deg); }
+.cell { aspect-ratio: 1; display: block; }
+.name { display: grid; gap: var(--space-xs); align-self: start; }
+.title { font-size: var(--text-2xl); line-height: 1.1; font-weight: 400; }
+.line { color: var(--color-ink-2); }
+.items { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: var(--space-lg); align-self: start; }
+.items li { break-inside: avoid; padding-block: var(--space-2xs); display: flex; align-items: baseline; gap: var(--space-sm); font-size: var(--text-sm); }
+.dot { width: 10px; height: 10px; flex-shrink: 0; background: var(--c); transform: translateY(1px) rotate(45deg); }
+.cta { align-self: center; }
+@media (max-width: 70rem) {
+  .card { grid-template-columns: 120px minmax(0, 1fr) auto; }
+  .items { grid-column: 2 / -1; }
+}
+@media (max-width: 60rem) {
+  .head { grid-template-columns: minmax(0, 1fr); align-items: start; gap: var(--space-md); }
+}
+@media (max-width: 40rem) {
+  .card { grid-template-columns: 88px minmax(0, 1fr); gap: var(--space-md) var(--space-lg); }
+  .items { grid-column: 1 / -1; columns: 1; }
+  .cta { grid-column: 1 / -1; justify-self: start; }
+}

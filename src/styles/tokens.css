@@ -1,0 +1,67 @@
+/* Hallmark · part of the Курак page system, stamp and critique in src/app/globals.css · theme: custom · posture: full-palette · hero: custom quilt · nav: indigo bar · footer: stitched seam */
+:root {
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+
+  --text-xs: 0.8125rem; --text-sm: 0.9375rem; --text-md: 1.0625rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display: clamp(2.5rem, 4.6vw + 0.5rem, 5.25rem);
+  --text-display-s: clamp(2.125rem, 3.4vw + 0.5rem, 3.75rem);
+  --text-section: clamp(2rem, 2.6vw + 1rem, 3.5rem);
+  --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.625rem);
+  --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.375rem);
+  --text-figure: clamp(3.5rem, 6vw + 1rem, 7rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+
+  --container: 1400px; --gutter: 64px; --gap-columns: 32px;
+  --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
+  --header-h: 72px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+
+  /* Бумага и чернила: холодный белый, глубокий индиго «кийиз» */
+  --color-paper: oklch(97% 0.006 250);
+  --color-paper-2: oklch(93.5% 0.012 255);
+  --color-paper-3: oklch(90% 0.016 258);
+  --color-ink: oklch(20% 0.06 268);
+  --color-ink-2: oklch(36% 0.05 268);
+  --color-muted: oklch(48% 0.035 265);
+  --color-rule: oklch(86% 0.02 262);
+  --color-edge: oklch(60% 0.03 262);
+
+  /* Поле: индиго, на котором лежат лоскуты (шапка, первый экран, подвал) */
+  --color-field: oklch(24% 0.075 268);
+  --color-field-2: oklch(30% 0.08 268);
+  --color-field-rule: oklch(40% 0.07 268);
+  --color-on-field: oklch(96% 0.01 260);
+  --color-on-field-2: oklch(80% 0.03 262);
+
+  /* Сигнал: красный «кызыл», кнопка и фокус */
+  --color-accent: oklch(67% 0.19 29);
+  --color-accent-hover: oklch(72% 0.17 32);
+  --color-accent-ink: oklch(20% 0.06 268);
+  --color-focus: oklch(55% 0.2 29);
+  --color-focus-on-field: oklch(84% 0.15 85);
+
+  --color-error: oklch(50% 0.19 27);
+  --color-success: oklch(48% 0.12 150);
+
+  /* Восемь лоскутов: цвет = направление, сквозной по сайту. На всех тёмный текст, контраст 5:1 и выше */
+  --cat-smm: oklch(67% 0.19 29);       --cat-smm-deep: oklch(50% 0.17 29);
+  --cat-pr: oklch(84% 0.15 85);        --cat-pr-deep: oklch(66% 0.14 70);
+  --cat-events: oklch(72% 0.17 355);   --cat-events-deep: oklch(52% 0.17 355);
+  --cat-brand: oklch(76% 0.11 195);    --cat-brand-deep: oklch(55% 0.09 200);
+  --cat-sales: oklch(74% 0.15 145);    --cat-sales-deep: oklch(54% 0.13 148);
+  --cat-digital: oklch(70% 0.13 250);  --cat-digital-deep: oklch(50% 0.14 258);
+  --cat-team: oklch(76% 0.15 58);      --cat-team-deep: oklch(58% 0.15 48);
+  --cat-invest: oklch(71% 0.13 300);   --cat-invest-deep: oklch(50% 0.14 300);
+  --patch-light: oklch(96% 0.012 85);
+  --patch-dark: oklch(20% 0.06 268);
+  --stitch: oklch(97% 0.008 85);
+
+  --font-display: var(--font-dela), "Arial Black", ui-sans-serif, sans-serif;
+  --font-body: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: var(--font-display);
+
+  --radius-card: 6px; --radius-input: 10px; --radius-pill: 999px; --rule-hair: 1px; --shadow-card: none;
+  --tracking-display: -0.01em;
+}

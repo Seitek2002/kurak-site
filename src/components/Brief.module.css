@@ -1,0 +1,73 @@
+/* Hallmark · part of the Курак page system, stamp and critique in src/app/globals.css · theme: custom · posture: full-palette · hero: custom quilt · nav: indigo bar · footer: stitched seam */
+.section { margin-top: var(--section-gap); padding-block: var(--section-gap-s); }
+.grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-3xl); align-items: start; }
+.side { display: grid; gap: var(--space-xl); position: sticky; top: calc(var(--header-h) + var(--space-xl)); }
+.title { color: var(--color-on-field); max-width: 12ch; }
+.quiltBox { display: grid; gap: var(--space-md); max-width: 360px; color: var(--color-on-field-2); }
+.quiltCap { color: var(--color-on-field-2); }
+
+.formCol { display: grid; gap: var(--space-2xl); }
+.form { display: grid; gap: var(--space-lg); }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+.field { display: grid; gap: var(--space-xs); }
+.label { font-size: var(--text-sm); font-weight: 600; color: var(--color-on-field); padding: 0; }
+.input {
+  width: 100%; min-height: 52px; padding: 0 var(--space-md); border: 1.5px solid var(--color-on-field-2); border-radius: var(--radius-input);
+  background: var(--color-paper); color: var(--color-ink); font-size: var(--text-md);
+  outline: 3px solid transparent; outline-offset: 2px; transition: border-color var(--dur-short) var(--ease-out);
+}
+.input:hover { border-color: var(--color-on-field); }
+.input:focus-visible { outline-color: var(--color-focus-on-field); }
+.input::placeholder { color: var(--color-muted); }
+.input[aria-invalid] { border-color: var(--cat-smm); }
+.input:disabled { opacity: 0.55; cursor: not-allowed; }
+.area { min-height: 112px; padding-block: var(--space-sm); resize: vertical; line-height: 1.5; }
+.err { min-height: 1lh; font-size: var(--text-sm); color: var(--cat-pr); }
+
+.picked, .choice { border: 0; margin: 0; padding: 0; display: grid; gap: var(--space-sm); min-width: 0; }
+.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.tag {
+  display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 40px; padding: 0 var(--space-2xs) 0 var(--space-sm);
+  border-radius: var(--radius-pill); background: var(--color-field-2); color: var(--color-on-field); font-size: var(--text-sm);
+}
+.tagDot { width: 10px; height: 10px; background: var(--c); transform: rotate(45deg); flex-shrink: 0; }
+.tagX {
+  width: 32px; height: 32px; padding: var(--space-xs); border: 0; border-radius: 50%; background: transparent; color: var(--color-on-field); cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out);
+}
+.tagX::before { content: ""; position: absolute; inset: -6px; }
+.tagX { position: relative; }
+.tagX:hover { background: var(--color-field-rule); }
+.tagX svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+.seg { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.seg label {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-md); border: 1.5px solid var(--color-field-rule);
+  border-radius: var(--radius-pill); color: var(--color-on-field); font-size: var(--text-sm); cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+.seg label:hover { border-color: var(--color-on-field-2); }
+.seg input:checked + label { background: var(--cat-pr); border-color: var(--cat-pr); color: var(--color-ink); }
+.seg input:focus-visible + label { outline: 3px solid var(--color-focus-on-field); outline-offset: 2px; }
+
+.submitRow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); margin-top: var(--space-xs); }
+.fine { color: var(--color-on-field-2); font-size: var(--text-sm); max-width: 38ch; }
+.status { min-height: 1lh; color: var(--cat-pr); font-weight: 600; }
+
+.done { display: grid; gap: var(--space-sm); padding: var(--space-xl); border: 1.5px dashed var(--color-on-field-2); border-radius: var(--radius-card); }
+.doneTitle { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.1; }
+
+.steps { list-style: none; margin: 0; padding: var(--space-lg) 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg); border-top: 1.5px dashed var(--color-field-rule); }
+.step { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-sm); color: var(--color-on-field-2); font-size: var(--text-sm); }
+.step strong { display: block; color: var(--color-on-field); font-size: var(--text-md); }
+.stepN { display: grid; place-items: center; width: 40px; height: 40px; background: var(--cat-pr); color: var(--color-ink); font-family: var(--font-display); line-height: 1; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+
+@media (max-width: 60rem) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }
+  .side { position: static; }
+  .quiltBox { max-width: 240px; }
+}
+@media (max-width: 40rem) {
+  .row2, .steps { grid-template-columns: minmax(0, 1fr); }
+}
