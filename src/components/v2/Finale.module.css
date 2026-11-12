@@ -1,0 +1,10 @@
+.section { --ring: min(96vw, 1100px); position: relative; display: grid; place-items: center; min-height: 110svh; overflow: clip; padding-block: var(--space-3xl); }
+.ring { position: absolute; left: 50%; top: 50%; width: var(--ring); aspect-ratio: 1; translate: -50% -50%; }
+.patch {
+  position: absolute; left: 50%; top: 50%; width: clamp(56px, 9vw, 120px); aspect-ratio: 1; margin: calc(clamp(56px, 9vw, 120px) / -2) 0 0 calc(clamp(56px, 9vw, 120px) / -2);
+  transform: rotate(var(--a)) translateY(calc(var(--ring) / -2.15)) rotate(calc(-1 * var(--a)));
+}
+.patch > svg { display: block; }
+.center { position: relative; display: grid; justify-items: center; gap: var(--space-xl); text-align: center; }
+.title { font-size: clamp(2.75rem, 7vw, 6.5rem); line-height: 0.95; font-weight: 400; letter-spacing: var(--tracking-display); }
+@media (max-width: 40rem) { .section { --ring: 150vw; min-height: 100svh; } }

@@ -30,7 +30,7 @@
 .short { font-weight: 600; font-size: var(--text-md); }
 .tally { font-size: var(--text-sm); color: var(--color-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .plus { position: relative; width: 44px; height: 44px; border-radius: 50%; background: var(--c); transition: transform var(--dur-short) var(--ease-out); }
-.plus::before, .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 2px; translate: -50% -50%; background: var(--color-ink); border-radius: 2px; }
+.plus::before, .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 2px; translate: -50% -50%; background: var(--patch-dark); border-radius: 2px; }
 .plus::after { transform: rotate(90deg); transition: transform var(--dur-short) var(--ease-out); }
 .row[data-open] .plus::after { transform: rotate(0deg); }
 

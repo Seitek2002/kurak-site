@@ -1,5 +1,5 @@
 .header { position: sticky; top: 0; z-index: var(--z-sticky-nav); border-bottom: 1px solid var(--color-field-rule); }
-.row { display: flex; align-items: center; gap: var(--space-xl); min-height: var(--header-h); }
+.row { display: flex; align-items: center; gap: var(--space-lg); min-height: var(--header-h); }
 
 .logo { display: inline-flex; align-items: center; gap: var(--space-sm); color: var(--color-on-field); text-decoration: none; border-radius: 4px; flex-shrink: 0; }
 .mark { width: 30px; height: 30px; }
@@ -24,6 +24,7 @@
 .pick:active { transform: translateY(1px); }
 .count { min-width: 1.5em; font-variant-numeric: tabular-nums; font-weight: 600; text-align: center; }
 .cta { flex-shrink: 0; }
+.variant { margin-right: var(--space-xs); }
 .ctaShort { display: none; }
 
 .burger {
@@ -38,8 +39,13 @@
 .sheetLink { display: flex; align-items: center; min-height: 56px; font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-on-field); text-decoration: none; border-bottom: 1px solid var(--color-field-rule); }
 
 @media (min-width: 60.0625rem) { .sheet { display: none !important; } }
+@media (max-width: 75rem) {
+  .pickLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .variant > :first-child { display: none; }
+  .nav ul { gap: var(--space-md); }
+}
 @media (max-width: 60rem) {
-  .nav { display: none; }
+  .nav, .variant { display: none; }
   .pickLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .burger { display: inline-flex; }
   .row { gap: var(--space-md); }

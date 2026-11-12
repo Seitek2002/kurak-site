@@ -3,7 +3,7 @@
 .initial {
   position: absolute; left: 50%; top: 50%; translate: -50% -50%;
   display: grid; place-items: center; width: 46%; aspect-ratio: 1;
-  background: var(--patch-light); color: var(--color-ink); border-radius: 50%;
+  background: var(--patch-light); color: var(--patch-dark); border-radius: 50%;
   font-family: var(--font-display); font-size: clamp(2.25rem, 3.4vw, 3.5rem); line-height: 1;
-  outline: 1.5px dashed var(--color-ink); outline-offset: -7px;
+  outline: 1.5px dashed var(--patch-dark); outline-offset: -7px;
 }

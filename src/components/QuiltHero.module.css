@@ -22,8 +22,8 @@
 .patchLink:focus-visible { outline: 3px solid var(--color-focus-on-field); outline-offset: -3px; z-index: var(--z-raised); }
 
 .you {
-  display: grid; place-items: center; background: var(--patch-light); color: var(--color-ink);
-  outline: 1.5px dashed var(--color-ink); outline-offset: -8px;
+  display: grid; place-items: center; background: var(--patch-light); color: var(--patch-dark);
+  outline: 1.5px dashed var(--patch-dark); outline-offset: -8px;
 }
 .youText { font-family: var(--font-display); font-size: clamp(1rem, 1.6vw, 1.5rem); line-height: 1.05; text-align: center; padding: var(--space-sm); max-width: 7ch; }
 

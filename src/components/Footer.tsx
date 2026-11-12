@@ -4,6 +4,7 @@ import { SITE } from "@/content/site";
 import { Patch } from "./Patch";
 import { Fill } from "./Fill";
 import { Mark } from "./Mark";
+import { VariantLink } from "./VariantSwitch";
 import s from "./Footer.module.css";
 
 /** Подвал: шов из восьми лоскутов, под ним контакты и строка про партнёров. */
@@ -58,6 +59,7 @@ export function Footer() {
             <li><Link className="link" href="/#keisy">Кейсы</Link></li>
             <li><Link className="link" href="/komanda">Команда</Link></li>
             <li><Link className="link" href="/#zayavka">Заявка</Link></li>
+            <li><VariantLink className="link" /></li>
           </ul>
         </div>
       </div>

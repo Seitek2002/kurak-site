@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Onest } from "next/font/google";
 import localFont from "next/font/local";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { SelectionDrawer } from "@/components/SelectionDrawer";
 import { ClientBoot } from "@/components/ClientBoot";
 import { Analytics } from "@/components/Analytics";
 import { PatchDefs } from "@/components/Patch";
@@ -81,10 +78,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <PatchDefs />
         <a className="skip" href="#main">К содержанию</a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
-        <SelectionDrawer />
+        {children}
         <ClientBoot />
         <Analytics />
       </body>

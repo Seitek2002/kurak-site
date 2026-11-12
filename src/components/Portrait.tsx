@@ -15,7 +15,7 @@ export function Portrait({ person, src }: { person: Person; src?: string }) {
         <img src={src} alt="" width={480} height={600} loading="lazy" />
       ) : (
         <>
-          <span className={s.bg} aria-hidden="true">
+          <span className={s.bg} data-portrait-bg aria-hidden="true">
             <Patch cat={person.category} plain />
           </span>
           <span className={s.initial} aria-hidden="true">{initial}</span>

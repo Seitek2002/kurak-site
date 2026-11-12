@@ -1,0 +1,44 @@
+/* Hallmark · shape: scroll story, the quilt sews itself while the visitor scrolls · genre: playful · theme: custom · job: hire · idea: "Полотно: the page is one long piece of cloth, every scroll stitches another patch of Курак onto it" · vibe: "night felt, bright patches, kinetic type"
+ * paper: oklch(16% 0.05 268) · accent: oklch(67% 0.19 29) · display: Dela Gothic One · body: Onest · hero: Ledge, the word Курак set in quilted letters, the headline and one magnetic action · nav: floating bar that hides on scroll down, variant switch · footer: curtain under the page with the quilted wordmark · imagery: none, the patches are the brand's own geometry · signature: the pinned scene where eight patches fly in and sew themselves around your business
+ * axes: dark/display-heavy/chromatic-red · posture: full-palette (night field, eight category roles, red signal, light ink) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R3 V5 · weakest: R, the client asked for an awwwards-level motion piece; every effect has a reduced-motion end state and the content reads with scripting off */
+/* Hallmark · waive 44a · hero: Ledge in this stamp, the quilted word and the action sit on the floor of the screen · Курак rises from the bottom like a quilt on a frame, the floating patches fill the sky above */
+/* Hallmark · waive 49b · a.v2-round is a 152px circle, two lines are its shape · the round Курак action reads as a stamped patch, one line would spill out of it */
+/* Hallmark · dismissed 11 · the hover turns the Курак patch geometry inside a portrait slot, no photograph moves */
+/* Hallmark · waive 2b · quilted letters are conic patch tiles in category tokens, not a hue ramp · the word Курак drawn as sewn patches */
+
+/* Тема «Полотно» (ночная ткань) описана в styles/tokens.css: те же токены, общие блоки перекрашиваются сами */
+html:has(.v2-theme), html.has-lenis { scroll-behavior: auto; }
+html.has-lenis.lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+.v2-theme { background: var(--color-paper); color: var(--color-ink); }
+.v2-main { position: relative; z-index: var(--z-raised); background: var(--color-paper); }
+
+/* Буквы-лоскуты: каждая буква сшита из треугольников своего направления */
+.v2-word { display: flex; justify-content: space-between; gap: 0.02em; font-family: var(--font-display); font-size: clamp(4rem, 19.5vw, 18.5rem); line-height: 0.86; letter-spacing: -0.02em; user-select: none; }
+.v2-letter-mask { display: block; overflow: clip; padding-block: 0.04em 0.06em; }
+.v2-letter {
+  display: block;
+  background: conic-gradient(from 45deg, var(--c) 0 25%, var(--c-deep) 0 50%, var(--c) 0 75%, var(--patch-light) 0) 0 0 / 0.36em 0.36em;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* Кнопка-круг: главное действие варианта 2 */
+.v2-round {
+  display: inline-grid; place-items: center; width: clamp(9.5rem, 13vw, 12rem); aspect-ratio: 1; border-radius: 50%;
+  background: var(--color-accent); color: var(--color-accent-ink); text-align: center; padding: var(--space-md);
+  font: 600 var(--text-md)/1.15 var(--font-body); text-decoration: none;
+  transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.v2-round:hover { background: var(--color-accent-hover); }
+.v2-round:active { transform: scale(0.97); }
+.v2-round:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+
+/* Строки, проявляющиеся из-под маски */
+.v2-line { display: block; overflow: clip; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.v2-line > span { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-round { transition: none; }
+}

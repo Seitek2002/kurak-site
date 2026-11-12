@@ -12,7 +12,8 @@
 .icon::before, .icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; translate: -50% -50%; background: var(--color-ink); border-radius: 2px; }
 .icon::after { transform: rotate(90deg); transition: transform var(--dur-short) var(--ease-out); }
 .item[open] .icon::after { transform: rotate(0deg); }
-.item[open] .icon { background: var(--cat-pr); }
+.item[open] .icon { background: var(--cat-pr); border-color: var(--cat-pr); }
+.item[open] .icon::before, .item[open] .icon::after, .q:hover .icon::before, .q:hover .icon::after { background: var(--patch-dark); }
 .a { padding-bottom: var(--space-lg); color: var(--color-ink-2); max-width: 60ch; }
 @media (max-width: 60rem) {
   .grid { grid-template-columns: minmax(0, 1fr); }

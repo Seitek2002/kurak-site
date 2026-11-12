@@ -29,8 +29,12 @@ export function SelectionDrawer() {
 
   const go = (hash: string) => {
     setDrawer(false);
-    if (pathname === "/") {
-      window.location.hash = hash;
+    const v2 = pathname.startsWith("/v2");
+    if (pathname === "/" || v2) {
+      // на варианте 2 скроллом управляет Lenis: едем плавно, а не прыжком
+      const lenis = (window as unknown as { __lenis?: { scrollTo: (t: string, o?: object) => void } }).__lenis;
+      if (lenis && !hash.startsWith("cat-")) lenis.scrollTo(`#${hash}`, { offset: -88 });
+      else window.location.hash = hash;
       if (hash.startsWith("cat-")) window.dispatchEvent(new HashChangeEvent("hashchange"));
     } else router.push(`/#${hash}`);
   };
