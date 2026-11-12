@@ -4,6 +4,7 @@ import { V2Header } from "@/components/v2/V2Header";
 import { V2Footer } from "@/components/v2/V2Footer";
 import { SmoothScroll } from "@/components/v2/SmoothScroll";
 import { Cursor } from "@/components/v2/Cursor";
+import { dela } from "../_fonts/dela";
 import "./v2.css";
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 /** Вариант 2 «Полотно»: ночная тема, плавный скролл, сцены на ScrollTrigger. */
 export default function V2Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="v2-theme">
+    <div className={`v2-theme dela-fonts ${dela.variable}`}>
       <V2Header />
       <main id="main" className="v2-main">
         {children}

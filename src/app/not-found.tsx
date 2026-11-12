@@ -2,10 +2,11 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Patch } from "@/components/Patch";
+import { dela } from "./_fonts/dela";
 
 export default function NotFound() {
   return (
-    <>
+    <div className={`${dela.variable} dela-fonts`}>
       <Header />
       <main id="main">
         <section className="section" aria-labelledby="nf-title" style={{ paddingBottom: "var(--section-gap)" }}>
@@ -20,6 +21,6 @@ export default function NotFound() {
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

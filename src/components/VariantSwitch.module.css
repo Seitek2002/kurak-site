@@ -14,4 +14,5 @@
 .opt:active { transform: scale(0.96); }
 .opt[aria-current="page"] { background: var(--cat-pr); color: var(--patch-dark); }
 .opt:focus-visible { outline: 3px solid var(--color-focus-on-field); outline-offset: 2px; }
+.paper .opt:focus-visible { outline-color: var(--color-focus); }
 @media (prefers-reduced-motion: reduce) { .opt { transition: none; } }

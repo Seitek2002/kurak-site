@@ -82,3 +82,40 @@
   --color-focus: oklch(84% 0.15 85);
   --color-dim: oklch(63% 0.04 265);
 }
+
+/* Тема «Кеңеш» для варианта 3 (/v3): небо и солнце, крупно и светло.
+   Шрифты темы объявлены на .v3-theme: переменные next/font живут на этом элементе, а не на :root */
+:root:has(.v3-theme) {
+  --color-paper: oklch(98.5% 0.006 235);
+  --color-paper-2: oklch(95.5% 0.018 235);
+  --color-paper-3: oklch(91.5% 0.035 235);
+  --color-ink: oklch(25% 0.06 255);
+  --color-ink-2: oklch(38% 0.05 255);
+  --color-muted: oklch(46% 0.04 250);
+  --color-rule: oklch(88% 0.025 240);
+  --color-edge: oklch(60% 0.04 245);
+  --color-field: oklch(45% 0.14 252);
+  --color-field-2: oklch(40% 0.13 252);
+  --color-field-rule: oklch(58% 0.11 250);
+  --color-on-field: oklch(98.5% 0.008 240);
+  --color-on-field-2: oklch(91% 0.03 240);
+  --color-accent: oklch(84% 0.16 85);
+  --color-accent-hover: oklch(88% 0.15 90);
+  --color-accent-ink: oklch(25% 0.06 255);
+  --color-focus: oklch(45% 0.2 255);
+  --color-focus-on-field: oklch(84% 0.16 85);
+  --color-flag: oklch(52% 0.2 27);
+  --color-wa: oklch(47% 0.12 150);
+  --color-wa-hover: oklch(42% 0.12 150);
+  --color-on-wa: oklch(99% 0.005 150);
+  --radius-card: 20px;
+  --radius-input: 14px;
+  --tracking-display: -0.02em;
+  --text-md: 1.125rem;
+}
+.v3-theme {
+  --font-display: var(--font-rubik), var(--font-rubik-ext), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-onest), var(--font-onest-ext), ui-sans-serif, system-ui, sans-serif;
+}
+/* Dela подключается только в вариантах 1 и 2: переменная шрифта живёт на обёртке layout */
+.dela-fonts { --font-display: var(--font-dela), "Arial Black", ui-sans-serif, sans-serif; }

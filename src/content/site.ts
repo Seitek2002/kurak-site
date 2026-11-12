@@ -23,6 +23,9 @@ export const SITE = {
   contacts: {
     phone: d("+996 000 000 000", "телефон"),
     phoneHref: "",
+    whatsapp: d("+996 000 000 000", "WhatsApp"),
+    /** wa.me/996XXXXXXXXX: без него кнопка «Отправить план в WhatsApp» честно предлагает оставить номер */
+    whatsappHref: "",
     telegram: d("@kurak_agency", "Telegram"),
     telegramHref: "",
     instagram: d("@kurak.agency", "Instagram"),
