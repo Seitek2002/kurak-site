@@ -49,7 +49,6 @@ export const metadata: Metadata = {
     title: "Курак: сшиваем маркетинг в одну систему",
     description: SITE.description,
   },
-  icons: { icon: "/icon.svg" },
 };
 
 export const viewport: Viewport = {

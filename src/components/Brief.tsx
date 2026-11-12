@@ -52,9 +52,15 @@ export function Brief() {
     if (next.name) return nameRef.current?.focus();
     if (next.contact) return contactRef.current?.focus();
 
+    const endpoint = process.env.NEXT_PUBLIC_LEAD_ENDPOINT;
+    if (!endpoint) {
+      // Демо без сервера (GitHub Pages): ничего не отправляем и прямо об этом говорим
+      setStatus({ kind: "offline", text: "Это демо-версия сайта: форма не подключена, заявка не отправлена." });
+      return;
+    }
     setStatus({ kind: "sending" });
     try {
-      const res = await fetch("/api/lead", {
+      const res = await fetch(endpoint.startsWith("/") ? `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${endpoint}` : endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

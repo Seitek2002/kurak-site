@@ -14,6 +14,21 @@ npm run dev        # http://localhost:3210
 npm run build && npm start
 ```
 
+## Демо на GitHub Pages
+
+https://seitek2002.github.io/kurak-site/
+
+```bash
+npm run deploy:pages              # собрать статикой и запушить в ветку gh-pages
+node scripts/deploy-pages.mjs --no-push   # только собрать в out/
+```
+
+Скрипт собирает сайт с `GITHUB_PAGES=true` (статический экспорт, `basePath: /kurak-site`), кладёт `.nojekyll` и форс-пушит `out/` в `gh-pages`. Pages раздаёт ветку `gh-pages`, папка `/`.
+
+На Pages нет сервера: обработчик заявки `src/app/api/lead/route.api.ts` в статическую сборку не входит, и форма пишет, что это демо и заявка не отправлена. Для боевого сайта нужен хостинг с сервером (Vercel или свой Node) либо внешний приёмник заявок в `NEXT_PUBLIC_LEAD_ENDPOINT`.
+
+## Настройки
+
 Скопируйте `.env.example` в `.env.local` и заполните:
 
 - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — заявки уходят в Telegram-бота. Без них форма честно отвечает «не подключена» (503) и не делает вид, что заявка ушла.
