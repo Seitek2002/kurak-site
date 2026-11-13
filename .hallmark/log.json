@@ -1,0 +1,39 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "page",
+  "shape": "Narrative Workflow",
+  "theme": "pasteup",
+  "axes": "mid/display-condensed/chromatic-yellow",
+  "hero": "Counter",
+  "nav": "floating pill",
+  "footer": "statement",
+  "imagery": "library 3, mono",
+  "photos": [
+   "Espresso_coffee_pouring_from_retro_espresso_machine.jpg",
+   "Stethoscope_and_Laptop_Computer_-_Nci-vol-9713-300.jpg",
+   "Arc-en-ciel_comestible.jpg"
+  ],
+  "entry": "/v3",
+  "sections": [
+   "hero counter helper",
+   "wall of notices",
+   "statement steps",
+   "photocopy cases",
+   "name rows",
+   "typed glossary",
+   "faq rows",
+   "tear-off flyer + callback form"
+  ],
+  "signature": "tear-off flyer with channel tabs",
+  "waived": [
+   "37",
+   "39b",
+   "72"
+  ],
+  "prompt": "marketing agency in Bishkek for small business owners, RU and KG",
+  "draw": "1ab6b7",
+  "date": "2026-11-12"
+ }
+]

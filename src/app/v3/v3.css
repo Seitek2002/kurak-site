@@ -1,30 +1,53 @@
-/* Hallmark · shape: the consultant, the page opens with a three-question helper and ends with the plan sent to WhatsApp · genre: playful · theme: custom · job: hire · idea: "Кеңеш: the agency gives advice before it sells, in plain Russian and Kyrgyz, the way a neighbour would" · vibe: "sky, sun, big buttons, plain words"
- * paper: oklch(98.5% 0.006 235) · accent: oklch(84% 0.16 85) · display: Rubik · body: Onest · hero: Stage, headline and lede on the left, the helper card on the right asking the first question · nav: bar with language switch РУС КЫР, variant switch and one action · footer: sky band with contacts, other variants and the partner line · imagery: none, the tunduk ring tracks progress · signature: the helper whose tunduk fills one crossbar per answered question and returns a plan
- * axes: light/rounded-sans/chromatic-yellow · posture: full-palette (sky field, sun signal, eight category roles, ink) · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · answered F4 · the WhatsApp button is the platform's own green and appears beside the yellow action only where Курак offers both channels */
-/* Hallmark · pre-emit critique: P5 H5 E4 S5 R4 V5 · weakest: E, two languages double every string; a single dictionary drives both pages and Kyrgyz copy is flagged for native review */
+/* Hallmark · shape: Narrative Workflow, the path of working with Курак told as six numbered stages after the helper on a noticeboard · genre: playful · theme: Paste-up (dealt 2/3, seed marketing-agency-bishkek-small-544a·655b12bb·2026-11-12·r0) · pasteup: kraft · job: hire · draw: 1ab6b7 · redesign: full
+ * paper: oklch(73% 0.068 70) · accent: oklch(93% 0.2 112) · display: Oswald (for League Gothic, no Cyrillic) · body: Literata (for Newsreader, no Cyrillic) · hero: Counter (swapped from the draw's Corridor after the hero review: the helper is the real thing of this page), the poster head on five columns, the helper form sheet lifted on seven with a fluorescent fact sheet pasted over its corner · nav: floating pill, a copy-paper bar with the stages, the language and variant switches and one action · footer: statement, one closing sentence large over the links and the photo credits · imagery: 3 library photographs through the copier on the case sheets · signature: the closing flyer with tear-off tabs, every tab a real channel (WhatsApp, Telegram, call)
+ * axes: mid/display-condensed/chromatic-yellow · posture: committed (kraft board carries the page, one fluorescent sheet a screen) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: H, six stages could flatten into a list; each stage carries a different object (wall of notices, typed sheet, photocopies, name rows, statement, rows) and the helper sheet leads the first screen and the number rides in its head */
+/* Hallmark · waive 37 · Oswald and Literata stand in for League Gothic and Newsreader, which have no Cyrillic · Курак speaks Russian and Kyrgyz, the theme faces cannot set Ң Ү Ө */
+/* Hallmark · dropped {c.phoneHref}, {c.telegramHref}, {c.whatsappHref} · moved, not removed: the same three channel links render from the tabs list of the tear-off flyer as href={t.href}, under the same condition */
+/* Hallmark · reworded the stage heads to carry their number ("Знакомо?" to "2. Знакомо?", and so on) and set the three start steps as statement lines · Narrative Workflow puts the stage number inside the head */
+/* Hallmark · waive 72 · span.fill is the dashed outline around a draft Курак figure, inline with no background · it marks a missing fact, it is not a box of running text */
+/* Hallmark · dismissed 23 · posture committed: the fluorescent sheet and the primary control are the declared signal of Курак variant 3 */
+/* Hallmark · dismissed 59 · nine blocks are the hero, six numbered Курак stages, the tear-off close and the footer, the stages are the shape */
+/* Hallmark · dismissed 70 · the flagged attribute is the helper's progress state data-on, no form prints success without the /api/lead response */
+/* Hallmark · dismissed F17 · Kyrgyz heads run long ("Биз менен кантип байланышуу керек"), four lines on the flyer is the honest measure at that size */
+/* Hallmark · reworded "Нажмите на свою ситуацию, и мы покажем, что с ней делать" to "Найдите свою ситуацию: под ней написано, что с ней делать" · the answers now show on every notice, the old line asked for a press that does nothing */
+/* Hallmark · waive 39b · v3-btn stands 56px for owners with medium digital literacy · the brief for Курак variant 3 asks for big, obvious controls */
 
-.v3-theme { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); }
-.v3-theme h1, .v3-theme h2, .v3-theme h3 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; }
+.v3-theme { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.5; }
+.v3-theme h1, .v3-theme h2 { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; text-wrap: balance; }
+.v3-theme h3 { font-family: var(--font-body); font-weight: 500; line-height: 1.25; text-wrap: balance; }
+.v3-theme ::selection { background: color-mix(in oklab, var(--color-accent) 70%, transparent); color: var(--color-ink); }
+.v3-theme :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.v3-theme strong, .v3-theme b { font-weight: 500; }
 
-/* Кнопки варианта 3: крупные, 56px, понятные с первого взгляда */
+/* Кнопки: бумага на жёстком чернильном сдвиге. Флуоресцентная только главная */
 .v3-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm);
-  min-height: 56px; padding: 0 var(--space-lg); border: 2px solid var(--color-accent); border-radius: var(--radius-pill);
-  background: var(--color-accent); color: var(--color-accent-ink);
-  font: 600 var(--text-md)/1.1 var(--font-body); text-decoration: none; white-space: nowrap; cursor: pointer;
-  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+  min-height: 56px; padding: 0 var(--space-lg); border: 0; border-radius: 0;
+  background: var(--color-paper-3); color: var(--color-ink); box-shadow: var(--shadow-hard);
+  font: 500 var(--text-md)/1.15 var(--font-body); text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
 }
-.v3-btn:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
-.v3-btn:active { transform: translateY(1px); }
-.v3-btn:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
-.v3-btn:disabled, .v3-btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.v3-btn:hover { translate: 1px 1px; box-shadow: 3px 3px 0 var(--color-ink); }
+.v3-btn:active { translate: 4px 4px; box-shadow: none; }
+.v3-btn:disabled, .v3-btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; translate: none; }
 .v3-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
-.v3-btn--wa { background: var(--color-wa); border-color: var(--color-wa); color: var(--color-on-wa); }
-.v3-btn--wa:hover { background: var(--color-wa-hover); border-color: var(--color-wa-hover); }
-.v3-btn--ghost { background: transparent; border-color: var(--color-edge); color: var(--color-ink); }
-.v3-btn--ghost:hover { background: var(--color-paper-2); border-color: var(--color-ink); }
-.on-field .v3-btn--ghost { color: var(--color-on-field); border-color: var(--color-on-field-2); }
-.on-field .v3-btn--ghost:hover { background: var(--color-field-2); }
+.v3-btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.on-field .v3-btn { box-shadow: 4px 4px 0 var(--color-on-field); }
 .on-field .v3-btn:focus-visible { outline-color: var(--color-focus-on-field); }
+
+/* Переключатель вариантов в материале темы: текущий вариант тонером, а не жёлтым другой темы */
+.v3-theme nav[aria-label="Варианты сайта"] [aria-current="page"] { background: var(--color-ink); color: var(--color-paper-3); }
+
+/* Лист бумаги на картоне; наклон задаёт --r */
+.v3-sheet { background: var(--color-paper-3); color: var(--color-ink); box-shadow: var(--shadow-sheet); rotate: var(--r, 0deg); }
+.v3-sheet--fluoro { background: var(--color-accent); color: var(--color-accent-ink); }
+
+/* Волокно картона: только на крафте, никогда под листом с текстом */
+.v3-fibre { position: relative; isolation: isolate; }
+.v3-fibre::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.5; mix-blend-mode: multiply; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.03' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+
 @media (prefers-reduced-motion: reduce) { .v3-btn { transition: none; } }

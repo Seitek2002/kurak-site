@@ -5,8 +5,7 @@ import { CATEGORY_INDEX, SERVICE_INDEX } from "@/content/services";
 import { SITE } from "@/content/site";
 import { QUESTIONS, SERVICE_NAMES, UI, buildPlan, type Lang } from "@/content/v3";
 import { useSelection } from "@/store/selection";
-import { Patch } from "../Patch";
-import { IconArrow, IconWhatsApp, Tunduk } from "./Icons";
+import { IconArrow, IconWhatsApp } from "./Icons";
 import s from "./V3.module.css";
 
 export const NEED_EVENT = "kurak:need";
@@ -69,10 +68,12 @@ export function Wizard({ lang }: { lang: Lang }) {
   const wa = SITE.contacts.whatsappHref ? `${SITE.contacts.whatsappHref}?text=${encodeURIComponent(msg)}` : "";
 
   return (
-    <div className={s.wizard} id="podbor" role="region" aria-label={UI.wizardTitle[lang]}>
-      <div className={s.tunduk}>
-        <Tunduk filled={Math.min(step, 3)} />
-      </div>
+    <div className={`v3-sheet ${s.wizard}`} id="podbor" role="region" aria-label={UI.wizardTitle[lang]}>
+      <ol className={s.progress} aria-hidden="true">
+        {[0, 1, 2].map((i) => (
+          <li key={i} data-on={i < step || (i === step && step < 3) ? "" : undefined} data-done={i < step ? "" : undefined} />
+        ))}
+      </ol>
 
       {q ? (
         <form
@@ -85,7 +86,7 @@ export function Wizard({ lang }: { lang: Lang }) {
           <fieldset className={s.q}>
             <legend className={s.qLegend}>
               <span className={s.qCount}>
-                {UI.step[lang]} {step + 1} {UI.of[lang]} 3. {UI.heroNote[lang]}
+                {UI.step[lang]} {step + 1} {UI.of[lang]} 3
               </span>
               <h2 ref={headRef} tabIndex={-1} className={s.qTitle}>
                 {q.title[lang]}
@@ -125,11 +126,11 @@ export function Wizard({ lang }: { lang: Lang }) {
           </p>
           <div className={s.wizNav}>
             {step > 0 && (
-              <button type="button" className="v3-btn v3-btn--ghost" onClick={back}>
+              <button type="button" className="v3-btn" onClick={back}>
                 {UI.back[lang]}
               </button>
             )}
-            <button type="submit" className="v3-btn">
+            <button type="submit" className="v3-btn v3-btn--primary">
               {UI.next[lang]}
               <IconArrow />
             </button>
@@ -147,9 +148,7 @@ export function Wizard({ lang }: { lang: Lang }) {
               const lead = CATEGORY_INDEX[cat.id].lead.name;
               return (
                 <li key={id} className={s.planItem} data-cat={cat.id}>
-                  <span className={s.planPatch} aria-hidden="true">
-                    <Patch cat={cat.id} plain />
-                  </span>
+                  <span className={s.planNum} aria-hidden="true" />
                   <span className={s.planText}>
                     <strong>{SERVICE_NAMES[id]![lang]}</strong>
                     {lead && (
@@ -164,16 +163,16 @@ export function Wizard({ lang }: { lang: Lang }) {
           </ol>
           <div className={s.wizNav}>
             {wa ? (
-              <a className="v3-btn v3-btn--wa" href={wa} target="_blank" rel="noopener noreferrer">
+              <a className="v3-btn v3-btn--primary" href={wa} target="_blank" rel="noopener noreferrer">
                 <IconWhatsApp />
                 {UI.sendPlan[lang]}
               </a>
             ) : (
-              <a className="v3-btn" href="#svyaz">
+              <a className="v3-btn v3-btn--primary" href="#svyaz">
                 {UI.callMe[lang]}
               </a>
             )}
-            <button type="button" className="v3-btn v3-btn--ghost" onClick={restart}>
+            <button type="button" className="v3-btn" onClick={restart}>
               {UI.restart[lang]}
             </button>
           </div>

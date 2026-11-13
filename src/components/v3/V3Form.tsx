@@ -118,7 +118,7 @@ export function V3Form({ lang }: { lang: Lang }) {
           onChange={(e) => setDraft({ task: e.target.value })}
         />
       </div>
-      <button type="submit" className="v3-btn" disabled={status.kind === "sending"} aria-busy={status.kind === "sending" || undefined}>
+      <button type="submit" className="v3-btn v3-btn--primary" disabled={status.kind === "sending"} aria-busy={status.kind === "sending" || undefined}>
         {status.kind === "sending" ? UI.sending[lang] : UI.submit[lang]}
       </button>
       <p className={s.fine}>{UI.fine[lang]}</p>
