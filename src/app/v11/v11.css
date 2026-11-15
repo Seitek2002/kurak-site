@@ -1,0 +1,270 @@
+/* Вариант 11 «Тогуз коргоол». Маркетинг как партия: девять лунок (восемь направлений и стратегия),
+ * казан как результат клиента, туз как долгий актив. Доска во весь экран на Canvas, партия идёт на прокрутке.
+ * Display: Piazzolla (рубленая антиква, как резьба по дереву). Text: Geologica. Ң Ү Ө проверены на /v11/kg. */
+
+/* ================================================================== */
+/* Токены варианта 11. Единственное место с цветами.                   */
+/* Фирменные цвета пришлют позже: меняются только здесь.               */
+/* ================================================================== */
+:root:has(.v11-theme),
+.v11-theme {
+  /* Крем и красный логотипа KURAK (#FDF4E3, #DC0F0A) */
+  --color-paper: oklch(96.9% 0.024 82);
+  --color-paper-2: oklch(94% 0.03 80);
+  --color-paper-3: oklch(90.5% 0.04 76);
+  --color-ink: oklch(22% 0.028 45);
+  --color-ink-2: oklch(35% 0.03 45);
+  --color-muted: oklch(46% 0.035 50);
+  --color-rule: oklch(84% 0.035 72);
+  --color-edge: oklch(62% 0.05 60);
+  --color-red: oklch(56.6% 0.222 29.2);
+  --color-red-hover: oklch(49.5% 0.2 29);
+  --color-red-text: oklch(49% 0.2 29);
+  --color-on-red: oklch(97.5% 0.018 82);
+  --color-error: oklch(49% 0.19 27);
+  --color-success: oklch(44% 0.11 150);
+
+  /* Дерево доски: абрикос и орех (из них в Кыргызстане и режут доски) */
+  --color-wood: oklch(68% 0.095 64);
+  --color-wood-2: oklch(60% 0.095 58);
+  --color-wood-3: oklch(47% 0.08 50);
+  --color-walnut: oklch(27% 0.04 45);
+  --color-walnut-2: oklch(32% 0.045 45);
+  --color-walnut-3: oklch(40% 0.05 48);
+  --color-on-walnut: oklch(95.5% 0.022 80);
+  --color-on-walnut-2: oklch(83% 0.04 72);
+  --color-night: oklch(17% 0.035 265);
+  --color-amber: oklch(90% 0.11 82);
+  --color-error-dark: oklch(80% 0.12 45);
+  --color-focus-dark: oklch(86% 0.12 80);
+
+  /* Стиль доски по умолчанию: «Дерево». Поверхность (первый экран, шапка, заявка) и холст */
+  --surface: var(--color-walnut);
+  --surface-2: var(--color-walnut-2);
+  --surface-3: var(--color-walnut-3);
+  --on-surface: var(--color-on-walnut);
+  --on-surface-2: var(--color-on-walnut-2);
+  --surface-rule: oklch(42% 0.05 48);
+  --surface-focus: var(--color-focus-dark);
+  --surface-error: var(--color-error-dark);
+  --scrim: oklch(27% 0.04 45 / 0.86);
+  --cv-mode: wood;
+  --cv-slab: oklch(69% 0.095 64);
+  --cv-slab-2: oklch(61% 0.095 58);
+  --cv-edge: oklch(45% 0.08 50);
+  --cv-grain: oklch(40% 0.08 48);
+  --cv-hole: oklch(32% 0.06 45);
+  --cv-wall: oklch(54% 0.085 54);
+  --cv-rim: oklch(85% 0.07 75);
+  --cv-stone: oklch(93% 0.025 82);
+  --cv-stone-hi: oklch(99.5% 0.008 85);
+  --cv-stone-lo: oklch(68% 0.04 68);
+  --cv-hot: oklch(56.6% 0.222 29.2);
+  --cv-tuz: oklch(56.6% 0.222 29.2);
+  --cv-ring: oklch(95% 0.02 80);
+  --cv-shadow: oklch(12% 0.02 40);
+  --cv-glow: oklch(88% 0.12 80);
+  --cv-line: oklch(22% 0.028 45);
+
+  /* Шрифты */
+  --font-display: var(--font-v11-display), "Piazzolla", Georgia, serif;
+  --font-text: var(--font-v11-text), "Geologica", system-ui, sans-serif;
+
+  /* Шкала */
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.9375rem; --text-md: 1.0625rem; --text-lg: 1.25rem; --text-xl: 1.5rem;
+  --text-hero: clamp(2.6rem, 7.4vw, 8.25rem);
+  --text-section: clamp(2.5rem, 4.6vw + 0.5rem, 5.5rem);
+  --text-step: clamp(2rem, 3.6vw + 0.5rem, 4.25rem);
+  --text-title: clamp(1.375rem, 0.9vw + 1rem, 2rem);
+  --text-figure: clamp(3.5rem, 6.4vw + 1rem, 8rem);
+  --text-lead: clamp(1.0625rem, 0.35vw + 0.95rem, 1.3125rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 480ms;
+  --container: 1440px; --gutter: 48px;
+  --section-gap: 160px;
+  --header-h: 68px;
+  --radius-s: 6px; --radius-m: 14px; --radius-pill: 999px;
+  --z-raised: 10; --z-sticky: 300; --z-bar: 310;
+}
+
+/* Стиль «Тушь»: доска нарисована пером на бумаге */
+.v11-theme [data-board="ink"] {
+  --surface: var(--color-paper);
+  --surface-2: var(--color-paper-2);
+  --surface-3: var(--color-paper-3);
+  --on-surface: var(--color-ink);
+  --on-surface-2: var(--color-ink-2);
+  --surface-rule: var(--color-rule);
+  --surface-focus: var(--color-red);
+  --surface-error: var(--color-error);
+  --scrim: oklch(96.9% 0.024 82 / 0.9);
+  --cv-mode: ink;
+  --cv-slab: oklch(96.9% 0.024 82);
+  --cv-slab-2: oklch(96.9% 0.024 82);
+  --cv-edge: oklch(96.9% 0.024 82);
+  --cv-grain: oklch(22% 0.028 45);
+  --cv-hole: oklch(96.9% 0.024 82);
+  --cv-wall: oklch(96.9% 0.024 82);
+  --cv-rim: oklch(22% 0.028 45);
+  --cv-stone: oklch(22% 0.028 45);
+  --cv-stone-hi: oklch(96.9% 0.024 82);
+  --cv-stone-lo: oklch(22% 0.028 45);
+  --cv-hot: oklch(56.6% 0.222 29.2);
+  --cv-tuz: oklch(56.6% 0.222 29.2);
+  --cv-ring: oklch(22% 0.028 45);
+  --cv-shadow: oklch(22% 0.028 45);
+  --cv-glow: oklch(22% 0.028 45);
+  --cv-line: oklch(22% 0.028 45);
+}
+
+/* Стиль «Ночь»: тёмное небо, коргоолы светятся, туз горит красным */
+.v11-theme [data-board="night"] {
+  --surface: var(--color-night);
+  --surface-2: oklch(21% 0.04 265);
+  --surface-3: oklch(28% 0.045 262);
+  --on-surface: oklch(95.5% 0.02 82);
+  --on-surface-2: oklch(80% 0.04 250);
+  --surface-rule: oklch(32% 0.045 262);
+  --surface-focus: oklch(88% 0.12 80);
+  --surface-error: oklch(80% 0.12 40);
+  --scrim: oklch(17% 0.035 265 / 0.86);
+  --cv-mode: night;
+  --cv-slab: oklch(25% 0.04 262);
+  --cv-slab-2: oklch(21% 0.035 262);
+  --cv-edge: oklch(14% 0.03 262);
+  --cv-grain: oklch(42% 0.045 252);
+  --cv-hole: oklch(11% 0.025 262);
+  --cv-wall: oklch(24% 0.045 262);
+  --cv-rim: oklch(58% 0.06 252);
+  --cv-stone: var(--color-amber);
+  --cv-stone-hi: oklch(99% 0.03 90);
+  --cv-stone-lo: oklch(72% 0.13 66);
+  --cv-hot: oklch(66% 0.22 30);
+  --cv-tuz: oklch(66% 0.22 30);
+  --cv-ring: oklch(85% 0.05 250);
+  --cv-shadow: oklch(6% 0.01 262);
+  --cv-glow: oklch(86% 0.14 76);
+  --cv-line: oklch(85% 0.05 250);
+}
+
+@media (max-width: 64rem) {
+  :root .v11-theme { --gutter: 32px; --section-gap: 120px; }
+}
+@media (max-width: 40rem) {
+  :root .v11-theme { --gutter: 16px; --section-gap: 88px; --header-h: 58px; }
+}
+
+/* ================================================================== */
+/* База темы                                                           */
+/* ================================================================== */
+:root:has(.v11-theme) { scroll-padding-top: calc(var(--header-h) + var(--space-md)); scrollbar-color: var(--color-edge) var(--color-paper); }
+:root:has(.v11-theme),
+:root:has(.v11-theme) body { overflow-x: clip; }
+:root:has(.v11-theme) body { background: var(--color-paper); color: var(--color-ink); }
+
+.v11-theme {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-text);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  font-synthesis: none;
+  --v11-focus: var(--color-red);
+}
+:where(.v11-theme) :where(h1, h2, h3) {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  word-spacing: 0.12em;
+  line-height: 1;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+:where(.v11-theme) :where(h4) { margin: 0; font-family: var(--font-text); font-weight: 600; font-size: var(--text-md); line-height: 1.35; }
+:where(.v11-theme) :where(p, ul, ol, figure, blockquote, dl, dd) { margin: 0; }
+:where(.v11-theme) :where(ul, ol) { padding: 0; list-style: none; }
+.v11-theme p { text-wrap: pretty; }
+.v11-theme ::selection { background: var(--color-red); color: var(--color-on-red); }
+.v11-theme :focus-visible { outline: 2px solid var(--v11-focus); outline-offset: 3px; }
+.v11-theme .num { font-variant-numeric: tabular-nums lining-nums; }
+
+/* Поверхность доски: шапка, первый экран, счёт, заявка. Цвета зависят от стиля доски */
+.v11-surface {
+  background: var(--surface);
+  color: var(--on-surface);
+  --v11-focus: var(--surface-focus);
+}
+
+.v11-wrap {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.v11-h2 {
+  font-size: var(--text-section);
+  line-height: 0.98;
+  max-width: 16ch;
+}
+.v11-lead {
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  color: var(--color-ink-2);
+  max-width: 54ch;
+}
+.v11-surface .v11-lead { color: var(--on-surface-2); }
+
+/* ================================================================== */
+/* Кнопки и ссылки                                                     */
+/* ================================================================== */
+.v11-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+  min-height: 52px; padding: 0 var(--space-lg);
+  border: 1px solid var(--color-red); border-radius: var(--radius-pill);
+  background: var(--color-red); color: var(--color-on-red);
+  font: 600 var(--text-md)/1.1 var(--font-text);
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.v11-btn:hover { background: var(--color-red-hover); border-color: var(--color-red-hover); }
+.v11-btn:active { transform: translateY(1px); }
+.v11-btn:disabled, .v11-btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.v11-btn[aria-busy="true"] { cursor: progress; }
+.v11-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+.v11-btn-line {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+  min-height: 44px; padding: 0 var(--space-md);
+  border: 1.5px solid currentColor; border-radius: var(--radius-pill);
+  background: transparent; color: inherit;
+  font: 600 var(--text-sm)/1.1 var(--font-text);
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.v11-btn-line:hover { background: var(--color-paper-3); }
+.v11-surface .v11-btn-line:hover { background: var(--surface-3); }
+.v11-btn-line:active { transform: translateY(1px); }
+.v11-btn-line[aria-pressed="true"] { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
+.v11-surface .v11-btn-line[aria-pressed="true"] { background: var(--on-surface); border-color: var(--on-surface); color: var(--surface); }
+.v11-btn-line svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.v11-link {
+  color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.24em;
+  text-decoration-color: var(--color-edge);
+  transition: text-decoration-color var(--dur-short) var(--ease-out);
+}
+.v11-link:hover { text-decoration-color: currentColor; }
+.v11-surface .v11-link { text-decoration-color: var(--on-surface-2); }
+
+/* Черновик: пунктир цвета текста. В крупных цифрах и заголовках рамка обнимает строку целиком */
+.v11-theme .fill { border-width: 1px; }
+.v11-theme :is(h1, h2, h3) .fill,
+.v11-theme .num .fill { display: inline-block; line-height: 1.12; padding: 0.02em 0.12em 0.06em; border-radius: 0.12em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .v11-btn, .v11-btn-line, .v11-link { transition: none; }
+}

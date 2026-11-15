@@ -21,6 +21,8 @@ import {
 } from "@/content/kurak";
 import type { CategoryId } from "@/content/services";
 import { V5 } from "@/content/v5";
+import { SLOT_TEXT, casePhoto, clientLogo, reviewPhoto, teamPhoto } from "@/content/photos";
+import { PhotoSlot } from "../brand/PhotoSlot";
 import { KurakLogo, KURAK_TAGLINE } from "../brand/KurakLogo";
 import { Fill } from "../Fill";
 import { Calendar } from "./Calendar";
@@ -35,6 +37,8 @@ import s from "./V5.module.css";
 
 const CAT_SHORT = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.short])) as Record<CategoryId, { ru: string; ky: string }>;
 const PERSON_TONE: Record<string, string> = { oksana: "felt", bibinur: "ochre", nurchik: "wine", "smm-lead": "red", "pr-lead": "sand" };
+/** «Руководитель SMM» → «руководитель SMM», «SMM жетекчиси» остаётся как есть */
+const lcFirst = (x: string) => (/^\p{Lu}\p{Ll}/u.test(x) ? x.charAt(0).toLocaleLowerCase("ru") + x.slice(1) : x);
 
 /** Курак из восьми направлений: лоскуты по кругу, в центре красная K логотипа */
 const RING: CategoryId[] = ["smm", "pr", "events", "sales", "digital", "team", "invest", "brand"];
@@ -153,32 +157,33 @@ export function V5Page({ lang }: { lang: Lang }) {
                     </span>
                     <span className={s.caseLabel}>{c.resultLabel[lang]}</span>
                   </h3>
-                  <div className={s.caseBody}>
-                    <p className={s.caseClient}>
-                      {c.client[lang]}
-                      <span className={s.caseSince}>
-                        <Fill value={dt(V5.cases.since, lang)} />
-                      </span>
-                    </p>
-                    <dl className={s.caseDl}>
-                      <div>
-                        <dt>{V5.cases.task[lang]}</dt>
-                        <dd>{c.task[lang]}</dd>
-                      </div>
-                      <div>
-                        <dt>{V5.cases.did[lang]}</dt>
-                        <dd>{c.did[lang]}</dd>
-                      </div>
-                    </dl>
-                    <ul className={s.caseCats}>
-                      {c.categories.map((id) => (
-                        <li key={id}>
-                          <span className={s.calSvcBit} data-tone={CAT_TONE[id]} aria-hidden="true" />
-                          {CAT_SHORT[id][lang]}
-                        </li>
-                      ))}
-                    </ul>
+                  <div className={s.casePhoto}>
+                    <PhotoSlot kind="scene" src={casePhoto(c.id)} label={SLOT_TEXT.project[lang]} className={s.caseSlot} />
                   </div>
+                  <p className={s.caseClient}>
+                    {c.client[lang]}
+                    <span className={s.caseSince}>
+                      <Fill value={dt(V5.cases.since, lang)} />
+                    </span>
+                  </p>
+                  <dl className={s.caseDl}>
+                    <div>
+                      <dt>{V5.cases.task[lang]}</dt>
+                      <dd>{c.task[lang]}</dd>
+                    </div>
+                    <div>
+                      <dt>{V5.cases.did[lang]}</dt>
+                      <dd>{c.did[lang]}</dd>
+                    </div>
+                  </dl>
+                  <ul className={s.caseCats}>
+                    {c.categories.map((id) => (
+                      <li key={id}>
+                        <span className={s.calSvcBit} data-tone={CAT_TONE[id]} aria-hidden="true" />
+                        {CAT_SHORT[id][lang]}
+                      </li>
+                    ))}
+                  </ul>
                 </li>
               ))}
             </ol>
@@ -241,12 +246,12 @@ export function V5Page({ lang }: { lang: Lang }) {
               <p className={s.lede}>{V5.team.lede[lang]}</p>
             </div>
             <ul className={s.team}>
-              {TEAM.map((p, i) => (
+              {TEAM.map((p) => (
                 <li key={p.id} className={s.person}>
                   <Portrait
-                    mark={p.name.draft ? CAT_SHORT[p.category][lang] : p.name.value[lang].charAt(0)}
+                    label={`${SLOT_TEXT.portrait[lang]}: ${p.name.draft ? lcFirst(p.role[lang]) : p.name.value[lang]}`}
                     tone={PERSON_TONE[p.id] ?? "felt"}
-                    shape={i}
+                    src={teamPhoto(p.id)}
                   />
                   <h3 className={s.personName}>
                     <Fill value={dt(p.name, lang)} />
@@ -275,9 +280,9 @@ export function V5Page({ lang }: { lang: Lang }) {
               <p className={s.lede}>{V5.reviews.lede[lang]}</p>
             </div>
             <ul className={s.logos} aria-label={V5.reviews.logos[lang]}>
-              {CLIENT_LOGOS.map((l, i) => (
-                <li key={i} className={s.logoSlot}>
-                  <Fill value={dt(l, lang)} />
+              {CLIENT_LOGOS.map((_, i) => (
+                <li key={i} className={s.logoItem}>
+                  <PhotoSlot kind="logo" src={clientLogo(i)} label={SLOT_TEXT.client[lang]} className={s.logoSlot} />
                 </li>
               ))}
             </ul>
@@ -288,10 +293,11 @@ export function V5Page({ lang }: { lang: Lang }) {
                   <blockquote className={s.quote}>
                     <p>«{r.text[lang]}»</p>
                   </blockquote>
-                  <p className={s.who}>
+                  <div className={s.who}>
+                    <PhotoSlot kind="person" hideLabel src={reviewPhoto(i)} label={SLOT_TEXT.author[lang]} className={s.whoPhoto} />
                     <Fill value={dt(r.who, lang)} />
                     <span className={s.whoRole}>{r.role[lang]}</span>
-                  </p>
+                  </div>
                 </li>
               ))}
             </ul>

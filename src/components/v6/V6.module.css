@@ -442,18 +442,26 @@
   display: grid; gap: var(--space-md); padding-top: var(--space-lg); border-top: 1px solid var(--color-ink);
 }
 .caseList { grid-column: 6 / 13; border-top: 1px solid var(--color-ink); }
+/* Кейс как строка отчёта: слева фото проекта на всю высоту записи, справа цифра «стало», клиент, было, что сделали */
 .case {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-md) var(--gap-columns);
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-areas: "photo head" "photo client" "photo rows" "photo tags"; grid-template-rows: auto auto auto 1fr;
+  gap: var(--space-md) var(--gap-columns);
   padding-block: var(--space-xl); border-bottom: 1px solid var(--color-rule);
 }
-.caseHead { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2xs) var(--space-md); }
+.caseHead { grid-area: head; display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2xs) var(--space-md); }
 .caseFig { font-size: var(--v6-fig); line-height: 1; letter-spacing: -0.03em; }
 .caseLabel { font-size: var(--v6-title); line-height: 1.2; }
-.caseClient { grid-column: 1 / -1; font-size: var(--text-sm); color: var(--color-muted); margin-top: calc(-1 * var(--space-xs)); }
-.caseRows { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-md) var(--gap-columns); }
+.casePhoto {
+  grid-area: photo; position: relative; min-height: 240px; border-radius: var(--v6-radius);
+  --ph-bg: var(--color-slot); --ph-line: var(--color-slot-line); --ph-ink: var(--color-slot-ink); --ph-hatch: var(--color-slot-hatch);
+}
+.casePhoto > .caseSlot { position: absolute; inset: 0; border-width: 1px; }
+.caseClient { grid-area: client; font-size: var(--text-sm); color: var(--color-muted); margin-top: calc(-1 * var(--space-xs)); }
+.caseRows { grid-area: rows; display: grid; gap: var(--space-md); }
 .caseRows > div { display: grid; gap: var(--space-3xs); align-content: start; }
 .caseRows dd { color: var(--color-ink-2); }
-.caseTags { grid-column: 1 / -1; font-size: var(--text-sm); color: var(--color-muted); }
+.caseTags { grid-area: tags; align-self: end; font-size: var(--text-sm); color: var(--color-muted); }
 /* Кейс-образец: пунктирная рамка вокруг всей истории, пока клиент не разрешил настоящий */
 .case.caseDraft { margin-top: var(--space-md); padding: var(--space-lg); border: 1px dashed var(--color-edge); }
 .caseList:has(.caseDraft) { border-top: 0; }
@@ -463,7 +471,8 @@
   .caseList { grid-column: 1 / -1; }
 }
 @media (max-width: 40rem) {
-  .caseRows { grid-template-columns: minmax(0, 1fr); }
+  .case { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "client" "photo" "rows" "tags"; grid-template-rows: none; }
+  .casePhoto { min-height: 0; aspect-ratio: 3 / 2; margin-top: var(--space-2xs); }
 }
 
 /* ====================================================================== */
@@ -515,13 +524,19 @@
 .personLine { font-size: var(--text-sm); color: var(--color-ink-2); margin-top: var(--space-2xs); }
 .partners { margin-top: var(--space-2xl); padding-top: var(--space-md); border-top: 1px solid var(--color-rule); color: var(--color-ink-2); }
 
-.portrait { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--color-paper-2); border-radius: var(--v6-radius); }
-.portraitShape { position: absolute; left: 14%; bottom: 0; width: 72%; height: 70%; fill: var(--color-ink); }
-.portraitMark {
-  position: absolute; left: var(--space-md); top: var(--space-sm);
-  font: 600 clamp(1.75rem, 2.4vw, 2.75rem)/1 var(--font-display); font-stretch: 85%; letter-spacing: -0.02em; color: var(--color-ink);
+/* Портрет: место под фото 4:5, в левом нижнем углу бумажная плашка с фигурой логотипа.
+ * Фигуры одной высоты на одной линии: по ряду команды читается KURAK */
+.portrait {
+  position: relative; aspect-ratio: 4 / 5; border-radius: var(--v6-radius); container-type: inline-size;
+  --ph-bg: var(--color-slot); --ph-line: var(--color-slot-line); --ph-ink: var(--color-slot-ink); --ph-hatch: var(--color-slot-hatch);
 }
-.portraitImg { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--v6-radius); }
+.portrait > .portraitSlot { position: absolute; inset: 0; border-width: 1px; }
+.portrait > .portraitSlot[data-photo-slot] { padding-bottom: 14%; }
+.portraitTab {
+  position: absolute; left: 0; bottom: 0; display: flex; align-items: flex-end;
+  padding: 7cqi 7cqi 0 0; background: var(--color-paper); border-top-right-radius: var(--v6-radius);
+}
+.portraitGlyph { display: block; height: calc(19cqi * var(--k, 1)); width: auto; fill: var(--color-ink); }
 
 @media (max-width: 75rem) {
   .team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -529,7 +544,9 @@
 @media (max-width: 40rem) {
   .team { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
   .person { grid-template-columns: 6.5rem minmax(0, 1fr); gap: var(--space-md); }
-  .portraitMark { left: var(--space-xs); top: var(--space-xs); font-size: 1.5rem; }
+  .portrait > .portraitSlot[data-photo-slot] { padding-bottom: 18%; }
+  .portrait > .portraitSlot > span { display: none; }
+  .portrait > .portraitSlot > svg { width: 46%; }
 }
 
 /* ====================================================================== */
@@ -541,16 +558,25 @@
 .review { display: grid; grid-template-rows: 1fr auto; gap: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid var(--color-ink); }
 .quote { font-size: var(--v6-lead); line-height: 1.42; }
 .quote p { text-indent: -0.42em; }
-.quoteBy { display: grid; gap: var(--space-3xs); justify-items: start; font-size: var(--text-sm); }
+/* Автор: круглое место под фото слева от имени и роли */
+.quoteBy {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--space-sm); row-gap: var(--space-3xs);
+  align-items: center; justify-items: start; font-size: var(--text-sm);
+  --ph-bg: var(--color-slot); --ph-line: var(--color-slot-line); --ph-ink: var(--color-slot-ink); --ph-hatch: var(--color-slot-hatch);
+}
+.quoteBy > .quotePhoto { grid-row: 1 / span 2; width: 44px; height: 44px; border-width: 1px; border-radius: 50%; }
 .quoteName { font-weight: 600; }
 /* Отзыв-образец: весь отзыв в пунктире, не только имя */
 .review.reviewDraft { padding: var(--space-lg); border: 1px dashed var(--color-edge); }
 .logos { margin-top: var(--space-2xl); display: grid; gap: var(--space-md); }
 .logoRow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-columns); }
-.logoSlot {
-  display: grid; place-items: center; min-height: 88px; padding: var(--space-sm);
-  background: var(--color-paper-2); font-size: var(--text-sm); color: var(--color-muted); text-align: center;
+.logoItem {
+  display: grid; height: 104px;
+  --ph-bg: var(--color-slot); --ph-line: var(--color-slot-line); --ph-ink: var(--color-slot-ink); --ph-hatch: var(--color-slot-hatch);
 }
+.logoItem > .logoSlot { border-width: 1px; border-radius: var(--v6-radius); }
+/* Настоящий логотип вписываем целиком, не обрезаем */
+.logoItem > .logoSlot:not([data-photo-slot]) { object-fit: contain; padding: var(--space-md); }
 
 @media (max-width: 60rem) {
   .reviews { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }

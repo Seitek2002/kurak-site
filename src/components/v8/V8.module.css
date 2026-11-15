@@ -93,7 +93,16 @@
 /* ---------- 6. Кейсы ---------- */
 .cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
 .case { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 36px; border-radius: var(--v8-r-panel); background: var(--v8-panel); overflow: hidden; }
-.casePlate { position: absolute; top: -14px; right: -14px; width: 148px; height: auto; transition: transform 0.45s var(--v8-ease); }
+/* Место под фото проекта: белая «витрина» сверху карточки, тарелка услуги лежит на её нижнем краю */
+.caseMedia { position: relative; margin: -12px -12px 4px; aspect-ratio: 2 / 1; border-radius: var(--v8-r-card); }
+.caseMedia .casePhoto {
+  border-radius: var(--v8-r-card);
+  --ph-bg: var(--v8-paper);
+  --ph-line: color-mix(in oklab, var(--v8-ink-2) 45%, transparent);
+  --ph-ink: var(--v8-ink-2);
+  --ph-hatch: var(--v8-panel);
+}
+.casePlate { position: absolute; right: 18px; bottom: -52px; width: 132px; height: auto; transition: transform 0.45s var(--v8-ease); }
 .case:hover .casePlate { transform: rotate(-8deg); }
 .caseClient { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: var(--v8-paper); font-weight: 600; font-size: 15px; }
 .caseTitle { padding-right: 104px; font-size: clamp(24px, 1rem + 0.8vw, 32px); line-height: 1.1; letter-spacing: -0.015em; }
@@ -115,11 +124,26 @@
 .bubble { flex: 1; margin: 0; padding: 30px; border-radius: 28px 28px 28px 8px; background: var(--v8-cream); font-size: 19px; line-height: 1.45; }
 .reviewWho { display: flex; align-items: center; gap: 12px; line-height: 1.3; }
 .reviewWho strong { display: block; font-weight: 700; }
-.reviewMark { display: grid; flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; background: var(--v8-panel); overflow: hidden; }
-.reviewMark svg { width: 100%; height: 100%; }
+.reviewMark { display: grid; flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; }
+/* Место под фото автора: серый кружок с пунктиром и силуэтом, как аватар в приложении */
+.reviewMark .reviewPhoto {
+  border-radius: 50%;
+  --ph-bg: var(--v8-panel);
+  --ph-line: color-mix(in oklab, var(--v8-ink-2) 50%, transparent);
+  --ph-ink: var(--v8-ink-2);
+}
 .reviewRole { display: block; color: var(--v8-ink-2); font-size: 15px; }
 .logos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 48px 0 0; padding: 0; list-style: none; }
-.logoSlot { display: grid; place-items: center; min-height: 104px; padding: 12px; border-radius: 20px; background: var(--v8-panel); color: var(--v8-ink-2); font-size: 15px; text-align: center; }
+.logoSlot { display: grid; height: 128px; padding: 8px; border-radius: var(--v8-r-card); background: var(--v8-panel); }
+/* Место под логотип клиента: пунктир и подпись серым (5.6:1 на панели) */
+.logoSlot .logoPhoto {
+  border-radius: 16px;
+  --ph-bg: transparent;
+  --ph-line: color-mix(in oklab, var(--v8-ink-2) 42%, transparent);
+  --ph-ink: var(--v8-ink-2);
+  --ph-hatch: var(--v8-panel-2);
+}
+.logoSlot .logoPhoto > svg { width: clamp(36px, 38%, 108px); }
 
 /* ---------- 8. Как работаем ---------- */
 .how { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 32px; margin: 0; padding: 0; list-style: none; }
@@ -248,11 +272,12 @@ a.social:hover { color: var(--v8-accent); }
   .statNum { font-size: clamp(40px, 12vw, 56px); }
   .statLabel { font-size: 16px; }
   .case { padding: 28px 22px; }
-  .casePlate { width: 112px; }
+  .caseMedia { margin: -10px -8px 4px; aspect-ratio: 16 / 10; }
+  .casePlate { right: 10px; bottom: -40px; width: 100px; }
   .caseTitle { padding-right: 72px; }
   .bubble { padding: 24px; font-size: 17px; }
   .logos { gap: 10px; }
-  .logoSlot { min-height: 80px; }
+  .logoSlot { height: 108px; }
   .how { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .ruleGlyph { width: 60px; }
   .q { padding: 18px 60px 18px 20px; font-size: 17px; }

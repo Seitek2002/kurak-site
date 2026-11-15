@@ -247,38 +247,59 @@
   .svcList, .svcList[data-count="3"] { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
 }
 
-/* ---------- Кейсы: плакаты с огромной цифрой ---------- */
+/* ---------- Кейсы: плакаты с огромной цифрой ----------
+ * Цифра сверху на всю ширину, под ней текст слева и фото проекта справа, в правый нижний угол плаката
+ * под обрез. Деталь направления пришита в угол фото, как раньше стояла в углу плаката. */
 .cases { padding-top: var(--section-gap); }
 .caseGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-columns); }
 .case {
+  --case-pad: var(--space-xl);
   position: relative; overflow: hidden; isolation: isolate;
-  display: grid; grid-template-rows: auto auto auto 1fr auto; gap: var(--space-md); align-content: start;
-  min-height: 620px; padding: var(--space-xl); box-sizing: border-box;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas: "head head" "client photo" "body photo" "dirs photo";
+  grid-template-rows: auto auto auto 1fr; gap: var(--space-md) var(--space-lg); align-content: start;
+  min-height: 620px; padding: var(--case-pad); box-sizing: border-box;
   background: var(--case-bg); color: var(--case-fg);
 }
-.case[data-tone="red"] { --case-bg: var(--color-accent); --case-fg: var(--color-accent-ink); --case-art: var(--color-ink); --case-soft: var(--color-accent-ink); }
-.case[data-tone="ink"] { --case-bg: var(--color-ink); --case-fg: var(--color-on-ink); --case-art: var(--color-accent); --case-soft: var(--color-on-ink-2); }
-.caseArt { position: absolute; z-index: -1; right: -10%; bottom: -12%; width: 58%; height: auto; color: var(--case-art); }
-.case[data-main="brand"] .caseArt { right: -4%; }
-.caseHead { display: grid; gap: var(--space-xs); font: inherit; }
+.case[data-tone="red"] {
+  --case-bg: var(--color-accent); --case-fg: var(--color-accent-ink); --case-art: var(--color-ink); --case-soft: var(--color-accent-ink);
+  --ph-bg: var(--color-slot-on-red); --ph-line: var(--color-slot-on-red-line); --ph-ink: var(--color-accent-ink); --ph-hatch: var(--color-slot-on-red-hatch);
+}
+.case[data-tone="ink"] {
+  --case-bg: var(--color-ink); --case-fg: var(--color-on-ink); --case-art: var(--color-accent-on-ink); --case-soft: var(--color-on-ink-2);
+  --ph-bg: var(--color-slot-on-ink); --ph-line: var(--color-slot-on-ink-line); --ph-ink: var(--color-on-ink); --ph-hatch: var(--color-slot-on-ink-hatch);
+}
+.caseHead { grid-area: head; display: grid; gap: var(--space-xs); font: inherit; }
 .caseNum { font: 800 var(--text-figure)/0.92 var(--font-display); letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
 .caseNum :global(.fill) { display: inline-block; border-width: 2px; padding: 0.2em 0.26em; line-height: 1; }
 .caseLabel { font: 800 var(--text-xl)/1.1 var(--font-display); letter-spacing: -0.01em; max-width: 16ch; }
-.caseClient { font-weight: 600; font-size: var(--text-md); padding-top: var(--space-sm); border-top: 1px solid currentColor; max-width: 46%; }
-.caseBody { display: grid; gap: var(--space-sm); max-width: 46%; font-size: var(--text-sm); line-height: 1.5; }
+.caseClient { grid-area: client; font-weight: 600; font-size: var(--text-md); padding-top: var(--space-sm); border-top: 1px solid currentColor; }
+.caseBody { grid-area: body; display: grid; gap: var(--space-sm); font-size: var(--text-sm); line-height: 1.5; }
 .caseBody dt { font-weight: 600; }
 .caseBody dd { color: var(--case-soft); }
-.caseDirs { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-xs); font-size: var(--text-sm); align-self: end; justify-items: start; }
+.caseDirs { grid-area: dirs; list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-xs); font-size: var(--text-sm); align-self: end; justify-items: start; }
 .caseDirs li { display: inline-flex; align-items: center; gap: var(--space-xs); }
 .caseDirPiece { width: 16px; height: 16px; flex-shrink: 0; }
+.casePhoto {
+  grid-area: photo; position: relative; min-height: 300px;
+  margin: 0 calc(-1 * var(--case-pad)) calc(-1 * var(--case-pad)) 0;
+}
+.casePhoto > .caseSlot { position: absolute; inset: 0; border-right: 0; border-bottom: 0; }
+.casePiece { position: absolute; right: 0; bottom: 0; width: 34%; height: auto; aspect-ratio: 1; color: var(--case-art); }
 
 @media (max-width: 56rem) {
   .caseGrid { grid-template-columns: minmax(0, 1fr); }
+  .case { min-height: 560px; }
 }
 @media (max-width: 40rem) {
-  .case { min-height: 0; padding: var(--space-lg) var(--space-md) var(--space-xl); }
-  .caseArt { width: 54%; right: -14%; bottom: -10%; }
-  .caseClient, .caseBody { max-width: none; }
+  .case {
+    --case-pad: var(--space-md);
+    grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "client" "body" "dirs" "photo"; grid-template-rows: none;
+    min-height: 0; padding: var(--space-lg) var(--case-pad) var(--case-pad);
+  }
+  .casePhoto { min-height: 0; aspect-ratio: 4 / 3; margin: var(--space-xs) calc(-1 * var(--case-pad)) calc(-1 * var(--case-pad)); }
+  .casePhoto > .caseSlot { border-left: 0; }
+  .casePiece { width: 30%; }
 }
 
 /* ---------- Курак целиком и цифры ---------- */
@@ -312,10 +333,17 @@
 .teamLead { grid-column: 1 / span 5; display: grid; gap: var(--space-lg); }
 .teamRest { grid-column: 7 / -1; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xl) var(--gap-columns); }
 .teamItem { display: grid; gap: var(--space-md); align-content: start; }
-.plate { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--color-paper-2); container-type: inline-size; }
-.platePiece { position: absolute; right: 0; bottom: 0; width: 70%; height: 70%; color: var(--color-accent); }
-.plateInitial { position: absolute; left: 7%; top: 2%; font: 800 46cqi/1 var(--font-display); color: var(--color-ink); letter-spacing: -0.03em; }
-.plateBlank { position: absolute; left: 8%; top: 8%; width: 30%; height: 30%; border: 1px dashed var(--color-edge); }
+/* Портрет: квадрат под фото, в правый нижний угол пришита красная деталь направления */
+.plate {
+  position: relative; aspect-ratio: 1; overflow: hidden;
+  --ph-bg: var(--color-slot); --ph-line: var(--color-slot-line); --ph-ink: var(--color-slot-ink); --ph-hatch: var(--color-slot-hatch);
+}
+/* Силуэт и подпись подняты над деталью, чтобы деталь не наезжала на подпись */
+.plate > .plateSlot { position: absolute; inset: 0; }
+.plate > .plateSlot[data-photo-slot] { padding: 0 var(--space-xs) 20%; }
+.platePiece { position: absolute; right: 0; bottom: 0; width: 30%; height: 30%; color: var(--color-accent); }
+.plate[data-size="l"] .platePiece { width: 26%; height: 26%; }
+.plate[data-size="l"] > .plateSlot > span { font-size: var(--text-sm); }
 .personText { display: grid; gap: var(--space-2xs); }
 .personName { font: 800 var(--text-xl)/1.1 var(--font-display); letter-spacing: -0.01em; }
 .personNameL { font: 800 var(--text-section)/1 var(--font-display); letter-spacing: -0.025em; }
@@ -343,11 +371,22 @@
 .quote { font-size: var(--text-lg); line-height: 1.45; }
 @media (min-width: 40rem) { .quote p { text-indent: -0.5em; } }
 .review[data-first] .quote { font: 800 var(--text-2xl)/1.2 var(--font-display); letter-spacing: -0.015em; }
-.reviewWho { display: grid; gap: var(--space-2xs); font-size: var(--text-sm); color: var(--color-ink-2); }
+/* Подпись автора: квадратный аватар под фото слева от имени и пометки «образец» */
+.reviewWho {
+  display: grid; grid-template-columns: 52px minmax(0, 1fr); column-gap: var(--space-sm); row-gap: var(--space-2xs); align-items: center;
+  font-size: var(--text-sm); color: var(--color-ink-2);
+  --ph-bg: var(--color-paper); --ph-line: var(--color-slot-line); --ph-ink: var(--color-slot-ink); --ph-hatch: var(--color-slot);
+}
+.reviewWho > .reviewAvatar { grid-row: 1 / span 2; width: 52px; height: 52px; }
 .reviewSample { color: var(--color-muted); }
-.logos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-columns); }
-.logo { display: grid; font-size: var(--text-sm); color: var(--color-muted); text-align: center; }
-.logo :global(.fill) { display: grid; place-items: center; min-height: 96px; box-sizing: border-box; }
+/* Логотипы клиентов: четыре поля под знак, только с разрешения клиента */
+.logos {
+  list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-columns);
+  --ph-bg: var(--color-paper); --ph-line: var(--color-slot-line); --ph-ink: var(--color-slot-ink); --ph-hatch: var(--color-slot);
+}
+.logo { display: grid; height: 112px; }
+/* Настоящий логотип вписываем целиком, не обрезаем */
+.logo > .logoSlot:not([data-photo-slot]) { object-fit: contain; padding: var(--space-md); }
 
 @media (max-width: 56rem) {
   .review[data-first], .review:not([data-first]), .clients { grid-column: 1 / -1; grid-row: auto; }

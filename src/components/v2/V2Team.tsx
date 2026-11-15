@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { TEAM } from "@/content/site";
 import { Portrait } from "../Portrait";
 import { Fill } from "../Fill";
@@ -15,9 +14,6 @@ export function V2Team() {
           <h2 id="v2-team-title" className={s.title}>
             Кто будет делать ваш проект
           </h2>
-          <Link href="/komanda" className="btn btn--quiet" data-cursor="Знакомиться">
-            Вся команда
-          </Link>
         </div>
         <ul className={s.grid} data-grid>
           {TEAM.map((p) => (

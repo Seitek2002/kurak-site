@@ -392,12 +392,24 @@ a.patchLink:focus-visible { outline: 3px solid var(--tone-fg); outline-offset: -
 .statLabel { font-size: var(--text-sm); color: var(--color-muted); }
 .statValue :global(.fill), .caseFig :global(.fill) { display: inline-block; padding: 0.04em 0.14em 0.08em; line-height: 1; border-radius: var(--radius-control); }
 .cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3xl) var(--gap-columns); margin: 0; padding: 0; list-style: none; }
-.case { display: grid; gap: var(--space-lg); align-content: start; padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
-.caseH { display: grid; gap: var(--space-xs); justify-items: start; }
+/* Кейс: цифра слева сверху остаётся главной, справа фото проекта войлочным лоскутом с золотым стежком,
+ * под цифрой клиент по нижнему краю фото, ниже задача, что сделали и направления на всю ширину */
+.case {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas: "head photo" "client photo" "dl dl" "cats cats"; grid-template-rows: auto 1fr auto auto;
+  gap: var(--space-md) var(--gap-columns); align-content: start; padding-top: var(--space-lg); border-top: 1px solid var(--color-rule);
+}
+.caseH { grid-area: head; display: grid; gap: var(--space-xs); justify-items: start; }
 .caseFig { font-size: var(--text-figure); line-height: 0.95; letter-spacing: -0.02em; }
 .caseLabel { font-size: var(--text-xl); line-height: 1.15; }
-.caseBody { display: grid; gap: var(--space-md); }
-.caseClient { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2xs) var(--space-sm); font-weight: 600; }
+.casePhoto {
+  grid-area: photo; aspect-ratio: 4 / 3; margin-bottom: var(--space-xs); border-radius: var(--radius-control);
+  --ph-bg: var(--color-slot-felt); --ph-line: var(--color-slot-felt-line); --ph-ink: var(--color-slot-felt-ink); --ph-hatch: var(--color-slot-felt-hatch);
+}
+.casePhoto > .caseSlot { border-width: 1px; }
+.caseClient { grid-area: client; align-self: end; margin-bottom: var(--space-xs); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2xs) var(--space-sm); font-weight: 600; }
+.caseDl { grid-area: dl; }
+.caseCats { grid-area: cats; }
 .caseSince { font-size: var(--text-sm); font-weight: 400; color: var(--color-muted); }
 .caseDl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); margin: 0; }
 .caseDl dt { font-size: var(--text-sm); color: var(--color-muted); }
@@ -412,6 +424,9 @@ a.patchLink:focus-visible { outline: 3px solid var(--tone-fg); outline-offset: -
   .cases { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }
 }
 @media (max-width: 40rem) {
+  .case { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "photo" "client" "dl" "cats"; grid-template-rows: none; }
+  .casePhoto { aspect-ratio: 3 / 2; margin: var(--space-xs) 0 0; }
+  .caseClient { margin-bottom: 0; }
   .caseDl { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
 }
 
@@ -469,13 +484,15 @@ a.patchLink:focus-visible { outline: 3px solid var(--tone-fg); outline-offset: -
 .portraitSvg { width: 100%; height: 100%; }
 .portraitLine { fill: none; stroke: var(--color-gold-ink); stroke-width: 1px; vector-effect: non-scaling-stroke; }
 .portraitApex { fill: var(--color-gold-ink); }
-.portraitFelt { fill: var(--tone-bg); }
-.portraitMotif { fill: var(--tone-motif); }
-.portraitMark {
-  position: absolute; inset: 14% 0 22%; display: grid; place-items: center;
-  font-family: var(--font-display); font-weight: 360; font-stretch: 84%; font-size: 34cqi; line-height: 1; color: var(--tone-fg);
+/* Место под фото внутри арки: в тоне войлока руководителя, пунктир-стежок тоном светлее, по форме арки */
+.portrait > .portraitSlot {
+  position: absolute; left: 4.55%; top: 3.57%; width: 90.9%; height: 96.43%;
+  border-radius: 50% 50% 0 0 / 37% 37% 0 0; border-width: 1px;
+  --ph-bg: var(--tone-bg); --ph-ink: var(--tone-fg);
+  --ph-line: color-mix(in oklab, var(--tone-fg) 50%, var(--tone-bg));
+  --ph-hatch: color-mix(in oklab, var(--tone-fg) 10%, var(--tone-bg));
 }
-.portraitImg { position: absolute; inset: 4% 4.5% 0; width: 91%; height: 96%; object-fit: cover; border-radius: 50% 50% 0 0 / 39% 39% 0 0; }
+.portrait > .portraitSlot[data-photo-slot] { padding-top: 12%; }
 .personName { font-size: var(--text-xl); line-height: 1.15; }
 .personRole { color: var(--color-ink-2); }
 .personExp { font-size: var(--text-sm); color: var(--color-muted); }
@@ -485,6 +502,9 @@ a.patchLink:focus-visible { outline: 3px solid var(--tone-fg); outline-offset: -
   .team { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .person { grid-template-columns: 104px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: var(--space-lg); align-items: start; padding-block: var(--space-md); border-bottom: 1px solid var(--color-rule); }
   .portrait { grid-row: 1 / span 3; margin: 0; }
+  /* В узкой арке строки «Фото: …» нет места: силуэт остаётся, подпись читает скринридер */
+  .portrait > .portraitSlot > span { display: none; }
+  .portrait > .portraitSlot > svg { width: 52%; }
   .personName { align-self: end; }
 }
 
@@ -493,13 +513,26 @@ a.patchLink:focus-visible { outline: 3px solid var(--tone-fg); outline-offset: -
 /* ================================================================== */
 .reviewsSec { padding-top: 0; }
 .reviewsThread { margin-bottom: var(--space-3xl); color: var(--color-gold-ink); }
-.logos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-columns); margin: 0 0 var(--space-2xl); padding: 0; list-style: none; }
-.logoSlot { display: grid; place-items: center; min-height: 104px; padding: var(--space-md); background: var(--color-paper-2); color: var(--color-muted); font-size: var(--text-sm); text-align: center; }
+.logos {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-columns); margin: 0 0 var(--space-2xl); padding: 0; list-style: none;
+  --ph-bg: var(--color-slot-paper); --ph-line: var(--color-slot-paper-line); --ph-ink: var(--color-slot-paper-ink); --ph-hatch: var(--color-slot-paper-hatch);
+}
+.logoItem { display: grid; height: 120px; }
+.logoItem > .logoSlot { border-width: 1px; border-radius: var(--radius-control); }
+/* Настоящий логотип вписываем целиком, не обрезаем */
+.logoItem > .logoSlot:not([data-photo-slot]) { object-fit: contain; padding: var(--space-md); }
 .reviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-columns); margin: 0; padding: 0; list-style: none; }
 .review { display: grid; grid-template-rows: 1fr auto; gap: var(--space-lg); padding: var(--space-xl) var(--space-lg) var(--space-lg); border: 1px dashed var(--color-edge); }
 .quote { margin: 0; }
 .quote p { font-family: var(--font-display); font-weight: 360; font-stretch: 84%; font-size: var(--text-xl); line-height: 1.3; text-indent: -0.42em; }
-.who { display: grid; gap: var(--space-3xs); justify-items: start; font-size: var(--text-sm); }
+/* Автор: маленькая арка под фото слева, войлок с золотым стежком, как у портретов команды */
+.who {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--space-sm); row-gap: var(--space-3xs);
+  align-items: center; justify-items: start; font-size: var(--text-sm);
+  --ph-bg: var(--color-slot-felt); --ph-line: var(--color-slot-felt-line); --ph-ink: var(--color-slot-felt-ink); --ph-hatch: var(--color-slot-felt-hatch);
+}
+.who > .whoPhoto { grid-row: 1 / span 2; width: 44px; height: 54px; border-width: 1px; border-radius: 22px 22px var(--radius-control) var(--radius-control); }
+.who > .whoPhoto[data-photo-slot] { padding-top: 6px; }
 .whoRole { color: var(--color-muted); }
 
 @media (max-width: 60rem) {

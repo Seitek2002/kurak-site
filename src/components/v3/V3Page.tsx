@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { CASES, SITE } from "@/content/site";
 import { CASES3, FAQ3, PAINS, PATH, STEPS3, TEAM3, UI, WORDS, type Lang } from "@/content/v3";
+import { categoryPhoto, clientLogo, SLOT_TEXT } from "@/content/photos";
 import { Fill } from "../Fill";
+import { KurakLogo } from "../brand/KurakLogo";
+import { PhotoSlot } from "../brand/PhotoSlot";
 import { Wizard } from "./Wizard";
 import { V3Form } from "./V3Form";
 import { PainButton } from "./PainButton";
@@ -23,6 +26,9 @@ const CREDITS = [
 
 /** Наклоны объявлений на стене: не больше трёх наклонённых на экран */
 const TILT = ["-1.2deg", "0deg", "0.8deg", "0deg", "-0.6deg", "0deg"];
+/** Наклоны фото команды и визиток клиентов */
+const MUG_TILT = ["-2.5deg", "1.8deg", "-1.2deg"];
+const LOGO_TILT = ["-1deg", "0deg", "1.2deg", "0deg"];
 
 /**
  * Вариант 3 «Кеңеш» в теме Paste-up: путь работы с Кураком четырьмя шагами на доске объявлений, словарь и вопросы как справка.
@@ -51,7 +57,7 @@ export function V3Page({ lang }: { lang: Lang }) {
         <div className={`container ${s.headWrap}`}>
           <div className={s.pill}>
             <Link href={PATH[lang]} className={s.logo} aria-label={UI.homeLabel[lang]}>
-              Курак
+              <KurakLogo className={s.logoMark} />
             </Link>
             <nav aria-label={lang === "ru" ? "Разделы" : "Бөлүмдөр"} className={s.nav}>
               <ul>
@@ -172,6 +178,17 @@ export function V3Page({ lang }: { lang: Lang }) {
               })}
             </ul>
             <p className={s.note2}>{UI.draftNote[lang]}</p>
+            {/* Визитки клиентов на доске: логотипы только тех, кто разрешил */}
+            <div className={s.clients}>
+              <h3 className={s.clientsTitle}>{UI.clientsTitle[lang]}</h3>
+              <ul className={s.logos} aria-label={SLOT_TEXT.client[lang]}>
+                {[0, 1, 2, 3].map((i) => (
+                  <li key={i} className={`v3-sheet ${s.logoCard}`} style={{ "--r": LOGO_TILT[i] } as React.CSSProperties}>
+                    <PhotoSlot kind="logo" src={clientLogo(i)} label={SLOT_TEXT.client[lang]} className={s.logoSlot} />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -181,8 +198,14 @@ export function V3Page({ lang }: { lang: Lang }) {
             <h2 id="team3-title" className={s.h2}>4. {UI.teamTitle[lang]}</h2>
             <div>
               <ul className={s.people}>
-                {TEAM3.map((p) => (
+                {TEAM3.map((p, i) => (
                   <li key={p.name} className={s.personRow}>
+                    {/* Фото, приклеенное к доске скотчем */}
+                    <div className={`v3-sheet ${s.mug}`} style={{ "--r": MUG_TILT[i % MUG_TILT.length] } as React.CSSProperties}>
+                      <div className={s.mugPhoto}>
+                        <PhotoSlot kind="person" src={categoryPhoto(p.cat)} label={`${SLOT_TEXT.portrait[lang]}: ${p.name}`} className={s.mugSlot} />
+                      </div>
+                    </div>
                     <h3 className={s.personName}>{p.name}</h3>
                     <p className={s.personRole}>
                       {p.role[lang]}
@@ -278,6 +301,10 @@ export function V3Page({ lang }: { lang: Lang }) {
 
       <footer className={s.footer}>
         <div className={`container ${s.footGrid}`}>
+          {/* Логотип на кремовой наклейке: как в присланном файле, красный на кремовом */}
+          <Link href={PATH[lang]} className={s.footLogo} aria-label={UI.homeLabel[lang]}>
+            <KurakLogo className={s.footLogoMark} />
+          </Link>
           <p className={s.footStatement}>{UI.footerAbout[lang]}</p>
           <div className={s.footCols}>
             <div>

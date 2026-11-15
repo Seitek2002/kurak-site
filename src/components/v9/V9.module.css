@@ -403,13 +403,33 @@
 .caseTop { display: grid; gap: 6px; justify-items: start; max-width: 52%; }
 .caseClient { font-size: var(--v9-fs-xl); font-weight: 500; line-height: 1.2; }
 .caseTags { font-size: var(--v9-fs-caps); letter-spacing: 0.08em; text-transform: uppercase; }
-.caseShape {
-  position: absolute; z-index: -1; height: auto; max-height: 48%; color: var(--tone-shape);
-  width: 38%; right: clamp(22px, 3vw, 52px); top: clamp(22px, 3vw, 52px);
-  transition: transform 900ms var(--v9-ease);
+/* Фото проекта на всю плитку, как у Share. Пока фото нет: плитка цвета клиента, внутри пунктирная рамка,
+   штриховка и силуэт с подписью капсом в правом верхнем углу (слева сверху стоит имя клиента) */
+.case .casePhoto { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; border-radius: 0; transition: transform 900ms var(--v9-ease); }
+.case .casePhoto[data-photo-slot] {
+  inset: clamp(10px, 1vw, 16px);
+  width: auto;
+  height: auto;
+  place-content: start end;
+  padding: clamp(14px, 2.2vw, 40px);
+  border-radius: var(--v9-radius-card);
+  --ph-bg: color-mix(in oklab, var(--tone) 86%, var(--v9-black));
+  --ph-line: color-mix(in oklab, var(--tone-ink) 50%, transparent);
+  --ph-ink: var(--tone-ink);
+  --ph-hatch: color-mix(in oklab, var(--tone-ink) 8%, transparent);
 }
-.case2 .caseShape { width: 44%; }
-.case:hover .caseShape { transform: translate(-3%, 4%) rotate(-5deg); }
+.case .casePhoto[data-photo-slot] > svg { width: clamp(64px, 20cqi, 150px); }
+.case .casePhoto[data-photo-slot] > span { padding: 0; font-size: var(--v9-fs-caps); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+/* Пришло фото: текст белый, сверху и снизу затемнение, чтобы имя клиента и цифра читались */
+.case:has(> img.casePhoto) { --tone-ink: var(--v9-white); }
+.case:has(> img.casePhoto)::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to bottom, var(--v9-scrim), transparent 32%, transparent 44%, var(--v9-scrim));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .case:hover > img.casePhoto { transform: scale(1.03); }
+  .person:hover .portraitShape { transform: translateY(-8%); }
+}
 .caseHead { margin: auto 0 0; display: grid; justify-items: start; gap: 8px; }
 .caseNum {
   font-family: var(--v9-font-display); font-weight: 800; font-stretch: var(--v9-wide);
@@ -425,6 +445,10 @@
   .caseGrid { grid-template-columns: minmax(0, 1fr); }
   .case { min-height: 30rem; }
   .caseText { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+@media (max-width: 30rem) {
+  .case { min-height: 34rem; }
+  .case .casePhoto[data-photo-slot] > svg { width: 56px; }
 }
 
 /* ---------- Крем: цифры ---------- */
@@ -461,14 +485,16 @@
   position: relative; overflow: hidden; aspect-ratio: 4 / 5; margin-bottom: 14px;
   border-radius: var(--v9-radius-card); background: var(--v9-cream);
 }
-.portraitShape { position: absolute; left: 50%; bottom: -10%; width: 84%; height: auto; translate: -50% 0; color: var(--v9-red); transition: transform 700ms var(--v9-ease); }
-.person:hover .portraitShape { transform: translateY(-4%); }
-.initial {
-  position: absolute; top: 12px; left: 16px;
-  font-family: var(--v9-font-display); font-weight: 800; font-stretch: var(--v9-wide);
-  font-size: clamp(2.75rem, 4.6vw, 4.75rem); line-height: 1; color: var(--v9-on-cream);
+/* Место под портрет: кремовая карточка, пунктир и подпись тёплым серым (6.7:1), красная фигура логотипа в углу */
+.portrait .portraitPhoto {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  --ph-bg: var(--v9-cream);
+  --ph-line: color-mix(in oklab, var(--v9-on-cream-2) 55%, transparent);
+  --ph-ink: var(--v9-on-cream-2);
+  --ph-hatch: color-mix(in oklab, var(--v9-on-cream-2) 8%, transparent);
 }
-.initialSm { font-size: clamp(1.25rem, 2vw, 2rem); top: 18px; }
+.portrait .portraitPhoto[data-photo-slot] { inset: 8px; width: auto; height: auto; border-radius: 8px; }
+.portraitShape { position: absolute; left: 20px; top: 20px; width: 15%; height: auto; color: var(--v9-red); transition: transform 700ms var(--v9-ease); }
 .personName { margin: 0; font-family: var(--v9-font-display); font-weight: 700; font-stretch: var(--v9-wide-mid); font-size: clamp(1.125rem, 0.9vw + 0.75rem, 1.5rem); line-height: 1.15; }
 .personRole { color: var(--v9-grey); font-size: var(--v9-fs-sm); line-height: 1.4; }
 .personExp { font-size: var(--v9-fs-sm); }
@@ -499,7 +525,22 @@
   background: radial-gradient(circle at 30% 24%, var(--v9-bubble-hi) 0 3%, transparent 12%),
     radial-gradient(circle at 72% 80%, var(--v9-bubble-hi) 0 1.2%, transparent 5%);
 }
-.bubbleText { font-size: clamp(0.625rem, 1.5cqi, 0.875rem); color: var(--v9-white); }
+/* Место под логотип клиента внутри пузыря: круглая пунктирная рамка, силуэт и подпись белым */
+/* Пузырь сам становится контейнером: размер рамки и подписи считается от его диаметра */
+.bubble:has(> .bubbleLogo) { grid-template: minmax(0, 1fr) / minmax(0, 1fr); padding: 0; container-type: inline-size; }
+.bubble .bubbleLogo {
+  width: 60%; height: auto; aspect-ratio: 1; border-radius: 50%; gap: 0.35em;
+  --ph-bg: transparent;
+  --ph-line: color-mix(in oklab, var(--v9-white) 45%, transparent);
+  --ph-ink: var(--v9-white);
+  --ph-hatch: color-mix(in oklab, var(--v9-white) 6%, transparent);
+}
+.bubble .bubbleLogo > span { padding-inline: 0.5em; font-size: clamp(0.625rem, 5.5cqi, 0.875rem); overflow-wrap: normal; }
+/* В маленьком пузыре подпись не помещается: остаётся силуэт логотипа, подпись читает скринридер */
+@container (max-width: 140px) {
+  .bubble .bubbleLogo > span { display: none; }
+  .bubble .bubbleLogo > svg { width: 62%; }
+}
 .b1 { width: 44cqi; left: 2cqi; top: 4cqi; --turn: 20deg; }
 .b2 { width: 32cqi; left: 50cqi; top: 0; --turn: 140deg; }
 .b3 { width: 26cqi; left: 40cqi; top: 34cqi; --turn: 260deg; }
@@ -523,12 +564,20 @@
   content: "«"; display: block; margin-bottom: 8px; color: var(--v9-accent);
   font-family: var(--v9-font-display); font-weight: 800; font-stretch: var(--v9-wide); font-size: 3rem; line-height: 0.6;
 }
-.who { margin-top: auto; display: grid; gap: 4px; justify-items: start; font-size: var(--v9-fs-md); }
+.who { margin-top: auto; display: flex; align-items: center; gap: 14px; font-size: var(--v9-fs-md); }
+/* Место под фото автора отзыва */
+.whoPhoto { flex: none; width: 52px; height: 52px; border-radius: 50%; }
+.whoPhoto .whoSlot {
+  border-radius: 50%;
+  --ph-bg: var(--v9-card-2);
+  --ph-line: color-mix(in oklab, var(--v9-grey) 60%, transparent);
+  --ph-ink: var(--v9-grey);
+}
+.whoText { display: grid; gap: 4px; justify-items: start; margin: 0; }
 .whoRole { color: var(--v9-grey); font-size: var(--v9-fs-sm); }
 @media (max-width: 60rem) {
   .bubbles, .clientsText { grid-column: 1 / -1; }
   .bubbles { aspect-ratio: 100 / 88; max-width: 34rem; }
-  .bubbleText { font-size: clamp(0.625rem, 2.8cqi, 0.875rem); }
   .b1 { width: 50cqi; left: 0; top: 4cqi; }
   .b2 { width: 40cqi; left: 56cqi; top: 0; }
   .b3 { width: 34cqi; left: 46cqi; top: 46cqi; }

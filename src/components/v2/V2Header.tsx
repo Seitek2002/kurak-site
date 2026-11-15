@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelection } from "@/store/selection";
-import { Mark } from "../Mark";
+import { KurakLogo } from "../brand/KurakLogo";
 import { MiniQuilt } from "../MiniQuilt";
 import s from "./V2Header.module.css";
 
@@ -55,8 +55,7 @@ export function V2Header() {
     <header className={s.header} data-hidden={hidden || undefined} data-solid={solid || undefined}>
       <div className={`container ${s.row}`}>
         <Link href="/v2" className={s.logo} aria-label="Курак, вариант 2, наверх">
-          <Mark className={s.mark} />
-          <span className={s.word}>Курак</span>
+          <KurakLogo className={s.mark} />
         </Link>
         <nav aria-label="Разделы" className={s.nav}>
           <ul>

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SITE } from "@/content/site";
 import { Fill } from "../Fill";
 import { QuiltWord } from "./QuiltWord";
@@ -24,7 +23,7 @@ export function V2Footer() {
           <div className={s.col}>
             <h2 className={s.h}>Ещё</h2>
             <ul className={s.list}>
-              <li><Link className="link" href="/komanda">Вся команда</Link></li>
+              <li><a className="link" href="#komanda">Команда</a></li>
               <li><a className="link" href="#zayavka">Заявка</a></li>
             </ul>
           </div>

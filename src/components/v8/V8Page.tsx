@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { KurakLogo } from "@/components/brand/KurakLogo";
 import { Fill } from "@/components/Fill";
+import { PhotoSlot } from "@/components/brand/PhotoSlot";
 import {
   ADDRESS,
   BRAND_TEXT,
@@ -26,6 +27,7 @@ import {
   variantPath,
   type Lang,
 } from "@/content/kurak";
+import { SLOT_TEXT, casePhoto, clientLogo, reviewPhoto } from "@/content/photos";
 import { V8 } from "@/content/v8";
 import { ServiceArt, Glyph } from "./Art";
 import { AboutArt } from "./AboutArt";
@@ -211,7 +213,7 @@ export function V8Page({ lang }: { lang: Lang }) {
           </div>
         </section>
 
-        {/* 6. Кейсы: результат цифрой в заголовке */}
+        {/* 6. Кейсы: сверху место под фото проекта с «тарелкой» услуги, результат цифрой в заголовке */}
         <section id="cases" className={s.section} aria-labelledby="cases-title">
           <div className="v8-wrap">
             <div className={s.splitHead}>
@@ -225,7 +227,10 @@ export function V8Page({ lang }: { lang: Lang }) {
             <ul className={s.cases}>
               {CASES.map((c) => (
                 <li key={c.id} className={s.case}>
-                  <ServiceArt id={CASE_ART[c.id] ?? "smm-target"} className={s.casePlate} />
+                  <div className={s.caseMedia}>
+                    <PhotoSlot kind="scene" src={casePhoto(c.id)} label={SLOT_TEXT.project[lang]} className={s.casePhoto} />
+                    <ServiceArt id={CASE_ART[c.id] ?? "smm-target"} className={s.casePlate} />
+                  </div>
                   <p className={s.caseClient}>{c.client[lang]}</p>
                   <h3 className={s.caseTitle}>
                     <span className={s.caseNum}>
@@ -266,32 +271,29 @@ export function V8Page({ lang }: { lang: Lang }) {
               {V8.reviews.title[lang]}
             </h2>
             <ul className={s.reviews}>
-              {REVIEWS.map((r) => (
+              {REVIEWS.map((r, i) => (
                 <li key={r.text.ru} className={s.review}>
                   <blockquote className={s.bubble}>
                     <p>{r.text[lang]}</p>
                   </blockquote>
-                  <p className={s.reviewWho}>
-                    <span className={s.reviewMark} aria-hidden="true">
-                      <svg viewBox="0 0 40 40">
-                        <circle cx="20" cy="15" r="6.5" className="f-grey" />
-                        <path d="M7 36a13 12 0 0 1 26 0z" className="f-grey" />
-                      </svg>
-                    </span>
+                  <div className={s.reviewWho}>
+                    <div className={s.reviewMark}>
+                      <PhotoSlot kind="person" src={reviewPhoto(i)} label={SLOT_TEXT.author[lang]} hideLabel className={s.reviewPhoto} />
+                    </div>
                     <span>
                       <strong>
                         <Fill value={dt(r.who, lang)} />
                       </strong>
                       <span className={s.reviewRole}>{r.role[lang]}</span>
                     </span>
-                  </p>
+                  </div>
                 </li>
               ))}
             </ul>
             <ul className={s.logos} aria-label={V8.reviews.logos[lang]}>
-              {CLIENT_LOGOS.map((x, k) => (
+              {CLIENT_LOGOS.map((_, k) => (
                 <li key={k} className={s.logoSlot}>
-                  <Fill value={dt(x, lang)} />
+                  <PhotoSlot kind="logo" src={clientLogo(k)} label={SLOT_TEXT.client[lang]} className={s.logoPhoto} />
                 </li>
               ))}
             </ul>

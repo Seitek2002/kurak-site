@@ -42,6 +42,10 @@
   --color-focus: oklch(55% 0.2 29);
   --color-focus-on-field: oklch(84% 0.15 85);
 
+  /* Логотип KURAK (варианты 1–3): красный из присланного файла #DC0F0A и кремовый фон под ним #FDF4E3 */
+  --color-logo: oklch(56.5% 0.227 29);
+  --color-logo-paper: oklch(97% 0.024 83);
+
   --color-error: oklch(50% 0.19 27);
   --color-success: oklch(48% 0.12 150);
 

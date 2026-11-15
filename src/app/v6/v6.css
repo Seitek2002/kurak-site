@@ -40,6 +40,12 @@
   --color-error: oklch(50% 0.2 28.6);
   --color-success: oklch(46% 0.11 155);
 
+  /* Места под фото и логотипы: поле, пунктир, подпись, штриховка */
+  --color-slot: oklch(95.4% 0.006 85);
+  --color-slot-line: oklch(62% 0.012 265);
+  --color-slot-ink: oklch(38% 0.016 265);
+  --color-slot-hatch: oklch(91.6% 0.007 85);
+
   /* Шрифт: один гротеск, IBM Plex Sans; вне страницы варианта откатывается к Onest */
   --font-display: var(--font-v6-plex, var(--font-onest)), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-v6-plex, var(--font-onest)), ui-sans-serif, system-ui, sans-serif;

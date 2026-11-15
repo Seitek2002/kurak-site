@@ -36,6 +36,8 @@ import {
   V6_UI,
 } from "@/content/v6";
 import { KurakLogo } from "@/components/brand/KurakLogo";
+import { PhotoSlot } from "@/components/brand/PhotoSlot";
+import { SLOT_TEXT, casePhoto, clientLogo, reviewPhoto, teamPhoto } from "@/content/photos";
 import { Fill } from "../Fill";
 import { AddToggle, BundleButton, PickedCount } from "./AddToggle";
 import { CalcHero } from "./CalcHero";
@@ -277,6 +279,9 @@ export function V6Page({ lang }: { lang: Lang }) {
                     <span className={`${s.caseFig} v6-num`}>{k.result.value[lang]}</span>
                     <span className={s.caseLabel}>{k.resultLabel[lang]}</span>
                   </h3>
+                  <div className={s.casePhoto}>
+                    <PhotoSlot kind="scene" src={casePhoto(k.id)} label={SLOT_TEXT.project[lang]} className={s.caseSlot} />
+                  </div>
                   <p className={s.caseClient}>{k.client[lang]}</p>
                   <dl className={s.caseRows}>
                     <div>
@@ -342,12 +347,10 @@ export function V6Page({ lang }: { lang: Lang }) {
             </dl>
             <ul className={s.team}>
               {TEAM.map((p) => {
-                const name = p.name.value[lang];
-                const cat = CATEGORIES.find((c) => c.id === p.category);
-                const mark = p.name.draft ? (cat?.short[lang] ?? "") : name.charAt(0);
+                const label = `${SLOT_TEXT.portrait[lang]}: ${p.name.draft ? lcFirst(p.role[lang]) : p.name.value[lang]}`;
                 return (
                   <li key={p.id} className={s.person}>
-                    <Portrait glyph={GLYPH[p.id] ?? 0} mark={mark} alt={`${V6_TEAM.portrait[lang]}: ${p.role[lang]}`} />
+                    <Portrait glyph={GLYPH[p.id] ?? 0} label={label} src={teamPhoto(p.id)} />
                     <div className={s.personText}>
                       <h3 className={s.personName}>
                         <Fill value={dt(p.name, lang)} note="имя" />
@@ -385,6 +388,7 @@ export function V6Page({ lang }: { lang: Lang }) {
                       <p>«{r.text[lang]}»</p>
                     </blockquote>
                     <figcaption className={s.quoteBy}>
+                      <PhotoSlot kind="person" hideLabel src={reviewPhoto(i)} label={SLOT_TEXT.author[lang]} className={s.quotePhoto} />
                       <span className={s.quoteName}>{r.who.value[lang]}</span>
                       <span className={s.muted}>{r.role[lang]}</span>
                     </figcaption>
@@ -395,9 +399,9 @@ export function V6Page({ lang }: { lang: Lang }) {
             <div className={s.logos}>
               <p className={s.muted}>{V6_REVIEWS.logos[lang]}</p>
               <ul className={s.logoRow}>
-                {CLIENT_LOGOS.map((l, i) => (
-                  <li key={i} className={s.logoSlot}>
-                    <Fill value={dt(l, lang)} note="логотип клиента" />
+                {CLIENT_LOGOS.map((_, i) => (
+                  <li key={i} className={s.logoItem}>
+                    <PhotoSlot kind="logo" src={clientLogo(i)} label={SLOT_TEXT.client[lang]} className={s.logoSlot} />
                   </li>
                 ))}
               </ul>

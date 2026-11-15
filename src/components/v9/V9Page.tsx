@@ -21,6 +21,8 @@ import {
 import { SECTIONS, V9 } from "@/content/v9";
 import { KURAK_TAGLINE, KurakLogo } from "@/components/brand/KurakLogo";
 import { Fill } from "../Fill";
+import { PhotoSlot } from "../brand/PhotoSlot";
+import { SLOT_TEXT, casePhoto, clientLogo, reviewPhoto, teamPhoto } from "@/content/photos";
 import { Header, LangSwitch } from "./Header";
 import { Bundles, OpenCategory, ServiceCards } from "./Services";
 import { Reveal } from "./Reveal";
@@ -30,16 +32,19 @@ import { KMark, Shape } from "./Shape";
 import s from "./V9.module.css";
 
 const CASE_TONE = [s.case1, s.case2, s.case3, s.case4];
-const CASE_SHAPE = [1, 3, 0, 2];
 const SHORT = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.short]));
+
+/** «Руководитель SMM» → «руководитель SMM» для подписи «Фото: …»; аббревиатуры не трогаем */
+const lowerFirst = (t: string) => (t.length > 1 && t[1] === t[1]!.toLowerCase() ? t[0]!.toLowerCase() + t.slice(1) : t);
 
 /** Число букв самого длинного слова: CSS подгоняет по нему кегль широкого капса (--n в V9.module.css) */
 const fit = (t: string) => ({ "--n": Math.max(...t.split(/\s+/).map((w) => w.length)) }) as React.CSSProperties;
 
 /**
  * Вариант 9: подача креативного агентства. Гигантский вордмарк KURAK, утверждение красным,
- * кремовый эллипс на скролле, «МЫ ДЕЛАЕМ» тёмными карточками, обложки кейсов из геометрии логотипа,
- * бегущая строка цифр, команда, клиенты-пузыри, принципы, заявка и подвал с «ГЛАВНАЯ ↑».
+ * кремовый эллипс на скролле, «МЫ ДЕЛАЕМ» тёмными карточками, кейсы плитками-фото во всю ширину,
+ * бегущая строка цифр, команда с портретами, клиенты-пузыри с логотипами, отзывы, принципы, заявка и подвал с «ГЛАВНАЯ ↑».
+ * Фото и логотипы берутся из content/photos.ts; пока путей нет, на их местах PhotoSlot-плейсхолдеры.
  */
 export function V9Page({ lang }: { lang: Lang }) {
   const c = CHANNELS.filter((x) => x.id !== "phone");
@@ -134,7 +139,7 @@ export function V9Page({ lang }: { lang: Lang }) {
           </div>
         </section>
 
-        {/* Кейсы: плитки во всю ширину без зазоров */}
+        {/* Кейсы: плитки-фото во всю ширину без зазоров, поверх клиент и цифра результата */}
         <section id="cases" className={s.cases} aria-labelledby="v9-cases">
           <div className={`${s.wrap} ${s.secHead}`}>
             <h2 id="v9-cases" className={s.mega} style={fit(V9.casesTitle[lang])}>
@@ -147,11 +152,11 @@ export function V9Page({ lang }: { lang: Lang }) {
           <ul className={s.caseGrid}>
             {CASES.map((k, i) => (
               <li key={k.id} className={`${s.case} ${CASE_TONE[i % 4]}`} style={{ "--n": k.result.value[lang].length } as React.CSSProperties}>
+                <PhotoSlot kind="scene" src={casePhoto(k.id)} label={SLOT_TEXT.project[lang]} className={s.casePhoto} />
                 <div className={s.caseTop}>
                   <p className={s.caseClient}>{k.client[lang]}</p>
                   <p className={s.caseTags}>{k.categories.map((id) => SHORT[id]?.[lang]).join(", ")}</p>
                 </div>
-                <Shape i={CASE_SHAPE[i % 4] ?? i} className={s.caseShape} />
                 <h3 className={s.caseHead}>
                   <Fill value={dt(k.result, lang)} className={s.caseNum} />
                   <span className={s.caseLabel}>{k.resultLabel[lang]}</span>
@@ -214,13 +219,12 @@ export function V9Page({ lang }: { lang: Lang }) {
           </div>
           <ul className={s.people}>
             {TEAM.map((p, i) => {
-              const cat = CATEGORIES.find((x) => x.id === p.category);
-              const glyph = p.name.draft ? cat?.short[lang] ?? "" : p.name.value[lang].slice(0, 1);
+              const label = `${SLOT_TEXT.portrait[lang]}: ${p.name.draft ? lowerFirst(p.role[lang]) : p.name.value[lang]}`;
               return (
                 <li key={p.id} className={s.person}>
-                  <div className={s.portrait} data-slot={`team-${p.id}`} aria-hidden="true">
+                  <div className={s.portrait} data-slot={`team-${p.id}`}>
+                    <PhotoSlot kind="person" src={teamPhoto(p.id)} label={label} className={s.portraitPhoto} />
                     <Shape i={i + 1} className={s.portraitShape} />
-                    <span className={`${s.initial} ${p.name.draft ? s.initialSm : ""}`}>{glyph}</span>
                   </div>
                   <h3 className={s.personName}>
                     <Fill value={dt(p.name, lang)} />
@@ -249,9 +253,9 @@ export function V9Page({ lang }: { lang: Lang }) {
           </h2>
           <div className={s.clientsGrid}>
             <ul className={s.bubbles}>
-              {CLIENT_LOGOS.map((x, i) => (
+              {CLIENT_LOGOS.map((_, i) => (
                 <li key={i} className={`${s.bubble} ${s[`b${i + 1}`]}`}>
-                  <Fill value={dt(x, lang)} className={s.bubbleText} />
+                  <PhotoSlot kind="logo" src={clientLogo(i)} label={SLOT_TEXT.client[lang]} className={s.bubbleLogo} />
                 </li>
               ))}
             </ul>
@@ -267,10 +271,15 @@ export function V9Page({ lang }: { lang: Lang }) {
                 <blockquote className={s.quote}>
                   <p>{r.text[lang]}</p>
                 </blockquote>
-                <p className={s.who}>
-                  <Fill value={dt(r.who, lang)} />
-                  <span className={s.whoRole}>{r.role[lang]}</span>
-                </p>
+                <div className={s.who}>
+                  <div className={s.whoPhoto}>
+                    <PhotoSlot kind="person" src={reviewPhoto(i)} label={SLOT_TEXT.author[lang]} hideLabel className={s.whoSlot} />
+                  </div>
+                  <p className={s.whoText}>
+                    <Fill value={dt(r.who, lang)} />
+                    <span className={s.whoRole}>{r.role[lang]}</span>
+                  </p>
+                </div>
               </li>
             ))}
           </ul>

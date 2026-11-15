@@ -291,6 +291,14 @@
 .waAvatar[data-tone="cobalt"] { background: var(--v7-cobalt); }
 .waAvatar[data-tone="teal"] { background: var(--v7-teal); }
 .waAvatarMark { width: 18px; height: 18px; }
+/* Место под фото автора отзыва: кружок цвета автора, внутри пунктир и силуэт */
+.msg .waAvatar { width: 44px; height: 44px; padding: 3px; }
+.waAvatar .waAvatarPhoto {
+  border-radius: 50%;
+  --ph-bg: color-mix(in oklab, currentColor 10%, transparent);
+  --ph-line: color-mix(in oklab, var(--v7-cream) 62%, transparent);
+  --ph-ink: var(--v7-cream);
+}
 .waScroll {
   display: flex;
   flex-direction: column;
@@ -369,13 +377,18 @@
 .logoList { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
 .logoSlot {
   display: grid;
-  place-items: center;
-  min-height: 88px;
-  padding: 12px;
+  height: clamp(112px, 10vw, 136px);
+  padding: 8px;
   border-radius: 24px;
   background: var(--v7-red-press);
-  font-size: 14px;
-  line-height: 1.3;
+}
+/* Место под логотип клиента: пунктир крема на тёмно-красной ячейке, подпись кремом (контраст 6:1) */
+.logoSlot .logoPhoto {
+  border-radius: 18px;
+  --ph-bg: transparent;
+  --ph-line: color-mix(in oklab, var(--v7-cream) 50%, transparent);
+  --ph-ink: var(--v7-cream);
+  --ph-hatch: color-mix(in oklab, var(--v7-cream) 7%, transparent);
 }
 .logosNote { margin-top: 14px; font-size: 14px; }
 
@@ -506,15 +519,42 @@
 .tile[data-tone="cobalt"] { background: var(--v7-cobalt); color: var(--v7-cream); --v7-shape: var(--v7-red); }
 .tile[data-tone="teal"] { background: var(--v7-teal); color: var(--v7-cream); --v7-shape: var(--v7-cream); }
 .tile[data-tone="saffron"] { background: var(--v7-saffron); color: var(--v7-ink); --v7-shape: var(--v7-red); }
-.tileMark { flex: none; width: auto; height: clamp(40px, 4.4vw, 64px); color: var(--v7-shape); }
-.tileName {
-  position: relative;
-  max-width: 9ch;
-  font: 800 clamp(22px, 2.5vw, 36px)/1.02 var(--v7-font-display);
-  letter-spacing: -0.035em;
-  text-align: center;
-  text-wrap: balance;
+/* Место под фото проекта внутри цветной плитки: плитка остаётся оправой «бренда клиента» */
+.tile .tilePhoto {
+  position: absolute;
+  inset: 10px;
+  width: auto;
+  height: auto;
+  padding-top: 40px;
+  border-radius: 24px;
+  --ph-bg: var(--v7-tile-well);
+  --ph-line: color-mix(in oklab, currentColor 52%, transparent);
+  --ph-ink: currentColor;
+  --ph-hatch: color-mix(in oklab, currentColor 7%, transparent);
 }
+.tile[data-tone="espresso"] { --v7-tile-well: color-mix(in oklab, var(--v7-espresso) 82%, var(--v7-ink)); }
+.tile[data-tone="cobalt"] { --v7-tile-well: color-mix(in oklab, var(--v7-cobalt) 84%, var(--v7-ink)); }
+.tile[data-tone="teal"] { --v7-tile-well: color-mix(in oklab, var(--v7-teal) 82%, var(--v7-ink)); }
+.tile[data-tone="saffron"] { --v7-tile-well: color-mix(in oklab, var(--v7-saffron) 90%, var(--v7-ink)); }
+/* Название клиента: тёмная таблетка-наклейка с фигурой логотипа, читается и поверх будущего фото */
+.tileName {
+  position: absolute;
+  left: 22px;
+  top: 22px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 44px);
+  padding: 8px 16px 8px 12px;
+  border-radius: 999px;
+  background: var(--v7-ink);
+  color: var(--v7-cream);
+  font: 700 15px/1.2 var(--v7-font-text);
+  letter-spacing: 0;
+  box-shadow: 0 10px 24px -14px var(--v7-shadow);
+}
+.tileMark { flex: none; width: auto; height: 16px; color: var(--v7-shape); }
 .caseTitle {
   margin: 0;
   padding-inline: 4px;
@@ -522,7 +562,8 @@
   letter-spacing: 0;
   color: var(--v7-on-dark);
 }
-.caseFig { font-family: var(--v7-font-display); font-weight: 800; letter-spacing: -0.02em; }
+/* Цифра результата: главный акцент кейса, крупнее подписи */
+.caseFig { display: inline-block; margin-right: 4px; font-family: var(--v7-font-display); font-size: clamp(30px, 2.8vw, 42px); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; vertical-align: -0.12em; }
 .caseMore { margin-top: auto; }
 .caseMore > summary { display: grid; margin-left: auto; }
 .caseMore[open] :global(.v7-arrow-icon) { rotate: 90deg; }
@@ -592,30 +633,48 @@
 .team { padding-block: clamp(88px, 10vw, 148px); }
 .people { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
 .person { display: flex; flex-direction: column; gap: 6px; }
+/* Портрет: цветной лоскут направления как оправа, внутри место под фото, в углу наклейка с фигурой */
 .portrait[data-tone] {
   position: relative;
   display: block;
   aspect-ratio: 4 / 5;
   margin-bottom: 14px;
-  overflow: hidden;
   border-radius: 32px;
+  background: var(--v7-tone);
+  color: var(--v7-tone-ink);
 }
-.portrait[data-tone="red"] { background: var(--v7-red); color: var(--v7-cream); --v7-initial: var(--v7-cream); }
-.portrait[data-tone="saffron"] { background: var(--v7-saffron); color: var(--v7-red); --v7-initial: var(--v7-ink); }
-.portrait[data-tone="cobalt"] { background: var(--v7-cobalt); color: var(--v7-saffron); --v7-initial: var(--v7-cream); }
-.portrait[data-tone="teal"] { background: var(--v7-teal); color: var(--v7-cream); --v7-initial: var(--v7-cream); }
-.portrait[data-tone="cream"] { background: var(--v7-cream); color: var(--v7-red); --v7-initial: var(--v7-ink); }
-.portraitShape { position: absolute; left: 50%; bottom: -10%; width: 80%; height: auto; translate: -50% 0; }
-.portraitInitial {
+.portrait[data-tone="red"] { --v7-tone: var(--v7-red); --v7-tone-ink: var(--v7-cream); --v7-well: color-mix(in oklab, var(--v7-red) 78%, var(--v7-ink)); --v7-mark: var(--v7-red); }
+.portrait[data-tone="saffron"] { --v7-tone: var(--v7-saffron); --v7-tone-ink: var(--v7-ink); --v7-well: color-mix(in oklab, var(--v7-saffron) 90%, var(--v7-ink)); --v7-mark: var(--v7-red); }
+.portrait[data-tone="cobalt"] { --v7-tone: var(--v7-cobalt); --v7-tone-ink: var(--v7-cream); --v7-well: color-mix(in oklab, var(--v7-cobalt) 84%, var(--v7-ink)); --v7-mark: var(--v7-cobalt); }
+.portrait[data-tone="teal"] { --v7-tone: var(--v7-teal); --v7-tone-ink: var(--v7-cream); --v7-well: color-mix(in oklab, var(--v7-teal) 82%, var(--v7-ink)); --v7-mark: var(--v7-teal); }
+.portrait[data-tone="cream"] { --v7-tone: var(--v7-cream); --v7-tone-ink: var(--v7-ink); --v7-well: var(--v7-cream-deep); --v7-mark: var(--v7-red); }
+.portrait .portraitPhoto {
   position: absolute;
-  left: 20px;
-  top: 14px;
-  font: 800 clamp(40px, 4vw, 64px)/1 var(--v7-font-display);
-  color: var(--v7-initial);
+  inset: 10px;
+  width: auto;
+  height: auto;
+  border-radius: 24px;
+  --ph-bg: var(--v7-well);
+  --ph-line: color-mix(in oklab, var(--v7-tone-ink) 50%, transparent);
+  --ph-ink: var(--v7-tone-ink);
+  --ph-hatch: color-mix(in oklab, var(--v7-tone-ink) 7%, transparent);
 }
+.portraitBadge {
+  position: absolute;
+  left: 22px;
+  top: 22px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--v7-paper);
+  box-shadow: 0 8px 18px -10px var(--v7-shadow);
+}
+.portrait[data-tone="cream"] .portraitBadge { background: var(--v7-ink); }
+.portraitMark { width: 22px; height: 22px; color: var(--v7-mark); }
 .portrait.portraitS { width: 56px; height: 56px; aspect-ratio: 1; margin: 0; flex: none; border-radius: 50%; }
-.portraitS .portraitShape { top: 50%; bottom: auto; width: 54%; translate: -50% -50%; }
-.portraitS .portraitInitial { display: none; }
+.portraitS .portraitPhoto { inset: 4px; border-radius: 50%; }
 .personName { margin: 0; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.15; }
 .personRole { font: 600 15px/1.35 var(--v7-font-text); color: var(--v7-on-dark-2); }
 .personExp { font-size: 14px; color: var(--v7-on-dark-2); }
@@ -894,9 +953,14 @@
   .stats { gap: 8px; }
   .stat { border-radius: 24px; }
   .people { grid-template-columns: 1fr; gap: 20px; }
-  .person { display: grid; grid-template-columns: 104px minmax(0, 1fr); column-gap: 16px; align-items: start; }
+  .person { display: grid; grid-template-columns: 120px minmax(0, 1fr); column-gap: 16px; align-items: start; }
   .person > :not(.portrait) { grid-column: 2; }
   .person .portrait { grid-row: 1 / span 5; margin: 0; border-radius: 24px; }
+  .person .portraitPhoto { inset: 6px; border-radius: 19px; }
+  .person .portraitPhoto > span { padding-inline: 6px; font-size: 12px; }
+  .person .portraitBadge { left: 12px; top: 12px; width: 28px; height: 28px; }
+  .person .portraitMark { width: 14px; height: 14px; }
+  .tileName { left: 18px; top: 18px; font-size: 14px; }
   .principles { grid-template-columns: 1fr; }
   .ask, .light { border-radius: 32px 32px 0 0; }
   .footGrid { grid-template-columns: 1fr; }

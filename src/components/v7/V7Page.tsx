@@ -30,11 +30,13 @@ import {
 } from "@/content/kurak";
 import { V7, countLabel, type PillHead } from "@/content/v7";
 import { SITE } from "@/content/site";
+import { SLOT_TEXT, casePhoto, clientLogo, reviewPhoto } from "@/content/photos";
+import { PhotoSlot } from "../brand/PhotoSlot";
 import { Fill } from "../Fill";
 import { ArrowRight, ArrowUpRight, ArtCycle, ArtDefs, ArtDigital, ArtEvents, ArtPlane, ArtSales, BadgeMark, Spark, type ShapeId } from "./Art";
 import { AddButton, BundleButton, CategoryPicked, MobileBar, Opener } from "./Interactive";
 import { Logo3D } from "./Logo3D";
-import { Portrait } from "./Portrait";
+import { Portrait, lowerFirst } from "./Portrait";
 import { ServiceCloud } from "./ServiceCloud";
 import { V7Form } from "./V7Form";
 import { V7Header } from "./V7Header";
@@ -80,7 +82,10 @@ function Ribbon({ text, tone }: { text: T[Lang]; tone: "red" | "cream" }) {
   );
 }
 
-/** Плитка кейса: цветной квадрат «бренда клиента», под ним результат цифрой и круглая кнопка-стрелка */
+/**
+ * Плитка кейса: цветной квадрат «бренда клиента» как оправа, в нём место под фото проекта (casePhoto),
+ * поверх наклейка с названием клиента. Под плиткой результат цифрой и круглая кнопка-стрелка
+ */
 const CASE_LOOK: Record<string, { tone: string; shape: ShapeId }> = {
   coffee: { tone: "espresso", shape: "u" },
   forum: { tone: "cobalt", shape: "a" },
@@ -93,8 +98,11 @@ function CaseTile({ c, lang }: { c: Case; lang: Lang }) {
   return (
     <li className={s.case}>
       <div className={s.tile} data-tone={look.tone}>
-        <BadgeMark id={look.shape} className={s.tileMark} />
-        <p className={s.tileName}>{c.client[lang]}</p>
+        <PhotoSlot kind="scene" src={casePhoto(c.id)} label={SLOT_TEXT.project[lang]} className={s.tilePhoto} />
+        <p className={s.tileName}>
+          <BadgeMark id={look.shape} className={s.tileMark} />
+          {c.client[lang]}
+        </p>
       </div>
       <h3 className={s.caseTitle}>
         <Fill value={dt(c.result, lang)} className={s.caseFig} /> {c.resultLabel[lang]}
@@ -155,12 +163,12 @@ function RowLink({ href, children, external }: { href: string; children: React.R
   );
 }
 
-/** Знак-аватар в чате: фигура логотипа в кружке (настоящих фото клиентов нет) */
-const AVATAR: { shape: ShapeId; tone: string }[] = [
-  { shape: "u", tone: "espresso" },
-  { shape: "a", tone: "cobalt" },
-  { shape: "r", tone: "teal" },
-];
+/** Цвет аватара в чате: кружок под фото автора отзыва (reviewPhoto) и цвет его имени */
+const AVATAR_TONE = ["espresso", "cobalt", "teal"] as const;
+
+/** Кто ведёт направление: по категории, иначе по имени руководителя */
+const leadOf = (c: (typeof CATEGORIES)[number]) => TEAM.find((p) => p.category === c.id) ?? TEAM.find((p) => !p.name.draft && p.name.value.ru === c.lead.name);
+const portraitLabel = (name: string | null, role: string, lang: Lang) => `${SLOT_TEXT.portrait[lang]}: ${name ?? lowerFirst(role)}`;
 
 /**
  * Вариант 7 «Студия». Одна разметка для русской и кыргызской страниц.
@@ -288,7 +296,7 @@ export function V7Page({ lang }: { lang: Lang }) {
                       </summary>
                       <div className={s.catBody}>
                         <div className={s.catLead}>
-                          <Portrait category={c.id} initial="" size="s" />
+                          <Portrait category={c.id} personId={leadOf(c)?.id} label={portraitLabel(lead.name ? (leadOf(c)?.name.value[lang] ?? lead.name) : null, lead.role[lang], lang)} size="s" />
                           <p className={s.catLeadText}>
                             <span className={s.catLeadLabel}>{UI.leads[lang]}</span>
                             <b className={s.catLeadName}>
@@ -371,14 +379,14 @@ export function V7Page({ lang }: { lang: Lang }) {
               <ol className={s.waScroll} tabIndex={0} aria-label={UI.nav.reviews[lang]}>
                 <li className={s.waSystem}>{UI.draftNote[lang]}</li>
                 {REVIEWS.map((r, i) => {
-                  const av = AVATAR[i % AVATAR.length]!;
+                  const tone = AVATAR_TONE[i % AVATAR_TONE.length]!;
                   return (
                     <li key={i} className={s.msg}>
-                      <span className={s.waAvatar} data-tone={av.tone} aria-hidden="true">
-                        <BadgeMark id={av.shape} className={s.waAvatarMark} />
-                      </span>
+                      <div className={s.waAvatar} data-tone={tone}>
+                        <PhotoSlot kind="person" src={reviewPhoto(i)} label={SLOT_TEXT.author[lang]} hideLabel className={s.waAvatarPhoto} />
+                      </div>
                       <div className={s.bubble}>
-                        <p className={s.msgWho} data-tone={av.tone}>
+                        <p className={s.msgWho} data-tone={tone}>
                           <Fill value={dt(r.who, lang)} />, {r.role[lang]}
                         </p>
                         <p className={s.msgText}>{r.text[lang]}</p>
@@ -395,9 +403,9 @@ export function V7Page({ lang }: { lang: Lang }) {
 
             <div className={s.logos}>
               <ul className={s.logoList}>
-                {CLIENT_LOGOS.map((l, i) => (
+                {CLIENT_LOGOS.map((_, i) => (
                   <li key={i} className={s.logoSlot}>
-                    <Fill value={dt(l, lang)} />
+                    <PhotoSlot kind="logo" src={clientLogo(i)} label={SLOT_TEXT.client[lang]} className={s.logoPhoto} />
                   </li>
                 ))}
               </ul>
@@ -464,7 +472,7 @@ export function V7Page({ lang }: { lang: Lang }) {
 
         <Ribbon text={V7.ribbons.values[lang]} tone="red" />
 
-        {/* ============ 5. Команда: портреты-заглушки из геометрии логотипа ============ */}
+        {/* ============ 5. Команда: портреты в цветных оправах (места под фото) ============ */}
         <section id="komanda" className={s.team} aria-labelledby="v7-team">
           <div className={s.wrap}>
             <div className={s.secHead} data-tone="dark">
@@ -478,7 +486,7 @@ export function V7Page({ lang }: { lang: Lang }) {
                 const name = dt(p.name, lang);
                 return (
                   <li key={p.id} className={s.person}>
-                    <Portrait category={p.category} initial={p.name.draft ? "" : name.value[0]!} />
+                    <Portrait category={p.category} personId={p.id} label={portraitLabel(p.name.draft ? null : name.value, p.role[lang], lang)} />
                     <h3 className={s.personName}>
                       <Fill value={name} />
                     </h3>

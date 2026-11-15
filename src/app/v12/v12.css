@@ -1,0 +1,103 @@
+/*
+ * Вариант 12 «Жарчы»: глашатай объявляет весть, и она идёт по Кыргызстану.
+ * База: красный и кремовый логотипа, тушь цвета запёкшейся крови (не чёрный), ночь Тянь-Шаня и огонь айылов.
+ * Все цвета варианта только в этом блоке токенов: фирменные цвета пришлют, менять здесь.
+ * Блок объявлен и на :root:has(.v12-theme), чтобы фон body и полоса прокрутки брали те же токены.
+ */
+:root:has(.v12-theme),
+.v12-theme {
+  /* ---------- Цвет ---------- */
+  --v12-paper: #fdf4e3;        /* крем логотипа: бумага */
+  --v12-paper-2: #f6e8ce;
+  --v12-paper-3: #eddab6;
+  --v12-ink: #2b1411;          /* тушь: основной текст, 15.6:1 на бумаге */
+  --v12-ink-2: #5c4136;        /* вторичный текст: 8.6:1 на бумаге, 7.8:1 на paper-2 */
+  --v12-ink-3: #9a7f6d;        /* только линии и украшения */
+  --v12-rule: #dcc6a2;
+  --v12-red: #dc0f0a;          /* красный логотипа: знак, флажок, кнопки (крем на нём 4.8:1) */
+  --v12-red-ink: #b00d08;      /* красный для текста на бумаге: 6.2:1 */
+  --v12-red-deep: #8f0a06;
+  --v12-red-dark: #6d0805;
+  --v12-red-hi: #ff4a3a;       /* красный на ночи: флажок и фокус, 5.3:1 */
+  --v12-night: #0f1527;        /* ночь: тёмный рельеф */
+  --v12-night-2: #172038;
+  --v12-night-3: #242f50;
+  --v12-night-line: #7182b4;   /* хребты страны ночью */
+  --v12-night-out: #222c4a;    /* земля за границей */
+  --v12-night-lake: #3f86b8;   /* вода ночью */
+  --v12-paper-lake: #6f8fa6;   /* вода на бумаге */
+  --v12-night-ink: #f5ead4;    /* текст на ночи: 15:1 */
+  --v12-night-ink-2: #b8b2a8;  /* вторичный на ночи: 8.3:1 */
+  --v12-fire: #ffb547;         /* огни айылов: 10.6:1 на ночи */
+  --v12-fire-2: #ff8a3d;
+  --v12-fire-glow: rgb(255 181 71 / 0.5);
+  --v12-ink-glow: rgb(220 15 10 / 0.18);
+  --v12-red-a50: rgb(220 15 10 / 0.5);
+  --v12-cream-glow: rgb(253 244 227 / 0.45);
+  --v12-ink-a10: rgb(43 20 17 / 0.1);
+  --v12-ink-a18: rgb(43 20 17 / 0.18);
+  --v12-ink-a35: rgb(43 20 17 / 0.35);
+  --v12-ink-a55: rgb(43 20 17 / 0.55);
+  --v12-paper-a12: rgb(253 244 227 / 0.12);
+  --v12-paper-a25: rgb(253 244 227 / 0.25);
+  --v12-paper-a40: rgb(253 244 227 / 0.4);
+  --v12-paper-a85: rgb(253 244 227 / 0.86);
+  --v12-night-a85: rgb(15 21 39 / 0.86);
+  --v12-red-a85: rgb(220 15 10 / 0.88);
+  --v12-red-line: #b80c08;     /* земля за границей на войлоке */
+  --v12-scrim: rgb(15 21 39 / 0.6);
+  --v12-error: #b00d08;
+  --v12-error-night: #ff8a7a;
+  --v12-ok: #2f6b3a;
+
+  /* ---------- Шрифт ---------- */
+  --v12-display: var(--font-v12-display), "Arial Narrow", system-ui, sans-serif;
+  --v12-text: var(--font-v12-text), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --v12-map-font: var(--font-v12-display), system-ui, sans-serif;
+  --v12-voice: "FLAR" 100, "VOLM" 0;   /* раструбные окончания: голос, высеченный в камне */
+  --v12-voice-loud: "FLAR" 100, "VOLM" 60;
+
+  --v12-fs-xs: 0.875rem;
+  --v12-fs-sm: 1rem;
+  --v12-fs-md: 1.1875rem;     /* 19 px: у Ysabeau маленький x-height */
+  --v12-fs-lg: clamp(1.25rem, 0.5vw + 1.1rem, 1.5rem);
+  --v12-fs-xl: clamp(1.5rem, 1.1vw + 1.15rem, 2.125rem);
+  --v12-fs-2xl: clamp(1.875rem, 2.4vw + 1rem, 3.5rem);
+  --v12-fs-3xl: clamp(2.5rem, 5vw + 0.6rem, 6rem);
+  --v12-fs-hero: clamp(2.5rem, 6.6vw, 7.75rem);
+  --v12-fs-giant: clamp(4.5rem, 12.5vw, 13rem);
+
+  /* ---------- Сетка и ритм ---------- */
+  --v12-max: 1440px;
+  --v12-gutter: clamp(16px, 3.4vw, 56px);
+  --v12-gap: clamp(16px, 1.8vw, 28px);
+  --v12-section: clamp(88px, 11vw, 176px);
+  --v12-hdr: 68px;
+  --v12-radius: 6px;
+  --v12-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (max-width: 47.99rem) {
+  :root:has(.v12-theme),
+  .v12-theme {
+    --v12-hdr: 60px;
+  }
+}
+
+:root:has(.v12-theme) {
+  background: var(--v12-paper);
+  color-scheme: light;
+  scroll-padding-top: calc(var(--v12-hdr) + 16px);
+}
+:root:has(.v12-theme) body {
+  background: var(--v12-paper);
+  color: var(--v12-ink);
+}
+.v12-theme .fill {
+  border-width: 1.5px;
+  border-radius: 3px;
+}
+.v12-theme ::selection {
+  background: var(--v12-red);
+  color: var(--v12-paper);
+}

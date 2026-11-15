@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useSelection } from "@/store/selection";
-import { Mark } from "./Mark";
+import { KurakLogo } from "./brand/KurakLogo";
 import { MiniQuilt } from "./MiniQuilt";
 import s from "./Header.module.css";
 
@@ -43,8 +43,7 @@ export function Header() {
     <header className={`${s.header} on-field`}>
       <div className={`container ${s.row}`}>
         <Link href="/" className={s.logo} aria-label="Курак, на главную">
-          <Mark className={s.mark} />
-          <span className={s.word}>Курак</span>
+          <KurakLogo className={s.mark} />
         </Link>
 
         <nav aria-label="Основная" className={s.nav}>

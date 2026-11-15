@@ -1,0 +1,5 @@
+/* Доска без JS: цвета холста из токенов стиля */
+.svg { display: block; width: 100%; height: 100%; }
+.slab { fill: var(--cv-slab); stroke: var(--cv-line); stroke-width: 2; }
+.hole { fill: var(--cv-hole); stroke: var(--cv-rim); stroke-width: 1.5; }
+.stone { fill: var(--cv-stone); }

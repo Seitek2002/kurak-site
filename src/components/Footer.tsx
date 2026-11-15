@@ -3,7 +3,7 @@ import { CATEGORIES } from "@/content/services";
 import { SITE } from "@/content/site";
 import { Patch } from "./Patch";
 import { Fill } from "./Fill";
-import { Mark } from "./Mark";
+import { KurakLogo } from "./brand/KurakLogo";
 import s from "./Footer.module.css";
 
 /** Подвал: шов из восьми лоскутов, под ним контакты и строка про партнёров. */
@@ -21,8 +21,7 @@ export function Footer() {
       <div className={`container ${s.grid}`}>
         <div className={s.brand}>
           <Link href="/" className={s.logo} aria-label="Курак, на главную">
-            <Mark className={s.mark} />
-            <span className={s.word}>Курак</span>
+            <KurakLogo className={s.mark} />
           </Link>
           <p className={s.about}>
             Маркетинговое агентство полного цикла в&nbsp;Бишкеке. Курак по-кыргызски значит лоскутное шитьё: из разных кусков одно целое.

@@ -22,6 +22,8 @@ import {
   type Person,
 } from "@/content/kurak";
 import { CASE_MAIN, V4 } from "@/content/v4";
+import { SLOT_TEXT, casePhoto, clientLogo, reviewPhoto, teamPhoto } from "@/content/photos";
+import { PhotoSlot } from "@/components/brand/PhotoSlot";
 import { Piece } from "./Piece";
 import { Header } from "./Header";
 import { ServiceMenu } from "./ServiceMenu";
@@ -131,7 +133,6 @@ function Cases({ lang }: { lang: Lang }) {
             const main = CASE_MAIN[c.id] ?? c.categories[0] ?? "smm";
             return (
               <article key={c.id} className={s.case} data-tone={i % 3 === 0 ? "red" : "ink"} data-main={main}>
-                <Piece cat={main} className={s.caseArt} />
                 <h3 className={s.caseHead}>
                   <span className={s.caseNum}>
                     <Fill value={dt(c.result, lang)} note="результат кейса" />
@@ -160,6 +161,10 @@ function Cases({ lang }: { lang: Lang }) {
                     );
                   })}
                 </ul>
+                <div className={s.casePhoto}>
+                  <PhotoSlot kind="scene" src={casePhoto(c.id)} label={SLOT_TEXT.project[lang]} className={s.caseSlot} />
+                  <Piece cat={main} className={s.casePiece} />
+                </div>
               </article>
             );
           })}
@@ -208,13 +213,18 @@ function About({ lang }: { lang: Lang }) {
   );
 }
 
-/** Портрет-заглушка: деталь направления и инициал. Заменится на 2D-рисунок (src) без смены вёрстки. */
-function Plate({ person, lang, size = "m" }: { person: Person; lang: Lang; size?: "m" | "l" | "s" }) {
-  const name = person.name.value[lang];
+/** «Руководитель SMM» → «руководитель SMM», «SMM жетекчиси» остаётся как есть */
+const lcFirst = (x: string) => (/^\p{Lu}\p{Ll}/u.test(x) ? x.charAt(0).toLocaleLowerCase("ru") + x.slice(1) : x);
+/** Подпись места под фото: по имени, а пока имя черновик, по роли */
+const portraitLabel = (p: Person, lang: Lang) =>
+  `${SLOT_TEXT.portrait[lang]}: ${p.name.draft ? lcFirst(p.role[lang]) : p.name.value[lang]}`;
+
+/** Портрет: место под фото, в углу деталь направления, которое ведёт человек. Фото встанет из content/photos.ts */
+function Plate({ person, lang, size = "m" }: { person: Person; lang: Lang; size?: "m" | "l" }) {
   return (
-    <div className={s.plate} data-size={size} aria-hidden="true">
+    <div className={s.plate} data-size={size}>
+      <PhotoSlot kind="person" src={teamPhoto(person.id)} label={portraitLabel(person, lang)} className={s.plateSlot} />
       <Piece cat={person.category} className={s.platePiece} />
-      {person.name.draft ? <span className={s.plateBlank} /> : <span className={s.plateInitial}>{name.charAt(0)}</span>}
     </div>
   );
 }
@@ -284,6 +294,7 @@ function Reviews({ lang }: { lang: Lang }) {
                 <p>«{r.text[lang]}»</p>
               </blockquote>
               <figcaption className={s.reviewWho}>
+                <PhotoSlot kind="person" hideLabel src={reviewPhoto(i)} label={SLOT_TEXT.author[lang]} className={s.reviewAvatar} />
                 <span>
                   <Fill value={dt(r.who, lang)} note="автор отзыва" />, {r.role[lang]}
                 </span>
@@ -293,9 +304,9 @@ function Reviews({ lang }: { lang: Lang }) {
           ))}
           <div className={s.clients}>
             <ul className={s.logos} aria-label={V4.reviews.logos[lang]}>
-              {CLIENT_LOGOS.map((l, i) => (
+              {CLIENT_LOGOS.map((_, i) => (
                 <li key={i} className={s.logo}>
-                  <Fill value={dt(l, lang)} note="логотип клиента" />
+                  <PhotoSlot kind="logo" src={clientLogo(i)} label={SLOT_TEXT.client[lang]} className={s.logoSlot} />
                 </li>
               ))}
             </ul>

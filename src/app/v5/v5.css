@@ -5,7 +5,7 @@
 /* Hallmark · waive 39b · the eight service patches stand 176px and the service rows 68px · Курак shows each direction as a felt patch of the quilt and each service as an accordion head, read as content by owners with medium digital literacy */
 /* Hallmark · waive 71 · the h3 of each service patch sits at the top edge of its tile · the Курак patches abut on a one-pixel seam like a sewn quilt, the head is inside a 176px tile */
 /* Hallmark · waive 72 · span.fill is the dashed outline around a draft Курак figure or name, inline with no fill · it marks a missing fact from the agency, it is not a box of running text */
-/* Hallmark · waive 80 · div.portrait is an arch from the Курак logo U with a logo letter and an initial, no person drawn · the brief asks for placeholder portraits from the logo geometry until the 2D drawings arrive */
+/* Hallmark · waive 80 · div.portrait is an arch from the Курак logo U holding a photo placeholder (silhouette and «Фото: имя») in the lead's felt tone · the agency sends the photos later, content/photos.ts swaps them in */
 /* Hallmark · dismissed F4 · the gold and ink fills are the pressed state of the add-to-request toggles (aria-pressed), the one filled primary is the red Курак action */
 /* Hallmark · dismissed 28a · the portrait img renders only when a 2D drawing of a Курак lead is supplied, below the fold, so lazy is right */
 /* Hallmark · note 65 · cream oklch(96.5% 0.022 82) and the red at hue 29.2 are the Курак logo's own cream #FDF4E3 and red #DC0F0A, pinned by the brief; madder felt carries half the page and the serif is the Kyrgyz-capable Noto Serif Display */
@@ -62,6 +62,16 @@
   --color-patch-gold: oklch(81% 0.1 86);
   --color-motif-dark: oklch(37% 0.09 22);
   --color-motif-light: oklch(68% 0.1 70);
+
+  /* Места под фото: войлочный лоскут с золотым стежком (кейсы, отзывы), кремовый для логотипов */
+  --color-slot-felt: oklch(28% 0.064 22);
+  --color-slot-felt-line: oklch(74% 0.1 76);
+  --color-slot-felt-ink: oklch(90% 0.03 76);
+  --color-slot-felt-hatch: oklch(31.5% 0.07 23);
+  --color-slot-paper: oklch(93.4% 0.03 80);
+  --color-slot-paper-line: oklch(60% 0.05 55);
+  --color-slot-paper-ink: oklch(38% 0.04 32);
+  --color-slot-paper-hatch: oklch(90.5% 0.036 78);
 
   /* Шрифты: антиква для заголовков, гротеск для текста */
   --font-display: var(--font-v5-serif), "Noto Serif Display", Georgia, serif;

@@ -1,7 +1,9 @@
 import { CASES, SITE, STATS } from "@/content/site";
 import { CATEGORY_INDEX } from "@/content/services";
+import { casePhoto, SLOT_TEXT } from "@/content/photos";
 import { Patch } from "./Patch";
 import { Fill } from "./Fill";
+import { PhotoSlot } from "./brand/PhotoSlot";
 import s from "./Cases.module.css";
 
 export function Cases() {
@@ -28,12 +30,15 @@ export function Cases() {
         <ul className={s.grid}>
           {CASES.map((c, i) => (
             <li key={c.id} className={s.card} data-cat={c.categories[0]} data-reveal style={{ "--i": i } as React.CSSProperties}>
-              <div className={s.strip} aria-hidden="true">
-                {c.categories.map((cat) => (
-                  <span key={cat} data-cat={cat}>
-                    <Patch cat={cat} />
-                  </span>
-                ))}
+              <div className={s.media}>
+                <PhotoSlot kind="scene" src={casePhoto(c.id)} label={SLOT_TEXT.project.ru} className={s.photo} />
+                <div className={s.strip} aria-hidden="true">
+                  {c.categories.map((cat) => (
+                    <span key={cat} data-cat={cat}>
+                      <Patch cat={cat} />
+                    </span>
+                  ))}
+                </div>
               </div>
               <h3 className={s.title}>
                 <span className={s.result}>

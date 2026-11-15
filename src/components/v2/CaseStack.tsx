@@ -1,7 +1,9 @@
 import { CASES, STATS } from "@/content/site";
 import { CATEGORY_INDEX } from "@/content/services";
+import { casePhoto, clientLogo, SLOT_TEXT } from "@/content/photos";
 import { Patch } from "../Patch";
 import { Fill } from "../Fill";
+import { PhotoSlot } from "../brand/PhotoSlot";
 import { Scene } from "./Scene";
 import s from "./CaseStack.module.css";
 
@@ -30,6 +32,9 @@ export function CaseStack() {
           {CASES.map((c, i) => (
             <li key={c.id} className={s.card} data-case data-cat={c.categories[0]} style={{ "--i": i } as React.CSSProperties}>
               <span className={s.shade} data-shade aria-hidden="true" />
+              <div className={s.media}>
+                <PhotoSlot kind="scene" src={casePhoto(c.id)} label={SLOT_TEXT.project.ru} className={s.photo} />
+              </div>
               <div className={s.art} aria-hidden="true">
                 {c.categories.map((cat) => (
                   <span key={cat} data-cat={cat}>
@@ -67,6 +72,16 @@ export function CaseStack() {
             Цифры в <span className="fill">пунктире</span> пока образцы. Заменим на настоящие кейсы с разрешения клиентов, под NDA без названий.
           </p>
         )}
+        <div className={s.clients}>
+          <h3 className={s.clientsTitle}>Клиенты, которые разрешили показать логотип</h3>
+          <ul className={s.logos} aria-label="Логотипы клиентов">
+            {[0, 1, 2, 3].map((i) => (
+              <li key={i} className={s.logo}>
+                <PhotoSlot kind="logo" src={clientLogo(i)} label={SLOT_TEXT.client.ru} className={s.logoSlot} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

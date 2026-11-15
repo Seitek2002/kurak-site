@@ -1,9 +1,23 @@
-.frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius-card); background: var(--c); }
+/* Портрет: лоскут направления как паспарту, фото пришито к нему стежком (пунктир плейсхолдера) */
+.frame {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius-card); background: var(--c);
+  container: portrait / inline-size;
+}
 .bg { position: absolute; inset: 0; display: block; }
-.initial {
-  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-  display: grid; place-items: center; width: 46%; aspect-ratio: 1;
-  background: var(--patch-light); color: var(--patch-dark); border-radius: 50%;
-  font-family: var(--font-display); font-size: clamp(2.25rem, 3.4vw, 3.5rem); line-height: 1;
-  outline: 1.5px dashed var(--patch-dark); outline-offset: -7px;
+.photo {
+  position: absolute; inset: 7cqi; border-radius: 3px; overflow: hidden;
+  box-shadow: 0 0 0 1px color-mix(in oklch, var(--patch-dark) 18%, transparent), 0 6px 14px -6px color-mix(in oklch, var(--patch-dark) 45%, transparent);
+}
+.slot {
+  --ph-bg: var(--patch-light);
+  --ph-hatch: color-mix(in oklch, var(--c-deep) 16%, transparent);
+  --ph-line: color-mix(in oklch, var(--patch-dark) 50%, transparent);
+  --ph-ink: var(--patch-dark);
+  border-radius: inherit;
+}
+/* Маленький портрет (группа на /komanda, телефон): остаётся силуэт, подпись читает скринридер */
+@container portrait (max-width: 150px) {
+  .photo { inset: 6cqi; }
+  .slot > span { display: none; }
+  .slot > svg { width: 52%; }
 }

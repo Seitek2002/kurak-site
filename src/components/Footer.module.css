@@ -3,9 +3,8 @@
 .seam > span { display: block; height: 40px; }
 .grid { display: grid; grid-template-columns: minmax(0, 5fr) repeat(3, minmax(0, 2fr)); gap: var(--space-xl); padding-block: var(--space-3xl) var(--space-2xl); }
 .brand { display: grid; gap: var(--space-lg); align-content: start; }
-.logo { display: inline-flex; align-items: center; gap: var(--space-sm); color: var(--color-on-field); text-decoration: none; justify-self: start; }
-.mark { width: 44px; height: 44px; }
-.word { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1; letter-spacing: 0.02em; text-transform: uppercase; }
+.logo { display: inline-flex; align-items: center; color: var(--color-logo); text-decoration: none; justify-self: start; border-radius: 4px; }
+.mark { width: auto; height: clamp(36px, 3vw + 8px, 48px); aspect-ratio: 443 / 93; }
 .about { color: var(--color-on-field-2); max-width: 40ch; }
 .col { display: grid; gap: var(--space-md); align-content: start; }
 .h { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600; color: var(--color-on-field-2); }

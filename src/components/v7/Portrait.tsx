@@ -1,11 +1,13 @@
+import { PhotoSlot } from "@/components/brand/PhotoSlot";
 import type { CategoryId } from "@/content/services";
-import { SHAPE, type ShapeId } from "./Art";
+import { teamPhoto } from "@/content/photos";
+import { BadgeMark, type ShapeId } from "./Art";
 import s from "./V7.module.css";
 
 /**
- * Портрет-заглушка руководителя: крупная фигура логотипа на цветном лоскуте и инициал.
- * У каждого направления своя фигура и цвет. Когда придут 2D-портреты, передайте src: картинка ляжет поверх
- * (слот data-slot прячет заглушку, если внутри есть img).
+ * Портрет руководителя: цветной лоскут направления как оправа, внутри место под фото (PhotoSlot),
+ * в углу наклейка с фигурой логотипа. У каждого направления своя фигура и цвет.
+ * Фото подставляется из content/photos.ts (teamPhoto): пока пути нет, видна рамка «Фото: имя».
  */
 const LOOK: Record<CategoryId, { shape: ShapeId; tone: string }> = {
   invest: { shape: "u", tone: "red" },
@@ -18,19 +20,19 @@ const LOOK: Record<CategoryId, { shape: ShapeId; tone: string }> = {
   team: { shape: "a", tone: "teal" },
 };
 
-export function Portrait({ category, initial, src, alt = "", size = "l" }: { category: CategoryId; initial: string; src?: string; alt?: string; size?: "l" | "s" }) {
+export function Portrait({ category, personId, label, size = "l" }: { category: CategoryId; personId?: string; label: string; size?: "l" | "s" }) {
   const look = LOOK[category];
-  const sh = SHAPE[look.shape];
   return (
-    <span className={`${s.portrait} ${size === "s" ? s.portraitS : ""}`} data-tone={look.tone} data-slot={`portrait-${category}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      {src ? <img src={src} alt={alt} /> : null}
-      <svg viewBox={`${sh.x} ${sh.y} ${sh.w} ${sh.h}`} className={s.portraitShape} aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
-        <path d={sh.d} fill="currentColor" />
-      </svg>
-      <span className={s.portraitInitial} aria-hidden="true">
-        {initial}
-      </span>
-    </span>
+    <div className={`${s.portrait} ${size === "s" ? s.portraitS : ""}`} data-tone={look.tone} data-slot={`portrait-${category}`}>
+      <PhotoSlot kind="person" src={teamPhoto(personId)} label={label} hideLabel={size === "s"} className={s.portraitPhoto} />
+      {size === "l" ? (
+        <span className={s.portraitBadge} aria-hidden="true">
+          <BadgeMark id={look.shape} className={s.portraitMark} />
+        </span>
+      ) : null}
+    </div>
   );
 }
+
+/** «Руководитель SMM» → «руководитель SMM» для подписи «Фото: …»; аббревиатуры не трогаем */
+export const lowerFirst = (t: string) => (t.length > 1 && t[1] === t[1]!.toLowerCase() ? t[0]!.toLowerCase() + t.slice(1) : t);

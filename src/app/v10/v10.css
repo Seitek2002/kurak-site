@@ -1,0 +1,199 @@
+/*
+ * Вариант 10 «Чий». Все цвета варианта только здесь, в одном блоке токенов (три стиля полотна).
+ * Фирменные цвета пришлют: база — красный и кремовый логотипа, к ним восемь цветов крашеной шерсти,
+ * по одному на направление (--v10-w1 … --v10-w8: SMM, PR, ивенты, брендинг, продажи, сайты, найм, инвестиции).
+ * Холст первого экрана читает те же токены (--v10-chiy-*), в коде цветов нет.
+ * Блок объявлен и на :root:has(.v10-theme), чтобы фон body и полоса прокрутки брали те же токены.
+ */
+
+/* ======================= ТОКЕНЫ ======================= */
+
+/* --- Общие: шрифт, ритм, образцы стилей для переключателя --- */
+:root:has(.v10-theme),
+.v10-theme {
+  --v10-font-display: var(--font-v10-display), "Arial Narrow", system-ui, sans-serif;
+  --v10-font-text: var(--font-v10-text), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --v10-fs-xs: 0.8125rem;
+  --v10-fs-sm: 0.9375rem;
+  --v10-fs-md: 1.0625rem;
+  --v10-fs-lg: 1.25rem;
+  --v10-fs-xl: clamp(1.375rem, 0.8vw + 1.1rem, 1.75rem);
+  --v10-fs-2xl: clamp(1.875rem, 2vw + 1.2rem, 3rem);
+  --v10-fs-section: clamp(2.75rem, 5.4vw + 0.5rem, 6.5rem);
+  --v10-fs-hero: clamp(3.25rem, 6.6vw + 0.4rem, 8.75rem);
+  --v10-fs-num: clamp(3.5rem, 7vw, 8rem);
+
+  --v10-max: 1520px;
+  --v10-gutter: clamp(16px, 3.4vw, 48px);
+  --v10-section: clamp(88px, 10vw, 160px);
+  --v10-header-h: 68px;
+  --v10-r-s: 4px;
+  --v10-r-m: 10px;
+  --v10-r-pill: 999px;
+  --v10-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Образцы стилей в переключателе: не меняются вместе со стилем */
+  --v10-sw-wool-a: #eedcb5;
+  --v10-sw-wool-b: #dc0f0a;
+  --v10-sw-wool-c: #2c4a8f;
+  --v10-sw-ink-a: #fdf4e3;
+  --v10-sw-ink-b: #17130f;
+  --v10-sw-ink-c: #dc0f0a;
+  --v10-sw-neon-a: #0e0b16;
+  --v10-sw-neon-b: #ff3b30;
+  --v10-sw-neon-c: #2ee6e0;
+}
+
+/* --- Стиль «Шерсть» (по умолчанию): крем логотипа, натуральная шерсть, тёплые краски --- */
+:root:has(.v10-theme),
+.v10-theme {
+  --v10-bg: #fdf4e3;            /* крем логотипа */
+  --v10-bg-2: #f4e5c6;          /* секции-«полотна» */
+  --v10-card: #fffaf0;
+  --v10-ink: #2a1b13;           /* чёрно-бурая шерсть: 15:1 на креме */
+  --v10-ink-2: #66503f;         /* вторичный текст: 6.6:1 на креме, 5.9:1 на bg-2 */
+  --v10-line: #dcc69c;
+  --v10-line-2: #b89b68;
+  --v10-red: #dc0f0a;           /* красный логотипа: знак, кнопка, фокус. На креме 4.7:1 */
+  --v10-red-hover: #b80c08;
+  --v10-on-red: #fdf4e3;        /* крем на красном: 4.7:1 */
+  --v10-focus: #dc0f0a;
+  --v10-error: #b80c08;
+  --v10-ok: #2f6b3a;
+  --v10-header-bg: rgb(253 244 227 / 0.92);
+  --v10-scrim: rgb(42 27 19 / 0.55);
+  --v10-reed: #c9a660;          /* голый стебель чия */
+  --v10-reed-2: #a8843f;
+
+  /* Восемь цветов крашеной шерсти, по направлению на цвет */
+  --v10-w1: #2c4a8f;            /* SMM: индиго */
+  --v10-w2: #d4921a;            /* PR: шафран */
+  --v10-w3: #b8325e;            /* ивенты: марена */
+  --v10-w4: #7a4a28;            /* брендинг: орех */
+  --v10-w5: #3d7344;            /* продажи: зелень */
+  --v10-w6: #137d78;            /* сайты: бирюза */
+  --v10-w7: #643c7c;            /* найм: слива */
+  --v10-w8: #d4642a;            /* инвестиции: абрикос */
+
+  /* Холст: фон полотна, линии рамки, знак, голый стебель, тень и блик витков, бумага (для «Туши») */
+  --v10-chiy-panel: #efdcb4;
+  --v10-chiy-line: #2a1b13;
+  --v10-chiy-red: #dc0f0a;
+  --v10-chiy-reed: #c39c52;
+  --v10-chiy-shade: #2a1b13;
+  --v10-chiy-sheen: #fffaf0;
+  --v10-chiy-paper: #fdf4e3;
+}
+
+/* --- Стиль «Тушь»: бумага, гравюрная линия тушью, красный только у знака, как печать --- */
+:root:has(.v10-theme[data-chiy="ink"]),
+.v10-theme[data-chiy="ink"] {
+  --v10-bg: #fdf4e3;
+  --v10-bg-2: #f6ead2;
+  --v10-card: #fffaf0;
+  --v10-ink: #17130f;           /* 17:1 */
+  --v10-ink-2: #4b443d;         /* 8.8:1 */
+  --v10-line: #d6cbb6;
+  --v10-line-2: #17130f;
+  --v10-red: #dc0f0a;
+  --v10-red-hover: #17130f;
+  --v10-on-red: #fdf4e3;
+  --v10-focus: #17130f;
+  --v10-error: #b80c08;
+  --v10-ok: #17130f;
+  --v10-header-bg: rgb(253 244 227 / 0.94);
+  --v10-scrim: rgb(23 19 15 / 0.55);
+  --v10-reed: #17130f;
+  --v10-reed-2: #17130f;
+  --v10-w1: #17130f;
+  --v10-w2: #17130f;
+  --v10-w3: #17130f;
+  --v10-w4: #17130f;
+  --v10-w5: #17130f;
+  --v10-w6: #17130f;
+  --v10-w7: #17130f;
+  --v10-w8: #17130f;
+  --v10-chiy-panel: #fdf4e3;
+  --v10-chiy-line: #17130f;
+  --v10-chiy-red: #dc0f0a;
+  --v10-chiy-reed: #17130f;
+  --v10-chiy-shade: #17130f;
+  --v10-chiy-sheen: #fdf4e3;
+  --v10-chiy-paper: #fdf4e3;
+}
+
+/* --- Стиль «Неон»: ночь, светящиеся нити --- */
+:root:has(.v10-theme[data-chiy="neon"]),
+.v10-theme[data-chiy="neon"] {
+  --v10-bg: #0e0b16;
+  --v10-bg-2: #161122;
+  --v10-card: #1b1528;
+  --v10-ink: #fbf1df;           /* 17:1 */
+  --v10-ink-2: #bdb2a2;         /* 9:1 */
+  --v10-line: #2f2742;
+  --v10-line-2: #574a72;
+  --v10-red: #ff3b30;           /* светящийся красный: 5.5:1 на ночи */
+  --v10-red-hover: #ff6a5c;
+  --v10-on-red: #12070a;        /* 5.5:1 на красном */
+  --v10-focus: #2ee6e0;
+  --v10-error: #ff7a6e;
+  --v10-ok: #4de08a;
+  --v10-header-bg: rgb(14 11 22 / 0.9);
+  --v10-scrim: rgb(0 0 0 / 0.65);
+  --v10-reed: #5d5175;
+  --v10-reed-2: #8a7aa8;
+  --v10-w1: #5b8cff;
+  --v10-w2: #ffc23d;
+  --v10-w3: #ff4fa0;
+  --v10-w4: #ff9a5c;
+  --v10-w5: #4de08a;
+  --v10-w6: #2ee6e0;
+  --v10-w7: #b57cff;
+  --v10-w8: #ff7a3d;
+  --v10-chiy-panel: #241c35;
+  --v10-chiy-line: #8a7aa8;
+  --v10-chiy-red: #ff3b30;
+  --v10-chiy-reed: #4a3f63;
+  --v10-chiy-shade: #0e0b16;
+  --v10-chiy-sheen: #fbf1df;
+  --v10-chiy-paper: #0e0b16;
+}
+
+/* ======================= ГЛОБАЛЬНОЕ (только под темой) ======================= */
+
+:root:has(.v10-theme) {
+  color-scheme: light;
+  background: var(--v10-bg);
+  scrollbar-color: var(--v10-line-2) var(--v10-bg);
+  scroll-padding-top: calc(var(--v10-header-h) + 12px);
+}
+:root:has(.v10-theme[data-chiy="neon"]) { color-scheme: dark; }
+:root:has(.v10-theme) body { background: var(--v10-bg); color: var(--v10-ink); }
+html.has-lenis:has(.v10-theme) { scroll-behavior: auto; }
+.lenis.lenis-smooth:has(.v10-theme) iframe { pointer-events: none; }
+
+.v10-theme {
+  min-height: 100svh;
+  background: var(--v10-bg);
+  color: var(--v10-ink);
+  font-family: var(--v10-font-text);
+  font-size: var(--v10-fs-md);
+  line-height: 1.55;
+  overflow-x: clip;
+  caret-color: var(--v10-red);
+  transition: background-color 0.45s var(--v10-ease), color 0.45s var(--v10-ease);
+}
+.v10-theme :where(h1, h2, h3, h4) {
+  font-family: var(--v10-font-display);
+  text-wrap: balance;
+}
+.v10-theme ::selection { background: var(--v10-red); color: var(--v10-on-red); }
+.v10-theme :focus-visible { outline: 3px solid var(--v10-focus); outline-offset: 3px; }
+.v10-theme .fill { border-color: currentColor; }
+.v10-theme [data-photo-slot] {
+  --ph-bg: color-mix(in oklab, var(--v10-ink) 5%, var(--v10-card));
+  --ph-line: var(--v10-line-2);
+  --ph-ink: var(--v10-ink-2);
+  --ph-hatch: color-mix(in oklab, var(--v10-ink) 7%, transparent);
+}
