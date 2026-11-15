@@ -1,0 +1,165 @@
+.menu { padding-top: var(--v8-section); }
+
+.head { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 24px 64px; }
+.title { font-size: clamp(56px, 2.5rem + 4vw, 112px); line-height: 0.9; letter-spacing: -0.035em; }
+.lede { max-width: 46ch; justify-self: end; color: var(--v8-ink-2); font-size: 18px; text-wrap: pretty; padding-bottom: 8px; }
+
+/* Лента категорий: прилипает под шапкой, как у Додо */
+.ribbonBar {
+  position: sticky; top: var(--v8-head-h); z-index: 30; margin-top: 40px;
+  background: var(--v8-paper); box-shadow: 0 1px 0 var(--v8-line);
+}
+.ribbon {
+  display: flex; gap: 6px; padding-block: 7px; overflow-x: auto; scrollbar-width: none;
+  margin-inline: -6px; padding-inline: 6px;
+  mask-image: linear-gradient(90deg, transparent, var(--v8-ink) 12px, var(--v8-ink) calc(100% - 24px), transparent);
+}
+.ribbon::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px;
+  font-weight: 600; font-size: 16px; text-decoration: none; color: var(--v8-ink); white-space: nowrap;
+  transition: background-color 0.2s var(--v8-ease), color 0.2s var(--v8-ease);
+}
+.pill:hover { background: var(--v8-panel); }
+.pill[aria-current="true"] { background: var(--v8-accent-soft); color: var(--v8-on-soft); }
+
+/* Категория */
+.cat { padding-top: 64px; scroll-margin-top: calc(var(--v8-ribbon-h) - 8px); }
+.catTitle { font-size: clamp(30px, 1.2rem + 1.5vw, 44px); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 28px; }
+.catShort { color: var(--v8-ink-2); font-size: 0.5em; font-weight: 700; letter-spacing: 0; margin-left: 0.25em; white-space: nowrap; }
+
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 28px; margin: 0; padding: 0; list-style: none; }
+
+/* Карточка «товара» */
+.card { position: relative; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.cardArt { display: grid; place-items: center; }
+.plate { width: 100%; max-width: 248px; height: auto; transition: transform 0.45s var(--v8-ease); }
+.card:hover .plate { transform: translateY(-6px) rotate(-4deg); }
+.cardBody { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.cardTitle { font-size: 21px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; }
+.cardOpen {
+  padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  letter-spacing: inherit; text-wrap: balance;
+}
+.cardOpen::after { content: ""; position: absolute; inset: -12px; border-radius: var(--v8-r-card); }
+.cardOpen:focus-visible { outline: none; }
+.cardOpen:focus-visible::after { outline: 3px solid var(--v8-focus); outline-offset: 0; }
+.cardText { color: var(--v8-ink-2); font-size: 15px; line-height: 1.5; flex: 1; }
+.cardFoot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.cardLead { font-size: 14px; line-height: 1.3; color: var(--v8-ink-2); min-width: 0; }
+.cardLeadLabel { display: block; color: var(--v8-ink-2); }
+.cardLead { color: var(--v8-ink); font-weight: 600; }
+.cardLeadLabel { font-weight: 400; }
+.pick { position: relative; z-index: 1; flex-shrink: 0; min-height: 44px; padding: 0 18px; font-size: 15px; }
+.pick svg { width: 18px; height: 18px; }
+
+/* Комбо */
+.comboHead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 24px; margin-bottom: 28px; }
+.comboHead .catTitle { margin-bottom: 0; }
+.comboLede { color: var(--v8-ink-2); max-width: 48ch; }
+.combos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.combo {
+  display: flex; flex-direction: column; gap: 20px; padding: 28px; border-radius: var(--v8-r-panel);
+  background: var(--v8-panel);
+}
+.stack { position: relative; height: 200px; }
+.stackPlate { position: absolute; top: 10px; left: 50%; width: 160px; height: auto; transition: transform 0.45s var(--v8-ease); }
+.stack0 { transform: translateX(-118%) rotate(-10deg); }
+.stack1 { z-index: 1; top: 0; width: 180px; transform: translateX(-50%); }
+.stack2 { transform: translateX(18%) rotate(10deg); }
+.combo:hover .stack0 { transform: translateX(-128%) rotate(-14deg); }
+.combo:hover .stack2 { transform: translateX(28%) rotate(14deg); }
+.stackMore {
+  position: absolute; z-index: 2; right: 8%; bottom: 6px; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+  background: var(--v8-ink); color: var(--v8-paper); font: 800 18px/1 var(--v8-font-display), sans-serif;
+}
+.comboBody { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.comboTitle { font-size: 26px; line-height: 1.1; letter-spacing: -0.015em; }
+.comboLine { color: var(--v8-ink-2); font-size: 16px; }
+.comboCount { font-weight: 600; font-size: 15px; margin-top: 4px; }
+.comboList { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; padding: 0; list-style: none; flex: 1; align-content: flex-start; }
+.comboList li { padding: 6px 12px; border-radius: 999px; background: var(--v8-paper); font-size: 14px; line-height: 1.25; }
+.comboList li[data-on] { background: var(--v8-accent-soft); color: var(--v8-on-soft); }
+.comboBtn { margin-top: auto; }
+
+/* ---------- Модалка услуги: как карточка пиццы ---------- */
+.dlg {
+  width: min(1000px, calc(100% - 48px)); max-width: none; max-height: none; padding: 0; border: 0; border-radius: var(--v8-r-panel);
+  background: var(--v8-paper); color: var(--v8-ink); box-shadow: var(--v8-shadow-pop); overflow: hidden;
+  opacity: 0; transform: translateY(24px) scale(0.97);
+  transition: opacity 0.25s var(--v8-ease), transform 0.35s var(--v8-ease), overlay 0.35s allow-discrete, display 0.35s allow-discrete;
+}
+.dlg[open] { opacity: 1; transform: none; }
+@starting-style { .dlg[open] { opacity: 0; transform: translateY(24px) scale(0.97); } }
+.dlg::backdrop { background: var(--v8-scrim); opacity: 0; transition: opacity 0.25s var(--v8-ease), overlay 0.35s allow-discrete, display 0.35s allow-discrete; }
+.dlg[open]::backdrop { opacity: 1; }
+@starting-style { .dlg[open]::backdrop { opacity: 0; } }
+
+.dlgBody { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); max-height: min(720px, calc(100dvh - 48px)); }
+.dlgArt { display: grid; place-items: center; padding: 40px; background: var(--v8-panel); }
+.dlgPlate { width: min(100%, 420px); height: auto; }
+.dlgInfo { display: flex; flex-direction: column; overflow-y: auto; padding: 44px 40px 0; overscroll-behavior: contain; }
+.dlgClose {
+  position: absolute; top: 16px; right: 16px; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%;
+  background: var(--v8-paper); color: var(--v8-ink); box-shadow: var(--v8-shadow-knob); cursor: pointer;
+  transition: background-color 0.2s var(--v8-ease), transform 0.2s var(--v8-ease);
+}
+.dlgClose:hover { background: var(--v8-panel); transform: rotate(90deg); }
+.dlgClose svg { width: 22px; height: 22px; }
+.dlgCat { color: var(--v8-ink-2); font-size: 15px; padding-right: 48px; }
+.dlgTitle { margin-top: 8px; font-size: clamp(28px, 1.2rem + 1.2vw, 38px); line-height: 1.08; letter-spacing: -0.02em; padding-right: 24px; }
+.dlgSub { margin-top: 28px; font-size: 18px; line-height: 1.2; font-weight: 700; }
+.dlgList { display: grid; gap: 10px; margin: 12px 0 0; padding: 0; list-style: none; }
+.dlgList li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.4; }
+.dlgList svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--v8-accent); margin-top: 1px; }
+.dlgAsk { position: relative; margin-top: 12px; padding: 16px 20px; border-radius: 20px 20px 20px 6px; background: var(--v8-cream); line-height: 1.45; }
+.dlgLead { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
+.dlgAvatar { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: var(--v8-cream); overflow: hidden; }
+.dlgFace { width: 100%; height: 100%; }
+.dlgLeadText { display: grid; gap: 2px; font-size: 15px; line-height: 1.3; }
+.dlgLeadText strong { font: 700 18px/1.2 var(--v8-font-display), sans-serif; }
+.dlgLeadText > span:last-child { color: var(--v8-ink-2); }
+.dlgLeadLabel { color: var(--v8-ink-2); font-size: 14px; }
+.dlgPrice { margin-top: 20px; color: var(--v8-ink-2); font-size: 15px; }
+.dlgFoot { position: sticky; bottom: 0; margin-top: auto; padding: 24px 0 32px; background: linear-gradient(transparent, var(--v8-paper) 24px); }
+
+@media (max-width: 75rem) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .combos { grid-template-columns: minmax(0, 1fr); }
+  .combo { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); align-items: center; gap: 28px; }
+}
+@media (max-width: 52rem) {
+  .head { grid-template-columns: minmax(0, 1fr); }
+  .lede { justify-self: start; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 20px; }
+  .combo { grid-template-columns: minmax(0, 1fr); }
+  .dlgBody { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); overflow-y: auto; overscroll-behavior: contain; }
+  .dlgInfo { overflow: visible; padding: 28px 24px 0; }
+  .dlgArt { padding: 24px; }
+  .dlgPlate { width: min(100%, 260px); }
+}
+@media (max-width: 35rem) {
+  .ribbonBar { margin-top: 28px; }
+  .cat { padding-top: 48px; }
+  .catTitle { margin-bottom: 20px; }
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .card { flex-direction: row; align-items: flex-start; gap: 16px; }
+  .cardArt { width: 112px; flex-shrink: 0; }
+  .card:hover .plate { transform: none; }
+  .cardTitle { font-size: 18px; }
+  .cardText { font-size: 14px; }
+  .cardFoot { align-items: flex-end; }
+  .cardLead { flex: 1; }
+  .combo { padding: 20px; }
+  .stack { height: 160px; }
+  .stackPlate { width: 124px; }
+  .stack1 { width: 140px; }
+  .dlg {
+    width: 100%; margin: auto 0 0; border-radius: var(--v8-r-panel) var(--v8-r-panel) 0 0;
+    transform: translateY(48px);
+  }
+  @starting-style { .dlg[open] { transform: translateY(48px); } }
+  .dlgBody { max-height: calc(100dvh - 32px); }
+  .dlgInfo { padding: 24px 20px 0; }
+  .dlgFoot { padding-bottom: 20px; }
+}

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useSelection } from "@/store/selection";
 import { Mark } from "../Mark";
 import { MiniQuilt } from "../MiniQuilt";
-import { VariantSwitch } from "../VariantSwitch";
 import s from "./V2Header.module.css";
 
 const NAV = [
@@ -69,7 +68,6 @@ export function V2Header() {
           </ul>
         </nav>
         <div className={s.actions}>
-          <VariantSwitch className={s.variant} />
           <button type="button" className={s.pick} onClick={() => setDrawer(true)} aria-haspopup="dialog">
             <MiniQuilt picked={picked} lastAdded={lastAdded} />
             <span className={s.pickLabel}>Подборка</span>

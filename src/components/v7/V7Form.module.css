@@ -1,0 +1,112 @@
+/* Форма «Расскажите о задаче» и облако услуг. Поля с линией снизу, как на референсе */
+
+.form { display: grid; gap: 22px; }
+.title { margin: 0 0 4px; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.12; }
+
+.field { display: grid; gap: 6px; }
+.label { font: 700 14px/1.3 var(--v7-font-text); color: var(--v7-ink-2); }
+.input {
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 2px;
+  border: 0;
+  border-bottom: 1.5px solid var(--v7-ink-3);
+  border-radius: 0;
+  background: transparent;
+  color: var(--v7-ink);
+  font: 500 18px/1.4 var(--v7-font-text);
+  transition: border-color 0.2s var(--v7-ease);
+}
+.input::placeholder { color: var(--v7-ink-3); opacity: 1; }
+.input:hover { border-bottom-color: var(--v7-ink); }
+.input:focus-visible { outline: none; border-bottom-color: var(--v7-red); box-shadow: 0 2px 0 var(--v7-red); }
+.input[aria-invalid="true"] { border-bottom-color: var(--v7-red); }
+.area { min-height: 96px; resize: vertical; }
+.err { font: 600 14px/1.4 var(--v7-font-text); color: var(--v7-red-press); }
+.hint { font-size: 13.5px; line-height: 1.4; color: var(--v7-ink-2); }
+
+.picked { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 4px; }
+.pickedLabel { font: 600 14px/1.3 var(--v7-font-text); }
+.pickedEmpty { font-size: 14px; line-height: 1.4; color: var(--v7-ink-2); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 4px 10px 4px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--v7-red);
+  color: var(--v7-paper);
+  font: 600 13.5px/1.25 var(--v7-font-text);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s var(--v7-ease);
+}
+.chip:hover { background: var(--v7-red-press); }
+.chipX { position: relative; flex: none; width: 14px; height: 14px; }
+.chipX::before, .chipX::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 1.8px;
+  border-radius: 2px;
+  background: currentColor;
+  rotate: 45deg;
+}
+.chipX::after { rotate: -45deg; }
+
+.form button.submit { justify-self: start; min-height: 56px; padding-inline: 28px; font-size: 16px; white-space: normal; text-align: left; }
+.submitArrow { width: 20px; height: 20px; }
+.status { min-height: 1.5em; font: 600 15px/1.5 var(--v7-font-text); }
+.status[data-tone="error"] { color: var(--v7-red-press); }
+.status[data-tone="offline"] { padding: 12px 16px; border-radius: 16px; background: var(--v7-cream); color: var(--v7-ink); }
+.status:empty { display: none; }
+
+.done { display: grid; gap: 12px; padding-block: 24px; }
+.doneText { font: 700 clamp(22px, 2.2vw, 30px)/1.2 var(--v7-font-display); letter-spacing: -0.02em; outline: none; }
+.promise { color: var(--v7-ink-2); }
+
+/* Облако услуг */
+.cloud { margin-top: clamp(56px, 7vw, 104px); }
+.cloudLabel { margin-bottom: 18px; font: 650 16px/1.4 var(--v7-font-text); color: var(--v7-ink-2); }
+.cloudList { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.cloudPill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 20px;
+  border: 1.5px solid var(--v7-red);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--v7-red);
+  font: 650 clamp(13px, 1vw, 15px)/1.2 var(--v7-font-text);
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s var(--v7-ease), color 0.2s var(--v7-ease);
+}
+.cloudPill:hover { background: var(--v7-red); color: var(--v7-paper); }
+.cloudPill[aria-pressed="true"] { background: var(--v7-red); color: var(--v7-paper); }
+.cloudPill[aria-pressed="true"]::before { content: "✓"; margin-right: 8px; }
+
+/* На телефоне облако — лента в четыре ряда с горизонтальной прокруткой, чтобы не растягивать страницу */
+@media (max-width: 40rem) {
+  .cloudList {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, auto);
+    justify-content: start;
+    gap: 8px;
+    margin-inline: calc(-1 * var(--v7-gutter));
+    padding: 2px var(--v7-gutter) 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+  .cloudPill { white-space: nowrap; font-size: 12.5px; padding-inline: 16px; }
+}

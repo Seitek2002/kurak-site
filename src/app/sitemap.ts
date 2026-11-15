@@ -10,5 +10,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/v2`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/v3`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/v3/kg`, changeFrequency: "monthly", priority: 0.8 },
+    // Варианты 4–9 с новым логотипом: у каждого русская и кыргызская страница
+    ...[4, 5, 6, 7, 8, 9].flatMap((n) => [
+      { url: `${SITE.url}/v${n}`, changeFrequency: "monthly" as const, priority: 0.8 },
+      { url: `${SITE.url}/v${n}/kg`, changeFrequency: "monthly" as const, priority: 0.8 },
+    ]),
   ];
 }

@@ -1,0 +1,157 @@
+/* Hallmark · shape: the constructor kit, a parts catalogue of eight details that builds the visitor's own курак poster and becomes the brief · genre: editorial · theme: custom · job: hire · idea: "Курак is patchwork: the five figures of the KURAK mark turn into eight details, one per task of the client, and the visitor sews their own курак from them" · vibe: "Bauhaus parts kit, red figures on cream paper"
+ * paper: oklch(97% 0.024 83.4) · accent: oklch(56.5% 0.227 29.1) · display: Nata Sans · body: Golos Text · hero: the KURAK mark assembles from its five figures over its own construction lines across all twelve columns, the headline under it on the left and the one action in the lower right corner of the first screen · nav: hairline bar with the mark, four links, the language pair, the mini курак and the one action · footer: colophon, the mark over channels, office and the language pair · imagery: none, the mark's own geometry · signature: the курак poster that builds itself from the visitor's details beside the menu and becomes the brief
+ * axes: light/grotesk-heavy/chromatic-red · posture: full-palette (cream paper, ink field, Курак red for the details and the one action) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V5 · weakest: H, eight details repeat in six places and could read as wallpaper; each place sets them at its own scale and job (row marker, poster cell, case art, portrait, schema node) and only the hero carries the whole mark */
+/* Hallmark · finish-review: subagent · fix · 8 findings · 8 resolved (phone poster strip and brief poster first, 3x3 desktop poster at 158px cells, headline names the курак, case copy cleared of the art, principle markers dropped, response time on its own line, figures set on quilt patches and the steps moved under the button as a chain, no hanging guillemet on phones) · copy: four competitor-proof heads rewritten · gap: none */
+/* Hallmark · waive 80 · div.mark is the KURAK logo the agency supplied, its five figures assembling over their own construction lines · the Курак mark is the hero picture of a page about building from its figures */
+/* Hallmark · dismissed 23 · the accent fill is the ::before plate of the notched v4-btn, inset to the button, not a viewport field of Курак red */
+/* Hallmark · dismissed 48 · the token block sits on ":root:has(.v4-theme), .v4-theme" as the Курак variant brief requires (one scoped block for every variant page); sloplint reads only :root or [data-theme] as a token block, no colour literal exists outside it */
+
+/* ---------- Токены: все цвета и шрифты варианта 4 только здесь ---------- */
+:root:has(.v4-theme),
+.v4-theme {
+  /* Бумага и чернила: кремовый знака, почти чёрный тёплый */
+  --color-paper: oklch(97% 0.024 83.4);
+  --color-paper-2: oklch(93.6% 0.03 80);
+  --color-paper-3: oklch(90% 0.034 78);
+  --color-ink: oklch(19% 0.014 45);
+  --color-ink-2: oklch(33% 0.016 45);
+  --color-muted: oklch(45% 0.02 50);
+  --color-rule: oklch(84% 0.03 76);
+  --color-edge: oklch(55% 0.03 60);
+  --color-guide: oklch(78% 0.06 50);
+
+  /* Красный Курака: детали знака и одна главная кнопка */
+  --color-accent: oklch(56.5% 0.227 29.1);
+  --color-accent-hover: oklch(50% 0.205 29);
+  --color-accent-ink: oklch(97% 0.024 83.4);
+  --color-accent-text: oklch(50% 0.205 29);
+  --color-focus: oklch(53% 0.215 29);
+  --color-error: oklch(50% 0.205 29);
+  --color-selection: oklch(88% 0.07 40);
+
+  /* Чернильное поле: схема работы и кейсы */
+  --color-on-ink: oklch(97% 0.024 83.4);
+  --color-on-ink-2: oklch(80% 0.02 78);
+  --color-on-ink-rule: oklch(38% 0.016 45);
+  --color-accent-on-ink: oklch(63% 0.22 29);
+  --color-focus-on-ink: oklch(97% 0.024 83.4);
+
+  /* Шрифты: Nata Sans для дисплея и цифр, Golos Text для текста */
+  --font-display: var(--font-v4-display), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-v4-body), ui-sans-serif, system-ui, sans-serif;
+
+  /* Шкала */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.625rem;
+  --text-2xl: clamp(1.5rem, 1vw + 1.1rem, 2.125rem);
+  --text-section: clamp(2.125rem, 2.6vw + 1.1rem, 3.75rem);
+  --text-display: clamp(2.125rem, 5.4vw + 0.25rem, 5.75rem);
+  --text-figure: clamp(4rem, 8.5vw, 7.75rem);
+
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px;
+  --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+
+  --page-max: 1360px;
+  --gutter: clamp(16px, 4vw, 56px);
+  --gap-columns: clamp(12px, 1.7vw, 24px);
+  --header-h: 64px;
+  --section-gap: clamp(96px, 9vw, 144px);
+  --notch: 14px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+}
+
+/* ---------- Основа ---------- */
+:root:has(.v4-theme) { scrollbar-color: var(--color-edge) var(--color-paper); }
+:root:has(.v4-theme) body { background: var(--color-paper); color: var(--color-ink); }
+.v4-theme {
+  background: var(--color-paper); color: var(--color-ink);
+  font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55;
+  font-synthesis: none; font-kerning: normal;
+}
+/* Сброс и голос заголовков через :where, чтобы классы компонентов спокойно их перекрывали */
+:where(.v4-theme) :where(h1, h2, h3, h4, p, figure, blockquote, dl, dd) { margin: 0; }
+:where(.v4-theme) :where(h1, h2) {
+  font-family: var(--font-display); font-weight: 800; letter-spacing: -0.025em; line-height: 1.02;
+  text-wrap: balance; overflow-wrap: break-word; min-width: 0;
+}
+:where(.v4-theme) :where(h3, h4) { text-wrap: balance; overflow-wrap: break-word; min-width: 0; }
+:where(.v4-theme) :where(p, li, dd) { text-wrap: pretty; }
+.v4-theme ::selection { background: var(--color-selection); color: var(--color-ink); }
+.v4-theme :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.v4-theme [hidden] { display: none !important; }
+
+/* Контейнер: 12 колонок, на 1920 растут поля, а не сетка */
+.v4-wrap { width: 100%; max-width: calc(var(--page-max) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
+
+/* ---------- Ссылки ---------- */
+.v4-link {
+  color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.24em;
+  text-decoration-color: var(--color-edge);
+  transition: text-decoration-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+.v4-link:hover { text-decoration-color: currentColor; color: var(--color-accent-text); }
+.v4-link:active { color: var(--color-ink); }
+
+/* ---------- Кнопки ----------
+ * Главная: красный блок с V-вырезом справа, как буква K знака. Вырез нарисован подложкой,
+ * чтобы clip-path не срезал кольцо фокуса. Вторая: чернильная линия, без выреза. */
+.v4-btn {
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+  min-height: 52px; padding: 0 calc(var(--space-lg) + var(--notch)) 0 var(--space-lg);
+  border: 0; border-radius: 0; background: transparent; color: var(--color-accent-ink);
+  font: 600 var(--text-md)/1 var(--font-body); white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: transform var(--dur-micro) var(--ease-out);
+}
+.v4-btn::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: var(--color-accent);
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--notch)) 50%, 100% 100%, 0 100%);
+  transition: background-color var(--dur-short) var(--ease-out);
+}
+.v4-btn:hover::before { background: var(--color-accent-hover); }
+.v4-btn:active { transform: translateY(1px); }
+.v4-btn:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.v4-btn:disabled, .v4-btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.v4-btn[aria-busy="true"] { cursor: progress; }
+.v4-btn--sm { --notch: 12px; min-height: 44px; padding-left: var(--space-md); padding-right: calc(var(--space-md) + var(--notch)); font-size: var(--text-sm); }
+
+.v4-btn--line {
+  padding: 0 var(--space-lg); color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  transition: transform var(--dur-micro) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+.v4-btn--line.v4-btn--sm { padding: 0 var(--space-md); }
+.v4-btn--line::before { background: var(--color-paper); clip-path: none; }
+.v4-btn--line:hover { color: var(--color-paper); }
+.v4-btn--line:hover::before, .v4-btn--line[aria-pressed="true"]::before { background: var(--color-ink); }
+.v4-btn--line[aria-pressed="true"] { color: var(--color-paper); }
+.v4-btn--line[aria-pressed="true"]:hover::before { background: var(--color-ink-2); }
+.v4-btn--line:disabled:hover { color: var(--color-ink); }
+.v4-btn--line:disabled:hover::before { background: var(--color-paper); }
+
+/* ---------- Пропуск: данные, которых агентство ещё не прислало ---------- */
+.v4-theme .fill {
+  display: inline-block; padding: max(var(--space-2xs), 0.36em) max(var(--space-xs), 0.55em); line-height: 1.15; border: 1px dashed currentColor; border-radius: 0;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+/* Расцветки деталей: четыре сочетания бумаги, чернил и красного (клетки курака, мини-курак, отметки) */
+.v4-theme [data-tone="red"] { --bg: var(--color-paper); --fg: var(--color-accent); }
+.v4-theme [data-tone="ink"] { --bg: var(--color-ink); --fg: var(--color-paper); }
+.v4-theme [data-tone="fill"] { --bg: var(--color-accent); --fg: var(--color-paper); }
+.v4-theme [data-tone="well"] { --bg: var(--color-paper-3); --fg: var(--color-ink); }
+
+/* Пропуск ссылки «к содержанию» в цветах варианта */
+:root:has(.v4-theme) .skip { background: var(--color-ink); color: var(--color-paper); border-radius: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-link, .v4-btn, .v4-btn::before, .v4-btn--line { transition: none; }
+}

@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { useSelection } from "@/store/selection";
 import { Mark } from "./Mark";
 import { MiniQuilt } from "./MiniQuilt";
-import { VariantSwitch, VariantLinks } from "./VariantSwitch";
 import s from "./Header.module.css";
 
 const NAV = [
@@ -65,7 +64,6 @@ export function Header() {
         </nav>
 
         <div className={s.actions}>
-          <VariantSwitch className={s.variant} />
           <button
             type="button"
             className={s.pick}
@@ -109,7 +107,6 @@ export function Header() {
               </Link>
             </li>
           ))}
-          <VariantLinks className={s.sheetLink} />
         </ul>
       </nav>
     </header>

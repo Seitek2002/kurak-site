@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/content/site";
 import { Fill } from "../Fill";
-import { VariantLinks } from "../VariantSwitch";
 import { QuiltWord } from "./QuiltWord";
 import s from "./V2Footer.module.css";
 
@@ -27,7 +26,6 @@ export function V2Footer() {
             <ul className={s.list}>
               <li><Link className="link" href="/komanda">Вся команда</Link></li>
               <li><a className="link" href="#zayavka">Заявка</a></li>
-              <VariantLinks className="link" />
             </ul>
           </div>
         </div>

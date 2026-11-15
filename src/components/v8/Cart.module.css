@@ -1,0 +1,78 @@
+/* Панель заявки справа */
+.drawer {
+  position: fixed; inset: 0 0 0 auto; width: min(460px, 100%); max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0;
+  background: var(--v8-paper); color: var(--v8-ink); box-shadow: var(--v8-shadow-pop);
+  border-radius: var(--v8-r-panel) 0 0 var(--v8-r-panel);
+  transform: translateX(100%);
+  transition: transform 0.4s var(--v8-ease), overlay 0.4s allow-discrete, display 0.4s allow-discrete;
+}
+.drawer[open] { transform: none; }
+@starting-style { .drawer[open] { transform: translateX(100%); } }
+.drawer::backdrop { background: var(--v8-scrim); opacity: 0; transition: opacity 0.3s var(--v8-ease), overlay 0.4s allow-discrete, display 0.4s allow-discrete; }
+.drawer[open]::backdrop { opacity: 1; }
+@starting-style { .drawer[open]::backdrop { opacity: 0; } }
+
+.panel { display: flex; flex-direction: column; height: 100%; }
+.top { display: flex; align-items: center; gap: 8px; padding: 20px 20px 12px 28px; }
+.title { flex: 1; font-size: 28px; line-height: 1.1; letter-spacing: -0.02em; }
+.iconBtn {
+  display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 50%;
+  background: var(--v8-panel); color: var(--v8-ink); cursor: pointer; transition: background-color 0.2s var(--v8-ease);
+}
+.iconBtn:hover { background: var(--v8-panel-2); }
+.iconBtn svg { width: 22px; height: 22px; }
+.top .iconBtn:first-child { margin-left: -8px; }
+
+.scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 4px 28px 28px; }
+.countRow { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.count { font-weight: 600; }
+.clear {
+  min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--v8-ink-2); font: inherit; font-size: 15px; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 0.2em;
+}
+.clear:hover { color: var(--v8-ink); }
+.items { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.item { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--v8-line); }
+.thumb { width: 64px; height: 64px; flex-shrink: 0; }
+.itemText { flex: 1; min-width: 0; }
+.itemTitle { font: 700 17px/1.25 var(--v8-font-display), sans-serif; }
+.itemCat { color: var(--v8-ink-2); font-size: 14px; margin-top: 2px; }
+.remove {
+  display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 50%;
+  background: none; color: var(--v8-ink-2); cursor: pointer; transition: background-color 0.2s var(--v8-ease), color 0.2s var(--v8-ease);
+}
+.remove:hover { background: var(--v8-accent-soft); color: var(--v8-on-soft); }
+.remove svg { width: 20px; height: 20px; }
+.note { margin-top: 16px; color: var(--v8-ink-2); font-size: 15px; }
+
+.empty { display: grid; justify-items: center; text-align: center; gap: 12px; padding-top: 24px; }
+.emptyPlate { width: 180px; height: auto; }
+.emptyTitle { font-size: 24px; }
+.emptyText { color: var(--v8-ink-2); max-width: 30ch; }
+
+.foot { padding: 16px 28px 28px; box-shadow: 0 -1px 0 var(--v8-line); }
+.formLede { color: var(--v8-ink-2); margin-bottom: 20px; }
+
+/* Плавающая таблетка на телефоне */
+.float {
+  position: fixed; z-index: 35; left: 0; right: 0; bottom: max(16px, env(safe-area-inset-bottom)); display: none; justify-content: center;
+  padding-inline: var(--v8-gutter); pointer-events: none;
+  transition: transform 0.35s var(--v8-ease), opacity 0.25s var(--v8-ease);
+}
+.float[data-hidden] { transform: translateY(140%); opacity: 0; }
+.floatBtn { pointer-events: auto; box-shadow: var(--v8-shadow-pill); min-width: min(100%, 280px); }
+.sep { width: 1px; height: 22px; background: currentColor; opacity: 0.45; }
+.floatCount { display: inline-block; font-variant-numeric: tabular-nums; animation: v8-pop 0.45s var(--v8-ease); }
+@keyframes v8-pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 40rem) {
+  .float { display: flex; }
+  .drawer { width: 100%; border-radius: 0; }
+  .top { padding: 12px 12px 8px 20px; }
+  .scroll { padding: 4px 20px 24px; }
+  .foot { padding: 12px 20px 20px; }
+}

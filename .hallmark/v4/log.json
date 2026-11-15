@@ -1,0 +1,32 @@
+[
+ {
+  "mode": "build",
+  "scope": "page",
+  "shape": "Constructor kit",
+  "theme": "custom",
+  "axes": "light/grotesk-heavy/chromatic-red",
+  "hero": "Poster: full-width mark assembling over construction lines, headline left, action lower right",
+  "nav": "hairline bar with mark, four links, language pair, mini kurak, one action",
+  "footer": "colophon",
+  "imagery": "none, the mark geometry",
+  "photos": [],
+  "entry": "/v4",
+  "sections": [
+   "hero mark assembly",
+   "services accordion + live kurak poster + bundles",
+   "case posters with giant figures",
+   "quilt of eight details with figure patches + name story",
+   "team plates from details",
+   "sample reviews + logo slots",
+   "ink band: principles + schema you to manager to eight leads",
+   "brief: kurak poster + form + chain of next steps"
+  ],
+  "signature": "the kurak poster that builds itself from the chosen details and becomes the brief",
+  "waived": [
+   "80"
+  ],
+  "prompt": "Kurak agency Bishkek, variant 4 Constructor, Bauhaus/Swiss, RU and KY",
+  "fingerprint": "light/grotesk-heavy/chromatic-red · poster hero · accordion menu with sticky poster · 2x2 posters · quilt · ink schema band · split brief",
+  "date": "2026-11-15"
+ }
+]

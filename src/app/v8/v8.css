@@ -1,0 +1,173 @@
+/*
+ * Вариант 8 «Меню»: подача Додо Пиццы (страница «О нас» и меню) на языке Курака.
+ * Белый, светло-серые панели с большим скруглением, один тёплый акцент (красный логотипа),
+ * крупный округлый жирный гротеск. Сигнатура: круглые «тарелки» услуг из геометрии логотипа.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Токены: ЕДИНСТВЕННОЕ место с литеральными цветами варианта 8          */
+/* ------------------------------------------------------------------ */
+:root:has(.v8-theme),
+.v8-theme {
+  /* Интерфейс */
+  --v8-paper: #ffffff;
+  --v8-ink: #000000;
+  --v8-ink-2: #5b5e66; /* второстепенный текст: 6.3:1 на белом, 5.6:1 на панели */
+  --v8-panel: #f4f4f4;
+  --v8-panel-2: #e9e9e9;
+  --v8-line: #e3e3e3;
+  --v8-cream: #fdf4e3;
+  --v8-cream-2: #f8e6c6;
+  --v8-accent: #dc0f0a; /* красный логотипа, белый текст на нём 5.1:1 */
+  --v8-accent-hover: #bd0c08;
+  --v8-accent-ink: #ffffff;
+  --v8-accent-soft: #ffebe8;
+  --v8-accent-soft-2: #ffd9d3;
+  --v8-on-soft: #b40b07; /* красный текст на бледно-красном: 5.9:1 */
+  --v8-focus: #000000;
+  --v8-scrim: rgb(0 0 0 / 0.48);
+  --v8-shadow-card: 0 12px 32px rgb(0 0 0 / 0.08);
+  --v8-shadow-pop: 0 24px 64px rgb(0 0 0 / 0.18);
+  --v8-shadow-pill: 0 8px 24px rgb(220 15 10 / 0.28);
+  --v8-shadow-head: 0 1px 0 var(--v8-line), 0 6px 20px rgb(0 0 0 / 0.05);
+  --v8-shadow-knob: 0 2px 8px rgb(0 0 0 / 0.1);
+  --v8-ok: #1f7a4d;
+
+  /* Иллюстрации: тёплая палитра вокруг красного и кремового логотипа */
+  --v8-i-red: #dc0f0a;
+  --v8-i-coral: #f2694c;
+  --v8-i-pink: #ffb3a7;
+  --v8-i-blush: #ffd9d2;
+  --v8-i-sun: #ffb320;
+  --v8-i-butter: #ffdf86;
+  --v8-i-cream: #fdf4e3;
+  --v8-i-rim: #f5e2c0;
+  --v8-i-sky: #93c8ef;
+  --v8-i-mint: #8bd1b0;
+  --v8-i-denim: #3f5d8c;
+  --v8-i-ink: #2a2220;
+  --v8-i-white: #ffffff;
+  --v8-i-grey: #d8d4cf;
+  --v8-skin-a: #f6d3b6;
+  --v8-skin-b: #e6b088;
+  --v8-skin-c: #c98a60;
+  --v8-hair-a: #2a2220;
+  --v8-hair-b: #5b3a2a;
+  --v8-cheek: #f59a8a;
+}
+
+/* Не цвета: размеры и движение (и на :root, чтобы scroll-padding знал высоту шапки) */
+:root:has(.v8-theme),
+.v8-theme {
+  --v8-head-h: 72px;
+  --v8-ribbon-h: 64px;
+  --v8-gutter: 32px;
+  --v8-max: 1280px;
+  --v8-r-panel: 32px;
+  --v8-r-card: 24px;
+  --v8-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --v8-ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --v8-section: 128px;
+}
+@media (max-width: 60rem) {
+  :root:has(.v8-theme), .v8-theme { --v8-gutter: 24px; --v8-section: 96px; }
+}
+@media (max-width: 40rem) {
+  :root:has(.v8-theme), .v8-theme { --v8-head-h: 60px; --v8-ribbon-h: 58px; --v8-gutter: 16px; --v8-section: 72px; --v8-r-panel: 24px; --v8-r-card: 20px; }
+}
+
+:root:has(.v8-theme) { scroll-padding-top: calc(var(--v8-head-h) + 16px); scrollbar-color: var(--v8-panel-2) var(--v8-paper); }
+:root:has(.v8-theme) body { background: var(--v8-paper); color: var(--v8-ink); }
+:root:has(.v8-theme dialog[open]) { overflow: hidden; }
+
+.v8-theme {
+  background: var(--v8-paper);
+  color: var(--v8-ink);
+  font-family: var(--v8-font-body), system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 40rem) { .v8-theme { font-size: 17px; } }
+
+/* :where — нулевая специфичность, чтобы отступы и размеры из модулей всегда побеждали */
+:where(.v8-theme) :is(h1, h2, h3, h4) {
+  margin: 0;
+  font-family: var(--v8-font-display), var(--v8-font-body), sans-serif;
+  font-weight: 800;
+  text-wrap: balance;
+  font-synthesis: none;
+}
+.v8-theme ::selection { background: var(--v8-accent-soft-2); color: var(--v8-ink); }
+:where(.v8-theme) :focus-visible { outline: 3px solid var(--v8-focus); outline-offset: 3px; }
+:where(.v8-theme) .fill { border-radius: 8px; border-width: 2px; }
+
+.v8-wrap { width: 100%; max-width: var(--v8-max); margin-inline: auto; padding-inline: var(--v8-gutter); box-sizing: border-box; }
+
+/* Кнопки-таблетки: как у Додо, но красные */
+.v8-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 24px; border: 0; border-radius: 999px;
+  font: 600 17px/1.1 var(--v8-font-body), sans-serif; text-decoration: none; white-space: nowrap;
+  cursor: pointer; user-select: none;
+  transition: background-color 0.2s var(--v8-ease), color 0.2s var(--v8-ease), transform 0.2s var(--v8-ease), box-shadow 0.2s var(--v8-ease);
+}
+.v8-btn:active { transform: scale(0.97); }
+.v8-btn:disabled, .v8-btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.v8-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+.v8-btn--primary { background: var(--v8-accent); color: var(--v8-accent-ink); }
+.v8-btn--primary:hover { background: var(--v8-accent-hover); }
+.v8-btn--soft { background: var(--v8-accent-soft); color: var(--v8-on-soft); }
+.v8-btn--soft:hover { background: var(--v8-accent-soft-2); }
+.v8-btn--grey { background: var(--v8-panel); color: var(--v8-ink); }
+.v8-btn--grey:hover { background: var(--v8-panel-2); }
+.v8-btn--lg { min-height: 60px; padding: 0 36px; font-size: 19px; }
+.v8-btn--block { width: 100%; }
+
+.v8-link {
+  color: inherit; font-weight: 500; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em;
+  text-decoration-color: var(--v8-accent-soft-2);
+  transition: text-decoration-color 0.2s var(--v8-ease);
+}
+.v8-link:hover { text-decoration-color: var(--v8-accent); }
+
+/* Заливки иллюстраций: SVG берут цвета только отсюда */
+.v8-theme .f-red { fill: var(--v8-i-red); }
+.v8-theme .f-coral { fill: var(--v8-i-coral); }
+.v8-theme .f-pink { fill: var(--v8-i-pink); }
+.v8-theme .f-blush { fill: var(--v8-i-blush); }
+.v8-theme .f-sun { fill: var(--v8-i-sun); }
+.v8-theme .f-butter { fill: var(--v8-i-butter); }
+.v8-theme .f-cream { fill: var(--v8-i-cream); }
+.v8-theme .f-rim { fill: var(--v8-i-rim); }
+.v8-theme .f-sky { fill: var(--v8-i-sky); }
+.v8-theme .f-mint { fill: var(--v8-i-mint); }
+.v8-theme .f-denim { fill: var(--v8-i-denim); }
+.v8-theme .f-ink { fill: var(--v8-i-ink); }
+.v8-theme .f-white { fill: var(--v8-i-white); }
+.v8-theme .f-grey { fill: var(--v8-i-grey); }
+.v8-theme .f-skin-a { fill: var(--v8-skin-a); }
+.v8-theme .f-skin-b { fill: var(--v8-skin-b); }
+.v8-theme .f-skin-c { fill: var(--v8-skin-c); }
+.v8-theme .f-hair-a { fill: var(--v8-hair-a); }
+.v8-theme .f-hair-b { fill: var(--v8-hair-b); }
+.v8-theme .f-cheek { fill: var(--v8-cheek); }
+.v8-theme .f-paper { fill: var(--v8-paper); }
+.v8-theme .s-ink { stroke: var(--v8-i-ink); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v8-theme .s-red { stroke: var(--v8-i-red); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v8-theme .s-sun { stroke: var(--v8-i-sun); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v8-theme .s-white { stroke: var(--v8-i-white); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v8-theme .s-mint { stroke: var(--v8-i-mint); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v8-theme .s-paper { stroke: var(--v8-paper); }
+.v8-theme .s-cream { stroke: var(--v8-i-cream); fill: none; stroke-linecap: round; }
+.v8-theme .s-coral { stroke: var(--v8-i-coral); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v8-theme .s-denim { stroke: var(--v8-i-denim); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v8-theme .s-pink { stroke: var(--v8-i-pink); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v8-theme .s-skin-a { stroke: var(--v8-skin-a); fill: none; stroke-linecap: round; }
+.v8-theme .s-skin-b { stroke: var(--v8-skin-b); fill: none; stroke-linecap: round; }
+.v8-theme .s-skin-c { stroke: var(--v8-skin-c); fill: none; stroke-linecap: round; }
+.v8-theme .s-hair-a { stroke: var(--v8-hair-a); fill: none; stroke-linecap: round; }
+
+@media (prefers-reduced-motion: reduce) {
+  .v8-theme *, .v8-theme *::before, .v8-theme *::after { animation: none !important; transition: none !important; }
+}

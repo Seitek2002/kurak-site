@@ -1,0 +1,37 @@
+[
+ {
+  "mode": "build",
+  "scope": "page",
+  "shape": "owner statement (calculator, menu, comparison, sticky cases, 30-day scale, team, reviews, objections, bill)",
+  "theme": "custom",
+  "axes": "light/grotesk-sans/chromatic-red",
+  "hero": "Ledger: headline over an editable one-line equation, subhead and action under the total",
+  "nav": "report header, red wordmark, six anchors, language pair, one ink action; menu under 75rem, bottom bar on phone",
+  "footer": "ledger: wordmark and name story beside contacts, anchors, language",
+  "imagery": "none: the visitor numbers as chart, portraits from the five logo shapes spelling KURAK",
+  "photos": [],
+  "entry": "/v6",
+  "fingerprint": "light grotesk, equation hero, chart, accordion ledger, table, sticky list, scale, shape portraits, details FAQ, bill+form",
+  "sections": [
+   "hero equation",
+   "loss chart and diagnosis",
+   "eight tasks ledger + bundles",
+   "freelancer/staff/Kurak table + principles",
+   "cases sticky head",
+   "first 30 days scale (draft)",
+   "figures + team portraits",
+   "reviews + logo slots",
+   "objections + FAQ",
+   "bill without prices + form"
+  ],
+  "signature": "lost-leads calculator carried into the request as a prefilled task",
+  "waived": [
+   "72",
+   "39b",
+   "44c",
+   "71"
+  ],
+  "prompt": "Kurak variant 6 Esep: marketing counted in som, sells by arithmetic, RU and KG",
+  "date": "2026-11-15"
+ }
+]

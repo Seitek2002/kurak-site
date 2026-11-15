@@ -237,7 +237,6 @@ a.tabInner:active { translate: 0 -10px; }
   .caseLead .caseBody { padding-inline: var(--space-md); }
 }
 @media (max-width: 48rem) {
-  .variant > :first-child { display: none; }
   .headCta, .heroWrite { display: none; }
   .pill { padding-left: var(--space-md); gap: var(--space-sm); }
   .options { grid-template-columns: minmax(0, 1fr); }

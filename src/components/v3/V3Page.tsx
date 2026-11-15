@@ -2,7 +2,6 @@ import Link from "next/link";
 import { CASES, SITE } from "@/content/site";
 import { CASES3, FAQ3, PAINS, PATH, STEPS3, TEAM3, UI, WORDS, type Lang } from "@/content/v3";
 import { Fill } from "../Fill";
-import { VariantSwitch, VariantLinks } from "../VariantSwitch";
 import { Wizard } from "./Wizard";
 import { V3Form } from "./V3Form";
 import { PainButton } from "./PainButton";
@@ -71,7 +70,6 @@ export function V3Page({ lang }: { lang: Lang }) {
                   </Link>
                 ))}
               </nav>
-              <VariantSwitch tone="paper" className={s.variant} label={UI.variant[lang]} />
               <a href="#svyaz" className={`v3-btn ${s.headCta}`}>
                 {UI.write[lang]}
               </a>
@@ -283,9 +281,8 @@ export function V3Page({ lang }: { lang: Lang }) {
           <p className={s.footStatement}>{UI.footerAbout[lang]}</p>
           <div className={s.footCols}>
             <div>
-              <h2 className={s.footH}>{UI.otherVariants[lang]}</h2>
+              <h2 className={s.footH}>{UI.langLabel[lang]}</h2>
               <ul className={s.footList}>
-                <VariantLinks className="link" />
                 <li>
                   <Link className="link" href={PATH[other]} prefetch={false} hrefLang={other} lang={other}>
                     {other === "ky" ? "Кыргызча" : "На русском"}

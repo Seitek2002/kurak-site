@@ -24,7 +24,6 @@
 .pick:active { transform: translateY(1px); }
 .count { min-width: 1.5em; font-variant-numeric: tabular-nums; font-weight: 600; text-align: center; }
 .cta { flex-shrink: 0; }
-.variant { margin-right: var(--space-xs); }
 .ctaShort { display: none; }
 
 .burger {
@@ -41,11 +40,10 @@
 @media (min-width: 60.0625rem) { .sheet { display: none !important; } }
 @media (max-width: 75rem) {
   .pickLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .variant > :first-child { display: none; }
   .nav ul { gap: var(--space-md); }
 }
 @media (max-width: 60rem) {
-  .nav, .variant { display: none; }
+  .nav { display: none; }
   .pickLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .burger { display: inline-flex; }
   .row { gap: var(--space-md); }

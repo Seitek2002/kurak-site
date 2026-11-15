@@ -48,7 +48,6 @@
   .actions { gap: var(--space-xs); }
   .pick { padding: 0 var(--space-sm); }
   .pick > :first-child { display: none; }
-  .variant > :first-child { display: none; }
   .cta { padding: 0 var(--space-md); }
 }
 @media (prefers-reduced-motion: reduce) { .header, .row { transition: none; } }

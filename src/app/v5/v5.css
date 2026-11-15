@@ -1,0 +1,186 @@
+/* Hallmark · shape: Felt and Cream, a quilt of the sales year opens the page, then eight patches of services, the sales calendar, proof, craft, people and the request · genre: editorial · theme: custom · job: hire · idea: "Курак sews marketing like a shyrdak: pieces cut to one plan, sewn to last for years, timed to the Kyrgyz year" · vibe: "warm felt, cream, red, gold thread, unhurried"
+ * paper: oklch(96.5% 0.022 82) · accent: oklch(56.6% 0.222 29.2) · display: Noto Serif Display at wdth 84 · body: Golos Text · hero: Quilt, the head on six columns over madder felt and the year sewn as twelve month patches on six, each patch a link into the calendar · nav: felt bar, cream wordmark, five links, language, one red action · footer: cream label, the red logo at full width over contacts, address, page links and language · imagery: none, the logo's five shapes cut as felt patches and gold borders · signature: the quilt of the Kyrgyz sales year on the first screen, opened below as the calendar with the add-to-request control
+ * axes: dark/high-contrast-serif/chromatic-red · posture: committed (madder felt carries half the page, logo red stays the one signal) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V5 · weakest: R, a felt and ornament page can tip into souvenir kitsch; the ornament is only the logo's five shapes and one zigzag thread, gold stays a 1px line, and no section carries more than one ornament */
+/* Hallmark · waive 39b · the eight service patches stand 176px and the service rows 68px · Курак shows each direction as a felt patch of the quilt and each service as an accordion head, read as content by owners with medium digital literacy */
+/* Hallmark · waive 71 · the h3 of each service patch sits at the top edge of its tile · the Курак patches abut on a one-pixel seam like a sewn quilt, the head is inside a 176px tile */
+/* Hallmark · waive 72 · span.fill is the dashed outline around a draft Курак figure or name, inline with no fill · it marks a missing fact from the agency, it is not a box of running text */
+/* Hallmark · waive 80 · div.portrait is an arch from the Курак logo U with a logo letter and an initial, no person drawn · the brief asks for placeholder portraits from the logo geometry until the 2D drawings arrive */
+/* Hallmark · dismissed F4 · the gold and ink fills are the pressed state of the add-to-request toggles (aria-pressed), the one filled primary is the red Курак action */
+/* Hallmark · dismissed 28a · the portrait img renders only when a 2D drawing of a Курак lead is supplied, below the fold, so lazy is right */
+/* Hallmark · note 65 · cream oklch(96.5% 0.022 82) and the red at hue 29.2 are the Курак logo's own cream #FDF4E3 and red #DC0F0A, pinned by the brief; madder felt carries half the page and the serif is the Kyrgyz-capable Noto Serif Display */
+/* Hallmark · hero-review: in-thread (no separate round) · headline wrap held with a non-breaking space, display capped at 5.5rem so 1920 reads as 1440, quilt motifs moved off the labels and hidden on phones */
+/* Hallmark · finish-review: subagent, fix · 8 findings · 7 resolved 1 partial · resolved: phone «сейчас» chip now wraps under the month; phone bar hidden while the hero action or the form is in view; principles cut to three and set as a numbered ledger beside the kurak of eight directions; patch heads capped at 64% clear of the motif; quilt months each carry their own launch; heads rewritten in Курак nouns (Что мы уже сшили, Как шьём проект, Наборы, сшитые заранее, Слово клиента, Расскажите задачу, скроим вместе); 65 noted · partial: «на годы» now shows as a draft «с нами с 20NN года» on every case, real tenure waits for the agency */
+/* Hallmark · note 48 · the one token block is :root:has(.v5-theme), .v5-theme as the Курак brief requires; sloplint reads only :root, html and [data-theme] as token blocks, and a copy with the selector swapped to :root lints 0 FAIL */
+
+/* ================================================================== */
+/* Токены варианта 5. Единственное место с цветами и шрифтами.         */
+/* Фирменные цвета пришлют позже: меняются только здесь.               */
+/* ================================================================== */
+:root:has(.v5-theme),
+.v5-theme {
+  /* Крем: бумага логотипа */
+  --color-paper: oklch(96.5% 0.022 82);
+  --color-paper-2: oklch(93.4% 0.03 80);
+  --color-paper-3: oklch(89.6% 0.04 78);
+  --color-ink: oklch(23% 0.035 30);
+  --color-ink-2: oklch(35% 0.04 30);
+  --color-muted: oklch(46% 0.04 38);
+  --color-rule: oklch(84% 0.04 72);
+  --color-edge: oklch(56% 0.05 50);
+
+  /* Войлок: марена, тёплый тёмный */
+  --color-felt: oklch(24% 0.055 22);
+  --color-felt-2: oklch(28% 0.064 22);
+  --color-felt-3: oklch(33% 0.075 24);
+  --color-felt-deep: oklch(19.5% 0.045 22);
+  --color-on-felt: oklch(95% 0.02 80);
+  --color-on-felt-2: oklch(84% 0.035 68);
+  --color-rule-felt: oklch(40% 0.06 32);
+
+  /* Золотая нить: тонкие линии и подписи */
+  --color-gold: oklch(80% 0.115 80);
+  --color-gold-ink: oklch(46% 0.09 68);
+
+  /* Красный логотипа: единственный сигнал, главная кнопка */
+  --color-accent: oklch(56.6% 0.222 29.2);
+  --color-accent-hover: oklch(50% 0.2 29);
+  --color-accent-ink: oklch(97% 0.02 82);
+  --color-focus: oklch(56.6% 0.222 29.2);
+  --color-focus-felt: oklch(80% 0.115 80);
+  --color-error: oklch(50% 0.19 27);
+  --color-error-felt: oklch(80% 0.12 45);
+  --color-success: oklch(45% 0.11 150);
+
+  /* Лоскуты: тона для курака года и услуг (на тёмных крем, на светлых чернила) */
+  --color-patch-red: oklch(49% 0.185 28);
+  --color-patch-wine: oklch(31% 0.085 14);
+  --color-patch-rose: oklch(43% 0.11 24);
+  --color-patch-walnut: oklch(35% 0.05 52);
+  --color-patch-ochre: oklch(75% 0.12 76);
+  --color-patch-sand: oklch(87% 0.055 76);
+  --color-patch-gold: oklch(81% 0.1 86);
+  --color-motif-dark: oklch(37% 0.09 22);
+  --color-motif-light: oklch(68% 0.1 70);
+
+  /* Шрифты: антиква для заголовков, гротеск для текста */
+  --font-display: var(--font-v5-serif), "Noto Serif Display", Georgia, serif;
+  --font-body: var(--font-v5-sans), "Golos Text", system-ui, sans-serif;
+
+  /* Шкала */
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.9375rem; --text-md: 1.0625rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem;
+  --text-display: clamp(2.75rem, 5.2vw + 0.75rem, 5.5rem);
+  --text-section: clamp(2.25rem, 2.7vw + 1rem, 3.75rem);
+  --text-title: clamp(1.375rem, 0.8vw + 1rem, 1.75rem);
+  --text-lead: clamp(1.125rem, 0.4vw + 1rem, 1.375rem);
+  --text-figure: clamp(3.25rem, 5vw + 1rem, 6rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+  --container: 1400px; --gutter: 64px; --gap-columns: 32px;
+  --section-gap: 144px; --section-gap-s: 112px;
+  --header-h: 72px;
+  --radius-control: 2px;
+  --z-raised: 10; --z-sticky-nav: 300; --z-modal: 400;
+}
+
+/* :root .v5-theme: блок токенов выше сборщик оборачивает в :is() со специфичностью 0,2,0 */
+@media (max-width: 60rem) {
+  :root .v5-theme { --gutter: 32px; --section-gap: 104px; --section-gap-s: 88px; }
+}
+@media (max-width: 40rem) {
+  :root .v5-theme { --gutter: 16px; --section-gap: 80px; --section-gap-s: 64px; --gap-columns: 16px; --header-h: 60px; }
+}
+
+/* ================================================================== */
+/* База темы                                                           */
+/* ================================================================== */
+:root:has(.v5-theme) { scroll-padding-top: calc(var(--header-h) + var(--space-md)); scrollbar-color: var(--color-edge) var(--color-felt-deep); }
+:root:has(.v5-theme),
+:root:has(.v5-theme) body { overflow-x: clip; }
+:root:has(.v5-theme) body { background: var(--color-felt-deep); color: var(--color-on-felt); }
+
+.v5-theme {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  font-synthesis: none;
+  --v5-focus: var(--color-focus);
+}
+/* Заголовки через :where, чтобы классы модулей их уверенно переопределяли */
+:where(.v5-theme) :where(h1, h2, h3) {
+  font-family: var(--font-display);
+  font-weight: 360;
+  font-stretch: 84%;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  min-width: 0;
+  hyphens: manual;
+}
+:where(.v5-theme) :where(h4) { margin: 0; font-family: var(--font-body); font-weight: 600; font-size: var(--text-md); line-height: 1.35; }
+.v5-theme p { text-wrap: pretty; }
+.v5-theme ::selection { background: var(--color-patch-sand); color: var(--color-ink); }
+.v5-theme :focus-visible { outline: 2px solid var(--v5-focus); outline-offset: 3px; }
+.v5-theme .num { font-variant-numeric: tabular-nums lining-nums; }
+
+/* Войлочная секция: тёмный фон, кремовый текст, золотой фокус */
+.v5-felt {
+  background: var(--color-felt);
+  color: var(--color-on-felt);
+  --v5-focus: var(--color-focus-felt);
+}
+
+/* ================================================================== */
+/* Кнопки и ссылки                                                     */
+/* ================================================================== */
+.v5-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+  min-height: 52px; padding: 0 var(--space-lg);
+  border: 1px solid var(--color-accent); border-radius: var(--radius-control);
+  background: var(--color-accent); color: var(--color-accent-ink);
+  font: 600 var(--text-md)/1.1 var(--font-body);
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.v5-btn:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+.v5-btn:active { transform: translateY(1px); }
+.v5-btn:disabled, .v5-btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.v5-btn[aria-busy="true"] { cursor: progress; }
+
+/* Вторая кнопка: контур в цвет текста, без заливки */
+.v5-btn-line {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+  min-height: 44px; padding: 0 var(--space-md);
+  border: 1px solid currentColor; border-radius: var(--radius-control);
+  background: transparent; color: inherit;
+  font: 600 var(--text-sm)/1.1 var(--font-body);
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.v5-btn-line:hover { background: var(--color-paper-2); }
+.v5-felt .v5-btn-line:hover { background: var(--color-felt-3); }
+.v5-btn-line:active { transform: translateY(1px); }
+.v5-btn-line:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.v5-btn-line[aria-pressed="true"] { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
+.v5-felt .v5-btn-line[aria-pressed="true"] { background: var(--color-gold); border-color: var(--color-gold); color: var(--color-felt-deep); }
+.v5-btn-line svg, .v5-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+.v5-link {
+  color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.24em;
+  text-decoration-color: var(--color-edge);
+  transition: text-decoration-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+.v5-link:hover { text-decoration-color: currentColor; }
+.v5-felt .v5-link { text-decoration-color: var(--color-gold); }
+.v5-felt .v5-link:hover { color: var(--color-gold); }
+
+/* Пропуск-черновик внутри темы: пунктир цвета текста */
+.v5-theme .fill { border-width: 1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .v5-btn, .v5-btn-line, .v5-link { transition: none; }
+}
