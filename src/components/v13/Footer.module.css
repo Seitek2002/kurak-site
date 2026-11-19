@@ -1,0 +1,57 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css · footer: warm-ink field, the red mark over contacts, portfolio, sections, language */
+.footer { padding-block: var(--space-3xl) var(--space-xl); background: var(--color-night); color: var(--color-on-night); }
+.footer :focus-visible { outline-color: var(--color-focus-on-field); }
+.grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-2xl) var(--space-xl); }
+.brand { display: grid; gap: var(--space-sm); align-content: start; }
+.mark { width: min(100%, 280px); height: auto; color: var(--color-brand); }
+.tagline { font: 600 1rem/1 var(--font-body); letter-spacing: 0.14em; color: var(--color-on-night-2); }
+.one { margin-top: var(--space-sm); max-width: 30ch; font-size: var(--t-lead); line-height: 1.45; color: var(--color-on-night); }
+
+.col { display: grid; gap: var(--space-md); align-content: start; }
+.footer .colTitle { font-family: var(--font-body); font-variation-settings: normal; font-size: var(--t-sm); font-weight: 600; color: var(--color-on-night-2); }
+
+.contacts { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2xs); }
+.contact { display: grid; grid-template-columns: 22px auto minmax(0, 1fr); align-items: center; gap: var(--space-sm); min-height: 44px; color: var(--color-on-night); text-decoration: none; }
+.contact svg { width: 20px; height: 20px; color: var(--color-on-night-2); }
+.cLabel { font-size: var(--t-sm); color: var(--color-on-night-2); }
+.cValue { font-weight: 600; font-variant-numeric: tabular-nums; justify-self: start; }
+a.contact:hover .cValue { text-decoration: underline; text-underline-offset: 0.2em; }
+.address { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: var(--space-sm); align-items: start; padding-top: var(--space-xs); border-top: 1px solid var(--color-night-rule); }
+.address svg { width: 20px; height: 20px; margin-top: 2px; color: var(--color-on-night-2); }
+.address > span { display: grid; gap: 2px; }
+
+.note { font-size: 0.9375rem; line-height: 1.5; color: var(--color-on-night-2); max-width: 32ch; }
+.pf { display: grid; gap: var(--space-xs); justify-items: start; }
+.pfLink, .share {
+  display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; color: var(--color-on-night);
+  font: 600 1rem/1.2 var(--font-body); text-decoration: none; cursor: pointer;
+}
+.pfLink svg, .share svg { width: 20px; height: 20px; flex-shrink: 0; }
+.pfLink span { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.25em; text-decoration-color: var(--color-brand); }
+.pfLink:hover span { text-decoration-color: var(--color-on-night); }
+.pfLink:active span { text-decoration-color: var(--color-on-night-2); }
+.share { padding: 0 var(--space-md); border: 1px solid var(--color-night-rule); border-radius: 999px; background: transparent; font-weight: 400; font-size: 0.9375rem; transition: border-color var(--dur-short) var(--ease-out); }
+.share:hover { border-color: var(--color-on-night-2); }
+.share:active { border-color: var(--color-on-night); }
+.status { font-size: var(--t-sm); color: var(--color-on-night-2); }
+.status:empty { display: none; }
+
+.links { list-style: none; margin: 0; padding: 0; display: grid; }
+.link { display: inline-flex; align-items: center; min-height: 40px; color: var(--color-on-night); text-decoration: none; transition: color var(--dur-short) var(--ease-out); }
+.link:hover { color: var(--color-on-night-2); text-decoration: underline; text-underline-offset: 0.2em; }
+.link:active { color: var(--color-on-night); }
+
+.base { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-night-rule); }
+.langs { display: flex; gap: var(--space-xs); list-style: none; margin: 0 auto 0 0; padding: 0; }
+.lang { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-md); border: 1px solid var(--color-night-rule); border-radius: 999px; color: var(--color-on-night); text-decoration: none; font-size: 0.9375rem; transition: border-color var(--dur-short) var(--ease-out); }
+.lang:hover { border-color: var(--color-on-night-2); }
+.lang[aria-current="page"] { border-color: var(--color-on-night); font-weight: 600; }
+
+@media (max-width: 75rem) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 40rem) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+  .footer { padding-top: var(--space-2xl); }
+}
+@media (prefers-reduced-motion: reduce) { .share, .link, .lang { transition: none; } }

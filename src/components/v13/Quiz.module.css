@@ -1,0 +1,97 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css · the plan quiz as a sewn patch */
+.card {
+  position: relative; container-type: inline-size;
+  padding: clamp(20px, 1rem + 1.2vw, 36px);
+  border-radius: var(--v13-radius); background: var(--color-paper-2); color: var(--color-ink);
+}
+/* шов по краю: опрос пришит к первому экрану, как лоскут */
+.card::before {
+  content: ""; position: absolute; inset: 7px; pointer-events: none;
+  border: 1.5px dashed color-mix(in oklab, var(--color-brand) 55%, transparent); border-radius: calc(var(--v13-radius) - 7px);
+}
+
+.top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-md); }
+.topText { display: grid; gap: var(--space-2xs); min-width: 0; }
+.title { font-size: var(--t-h3); font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+.sub { font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink-2); max-width: 40ch; }
+
+.progress { display: flex; gap: var(--space-xs); list-style: none; margin: 0; padding: 4px 0 0; flex-shrink: 0; }
+.pip { width: 26px; height: 26px; border-radius: 4px; outline: 1.5px dashed var(--color-edge); outline-offset: -1.5px; overflow: hidden; }
+.pip[data-now] { outline-color: var(--color-ink); outline-style: solid; }
+.pip[data-done] { outline-color: transparent; }
+.pipPatch { width: 100%; height: 100%; opacity: 0.2; transform: scale(0.72) rotate(-18deg); transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out); }
+.pip[data-done] .pipPatch { opacity: 1; transform: none; }
+
+.body { display: grid; gap: var(--space-md); margin-top: var(--space-lg); }
+.q { margin: 0; padding: 0; border: 0; min-width: 0; }
+.legend { display: grid; gap: var(--space-2xs); padding: 0; margin-bottom: var(--space-md); }
+.count { font-size: var(--t-sm); color: var(--color-muted); }
+.qTitle { font-size: clamp(1.375rem, 1.05rem + 0.9vw, 1.75rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+.qTitle:focus { outline: none; }
+
+.options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
+.options > .option:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.option { position: relative; min-width: 0; }
+.option input { position: absolute; top: 50%; left: 18px; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.option label {
+  display: flex; align-items: center; gap: var(--space-sm); min-height: 54px; height: 100%; padding: var(--space-xs) var(--space-md);
+  border: 1px solid var(--color-rule-strong); border-radius: 10px; background: var(--color-raised);
+  font-weight: 400; line-height: 1.25; cursor: pointer;
+  transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+}
+.option label:hover { border-color: var(--color-ink-2); }
+.option label:active { background: var(--color-paper); }
+.option input:checked + label { border-color: var(--color-ink); background: var(--color-raised); box-shadow: inset 0 0 0 1px var(--color-ink); }
+.option input:focus-visible + label { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+.box {
+  display: grid; place-items: center; width: 20px; height: 20px; flex-shrink: 0;
+  border: 1.5px solid var(--color-edge); border-radius: 50%; background: var(--color-raised);
+  transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+}
+.options[data-multi] .box { border-radius: 5px; }
+.option input:checked + label .box { background: var(--color-brand); border-color: var(--color-brand); }
+.option input:checked + label .box::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-paper); }
+.options[data-multi] .option input:checked + label .box::after {
+  width: 10px; height: 5px; border-radius: 0; background: none;
+  border-left: 2px solid var(--color-paper); border-bottom: 2px solid var(--color-paper); transform: translateY(-1px) rotate(-45deg);
+}
+
+.nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-sm); }
+.hint { margin-right: auto; font-size: var(--t-sm); color: var(--color-error); min-height: 1lh; }
+.restart {
+  min-height: 44px; padding: 0 var(--space-xs); border: 0; background: none; color: var(--color-ink-2); cursor: pointer;
+  font: 400 0.9375rem/1 var(--font-body); text-decoration: underline; text-underline-offset: 0.25em; text-decoration-color: var(--color-rule-strong);
+  transition: color var(--dur-short) var(--ease-out), text-decoration-color var(--dur-short) var(--ease-out);
+}
+.restart:hover { color: var(--color-ink); text-decoration-color: currentColor; }
+.restart:active { color: var(--color-accent-text); }
+.note { font-size: var(--t-sm); color: var(--color-muted); }
+
+/* План */
+.planGrid { display: grid; gap: var(--space-lg); }
+.planHead { margin: 0 0 var(--space-xs); font-size: var(--t-sm); font-weight: 600; color: var(--color-muted); }
+.planList { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-xs); }
+.planItem { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: var(--space-sm); align-items: start; }
+.planPatch { width: 30px; height: 30px; border-radius: 4px; margin-top: 2px; }
+.planText { display: grid; gap: 1px; min-width: 0; }
+.planName { font-weight: 600; line-height: 1.3; }
+.planLead { font-size: var(--t-sm); color: var(--color-ink-2); line-height: 1.35; }
+.pm { margin-top: var(--space-sm); padding-top: var(--space-sm); border-top: 1px solid var(--color-rule-strong); font-size: var(--t-sm); font-weight: 600; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-xs); counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: var(--space-xs); font-size: 0.9375rem; line-height: 1.4; }
+.steps li::before {
+  content: counter(s); display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--color-ink); color: var(--color-paper); font: 600 0.75rem/1 var(--font-body);
+}
+
+@container (min-width: 520px) {
+  .planGrid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--space-xl); }
+}
+@container (max-width: 400px) {
+  .options { grid-template-columns: minmax(0, 1fr); }
+  .options > .option:last-child:nth-child(odd) { grid-column: auto; }
+  .option label { min-height: 50px; }
+  .nav { justify-content: stretch; }
+  .nav :global(.v13-btn) { flex: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .pipPatch, .option label, .box, .restart { transition: none; } }

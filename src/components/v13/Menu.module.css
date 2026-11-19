@@ -1,0 +1,89 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css · the menu that sews the visitor's quilt */
+.section { background: var(--color-paper); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--space-xl); row-gap: var(--space-2xl); align-items: start; }
+.head { grid-column: 1 / 9; display: grid; gap: var(--space-md); }
+.main { grid-column: 1 / 9; display: grid; gap: var(--space-3xl); min-width: 0; }
+.side { grid-column: 9 / -1; grid-row: 1 / span 2; position: sticky; top: calc(var(--v13-header) + var(--space-lg)); align-self: start; }
+
+/* Направления */
+.cats { border-bottom: 1px solid var(--color-rule-strong); }
+.cat { border-top: 1px solid var(--color-rule-strong); }
+.sum {
+  display: grid; grid-template-columns: 64px minmax(0, 1fr) 48px; align-items: center; gap: var(--space-lg);
+  min-height: 96px; padding-block: var(--space-md); list-style: none; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out);
+}
+.sum::-webkit-details-marker { display: none; }
+.sum:hover .goal { color: var(--color-accent-text); }
+.sum:hover .plus { background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink); }
+.sum:active .plus { transform: scale(0.94); }
+.sum:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; border-radius: 6px; }
+.catPatch { width: 64px; height: 64px; border-radius: 6px; transition: transform var(--dur-long) var(--ease-out); }
+.cat[open] .catPatch { transform: rotate(-6deg); }
+.sumText { display: grid; gap: 2px; min-width: 0; }
+.goal { font-size: var(--t-h3); font-weight: 800; line-height: 1.15; letter-spacing: -0.015em; transition: color var(--dur-short) var(--ease-out); }
+.short { font-size: var(--t-sm); color: var(--color-muted); }
+.plus {
+  display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--color-rule-strong); border-radius: 999px; color: var(--color-ink);
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+}
+.plus svg { width: 22px; height: 22px; transition: transform var(--dur-short) var(--ease-in-out); }
+.cat[open] .plus svg { transform: rotate(45deg); }
+
+.body { padding: 0 0 var(--space-xl) calc(64px + var(--space-lg)); display: grid; gap: var(--space-md); }
+.services { list-style: none; margin: 0; padding: 0; display: grid; }
+.svc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-lg); align-items: start; padding-block: var(--space-md); border-top: 1px solid var(--color-rule); }
+.svc:first-child { border-top: 0; padding-top: var(--space-2xs); }
+.svcText { display: grid; gap: var(--space-2xs); min-width: 0; }
+.svcTitle { font-size: 1.0625rem; font-weight: 600; line-height: 1.3; }
+.svcInc { font-size: 0.9375rem; color: var(--color-ink-2); line-height: 1.45; }
+.svcAsk { font-size: 0.9375rem; color: var(--color-ink-2); line-height: 1.45; }
+.askLabel { color: var(--color-muted); }
+.lead { font-size: var(--t-sm); color: var(--color-ink-2); }
+
+.add {
+  display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; padding: 0 var(--space-md) 0 var(--space-sm);
+  border: 1px solid var(--color-ink); border-radius: 999px; background: transparent; color: var(--color-ink);
+  font: 600 0.9375rem/1 var(--font-body); white-space: nowrap; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.add svg { width: 18px; height: 18px; }
+.add:hover { background: var(--color-paper-2); }
+.add:active { transform: translateY(1px); }
+.add[aria-pressed="true"] { background: var(--color-ink); color: var(--color-paper); }
+.add[aria-pressed="true"]:hover { background: var(--color-ink-2); border-color: var(--color-ink-2); }
+
+/* Готовые наборы */
+.bundles { display: grid; gap: var(--space-lg); }
+.bundlesTitle { font-size: var(--t-h3); font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+.bundleList { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-sm); }
+.bundle {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: var(--space-lg);
+  padding: var(--space-lg); border-radius: var(--v13-radius); background: var(--color-paper-2);
+}
+.bundleText { display: grid; gap: var(--space-2xs); min-width: 0; }
+.bundleName { font-size: 1.1875rem; font-weight: 600; line-height: 1.25; }
+.bundleLine { font-size: 0.9375rem; color: var(--color-ink-2); }
+.bundleSvc { font-size: var(--t-sm); color: var(--color-muted); line-height: 1.4; }
+.bundleQuilt { display: grid; grid-template-columns: repeat(3, 22px); }
+.bundlePatch { width: 22px; height: 22px; }
+
+@media (max-width: 75rem) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .head, .main { grid-column: 1 / -1; }
+  .side { grid-column: 1 / -1; grid-row: auto; position: static; }
+  .main { gap: var(--space-2xl); }
+}
+@media (max-width: 40rem) {
+  .grid { row-gap: var(--space-xl); }
+  .sum { grid-template-columns: 44px minmax(0, 1fr) 44px; gap: var(--space-sm); min-height: 80px; }
+  .catPatch { width: 44px; height: 44px; border-radius: 4px; }
+  .plus { width: 44px; height: 44px; }
+  .goal { font-size: 1.1875rem; }
+  .body { padding-left: 0; }
+  .svc { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+  .add { justify-self: start; }
+  .bundle { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); padding: var(--space-md); }
+  .bundleQuilt { order: -1; }
+}
+@media (prefers-reduced-motion: reduce) { .sum, .catPatch, .goal, .plus, .plus svg, .add { transition: none; } }

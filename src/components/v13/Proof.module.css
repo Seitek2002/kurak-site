@@ -1,0 +1,71 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css · cases with the result in the head, figures, reviews */
+.section { background: var(--color-paper); }
+.head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-xl); align-items: end; margin-bottom: var(--space-2xl); }
+.note { font-size: var(--t-sm); line-height: 1.5; color: var(--color-ink-2); max-width: 46ch; }
+
+/* Кейсы: две колонки со сдвигом, как лоскуты разной высоты */
+.cases { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2xl) var(--space-xl); }
+.case:nth-child(even) { margin-top: var(--space-3xl); }
+.caseInner { display: grid; gap: var(--space-md); }
+.photo { aspect-ratio: 16 / 10; border-radius: var(--v13-radius); }
+.result { display: grid; justify-items: start; gap: var(--space-sm); margin-top: var(--space-xs); }
+.resultFig { word-spacing: 0.12em; font-size: var(--t-figure); font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--color-brand); font-variation-settings: "wdth" 100; font-variant-numeric: tabular-nums; }
+.resultFig :global(.fill) { display: inline-block; padding: 0.06em 0.14em 0.02em; border-width: 2px; border-radius: 8px; }
+.resultLabel { font-size: var(--t-h3); font-weight: 800; line-height: 1.15; letter-spacing: -0.015em; color: var(--color-ink); }
+.client { display: flex; align-items: center; gap: var(--space-sm); font-weight: 600; color: var(--color-ink-2); }
+.cats { display: inline-flex; }
+.catPatch { width: 20px; height: 20px; }
+.story { display: grid; gap: var(--space-sm); margin: 0; padding-top: var(--space-sm); border-top: 1px solid var(--color-rule); }
+.story > div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--space-md); }
+.story dt { font-size: var(--t-sm); color: var(--color-muted); padding-top: 2px; }
+.story dd { margin: 0; line-height: 1.5; max-width: 52ch; }
+
+/* Цифры агентства */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: var(--space-4xl) 0 0; border-top: 2px solid var(--color-ink); }
+.stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: var(--space-xs); padding: var(--space-lg) var(--space-lg) 0; border-left: 1px solid var(--color-rule-strong); }
+.stat:first-child { padding-left: 0; border-left: 0; }
+.statFig { margin: 0; word-spacing: 0.12em; font: 800 clamp(2.5rem, 1.6rem + 2.6vw, 4.25rem)/1 var(--font-display); font-variation-settings: "wdth" 100; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.statLabel { font-size: 0.9375rem; color: var(--color-ink-2); white-space: nowrap; }
+
+/* Отзывы при кейсах и блок клиентов */
+.figure { display: grid; gap: var(--space-md); margin: 0; padding: var(--space-lg); border-radius: var(--v13-radius); background: var(--color-paper-2); }
+.text { margin: 0; padding: var(--space-md); border: 1px dashed color-mix(in oklab, var(--color-ink) 45%, transparent); border-radius: var(--v13-radius-s); }
+.text p { font-size: 1.0625rem; line-height: 1.55; text-indent: -0.45em; }
+.text p::before { content: "«"; }
+.text p::after { content: "»"; }
+.who { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--space-sm); align-items: center; }
+.avatar { width: 48px; height: 48px; border-radius: 50%; }
+.whoText { display: grid; gap: 2px; min-width: 0; }
+.name { font-weight: 600; }
+.role { font-size: var(--t-sm); color: var(--color-ink-2); }
+
+.clients { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-lg) var(--space-xl); margin-top: var(--space-4xl); align-items: start; }
+.clientsTitle { grid-column: 1 / -1; font-size: var(--t-h3); font-weight: 800; line-height: 1.15; letter-spacing: -0.015em; }
+.logos { display: grid; gap: var(--space-sm); margin: 0; }
+.logoRow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+.logo { min-width: 0; }
+.logoSlot { aspect-ratio: 5 / 2; border-radius: var(--v13-radius-s); }
+/* знак-заглушка из букв KURAK читается как чужой логотип: оставляем только подпись */
+.logoSlot svg { display: none; }
+.logosCap { font-size: var(--t-sm); color: var(--color-muted); }
+.otherQuotes { display: grid; gap: var(--space-md); }
+
+@media (max-width: 75rem) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat:nth-child(3) { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 60rem) {
+  .head { grid-template-columns: minmax(0, 1fr); }
+  .cases { grid-template-columns: minmax(0, 1fr); }
+  .case:nth-child(even) { margin-top: 0; }
+  .clients { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 40rem) {
+  .story > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
+  .figure { padding: var(--space-lg); }
+  .stats { margin-top: var(--space-3xl); }
+  .stat { padding: var(--space-md) var(--space-md) var(--space-md) 0; }
+  .stat:nth-child(even) { padding-left: var(--space-md); }
+  .stat:nth-child(n + 3) { border-top: 1px solid var(--color-rule-strong); }
+  .clients { margin-top: var(--space-3xl); }
+}

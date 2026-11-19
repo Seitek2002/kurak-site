@@ -1,0 +1,5 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css */
+.page { overflow-x: clip; }
+.calc { background: var(--color-paper-2); }
+.calcHead { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--space-xl); align-items: end; margin-bottom: var(--space-2xl); }
+@media (max-width: 60rem) { .calcHead { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); } }

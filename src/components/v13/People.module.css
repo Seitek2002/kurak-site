@@ -1,0 +1,30 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css · people: the project manager large, the leads beside */
+.section { background: var(--color-paper-2); }
+.head { display: grid; gap: var(--space-md); margin-bottom: var(--space-2xl); }
+.grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-xl); align-items: start; }
+.person { display: grid; gap: var(--space-md); }
+.pm { position: sticky; top: calc(var(--v13-header) + var(--space-lg)); }
+.photo { aspect-ratio: 1; border-radius: var(--v13-radius); --ph-bg: var(--color-paper-3); --ph-hatch: var(--color-paper-2); }
+.pm .photo { aspect-ratio: 4 / 5; max-width: 440px; }
+.photoWrap { position: relative; }
+.tag { position: absolute; left: var(--space-sm); top: var(--space-sm); width: 36px; height: 36px; border-radius: 4px; }
+.text { display: grid; gap: var(--space-2xs); }
+.name { font-size: var(--t-h2); font-weight: 800; line-height: 1.02; letter-spacing: -0.02em; }
+.nameS { font-size: var(--t-h3); font-weight: 800; line-height: 1.15; letter-spacing: -0.015em; }
+.role { font-weight: 600; color: var(--color-ink); }
+.exp { font-size: var(--t-sm); color: var(--color-ink-2); }
+.line { margin-top: var(--space-xs); font-size: var(--t-lead); line-height: 1.45; color: var(--color-ink-2); max-width: 36ch; }
+.lineS { margin-top: var(--space-2xs); font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink-2); }
+.leads { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2xl) var(--space-lg); }
+.partners { margin-top: var(--space-2xl); padding-top: var(--space-md); border-top: 1px solid var(--color-rule-strong); color: var(--color-ink-2); max-width: 60ch; }
+
+@media (max-width: 60rem) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .pm { position: static; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: end; }
+}
+@media (max-width: 40rem) {
+  .pm { grid-template-columns: minmax(0, 1fr); }
+  .pm .photo { aspect-ratio: 4 / 3; }
+  .leads { gap: var(--space-xl) var(--space-md); }
+  .nameS { font-size: 1.125rem; }
+}

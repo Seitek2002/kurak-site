@@ -1,0 +1,43 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css · the request on the madder field, the visitor's quilt beside the form */
+.section { padding-block: var(--v13-gap); background: var(--color-field); color: var(--color-on-field); }
+.section :focus-visible { outline-color: var(--color-focus-on-field); }
+.grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-3xl); align-items: start; }
+.side { display: grid; gap: var(--space-2xl); }
+.head { display: grid; gap: var(--space-md); }
+.lede { font-size: var(--t-lead); line-height: 1.5; color: var(--color-on-field-2); max-width: 40ch; }
+
+.card { padding: clamp(24px, 1rem + 2vw, 48px); border-radius: var(--v13-radius); background: var(--color-paper); color: var(--color-ink); }
+.card :focus-visible { outline-color: var(--color-focus); }
+.form { display: grid; gap: var(--space-md); }
+.field { display: grid; gap: var(--space-xs); }
+.label { font-weight: 600; }
+.input {
+  width: 100%; min-height: 54px; padding: 0 var(--space-md);
+  border: 1px solid var(--color-edge); border-radius: 10px; background: var(--color-raised); color: var(--color-ink);
+  font: 400 1rem/1.4 var(--font-body);
+  outline: 3px solid transparent; outline-offset: -1px;
+  transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+}
+.input::placeholder { color: var(--color-muted); opacity: 1; }
+.input:hover { border-color: var(--color-ink-2); }
+.input:focus-visible { outline-color: var(--color-focus); }
+.input[aria-invalid="true"] { border-color: var(--color-error); }
+.input:disabled { opacity: 0.55; cursor: not-allowed; }
+.area { min-height: 148px; padding-block: var(--space-sm); resize: vertical; line-height: 1.5; }
+.help { min-height: 1lh; font-size: var(--t-sm); line-height: 1.4; color: var(--color-ink-2); }
+.help[data-error] { color: var(--color-error); font-weight: 600; }
+.act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); padding-top: var(--space-xs); }
+.submit { min-height: 52px; padding: 0 var(--space-xl); font-size: 1.0625rem; }
+.promise { flex: 1 1 16rem; font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink-2); }
+.status { min-height: 1lh; font-weight: 600; line-height: 1.45; }
+.status[data-tone="error"] { color: var(--color-error); }
+.status[data-tone="offline"] { color: var(--color-ink); }
+.done { display: grid; place-items: center; min-height: 240px; padding: var(--space-xl); text-align: center; font: 800 var(--t-h3)/1.25 var(--font-display); }
+
+@media (max-width: 60rem) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }
+}
+@media (max-width: 40rem) {
+  .submit { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .input { transition: none; } }

@@ -1,0 +1,68 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css · the visitor's quilt, the signature */
+.panel {
+  --q-ink: var(--color-ink); --q-ink-2: var(--color-ink-2); --q-muted: var(--color-muted); --q-rule: var(--color-rule-strong); --q-hover: var(--color-paper-3);
+  display: grid; gap: var(--space-md); padding: var(--space-lg); border-radius: var(--v13-radius); background: var(--color-paper-2); color: var(--q-ink);
+}
+.panel[data-variant="form"] {
+  --q-ink: var(--color-on-field); --q-ink-2: var(--color-on-field-2); --q-muted: var(--color-on-field-2); --q-rule: var(--color-field-rule); --q-hover: var(--color-field-2);
+  padding: 0; background: transparent;
+}
+.panel[data-variant="form"] :focus-visible { outline-color: var(--color-focus-on-field); }
+
+.head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap; }
+.title { font-size: var(--t-h3); font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+.count { font-size: var(--t-sm); color: var(--q-ink-2); font-variant-numeric: tabular-nums; }
+
+.quilt { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; max-width: 340px; }
+.panel[data-variant="form"] .quilt { max-width: 400px; }
+.cell { display: block; aspect-ratio: 1; min-width: 0; animation: v13-sew 560ms var(--ease-out) both; }
+.patch { width: 100%; height: 100%; }
+.empty { animation: none; border: 1.5px dashed var(--q-rule); margin: -0.75px; }
+@keyframes v13-sew {
+  from { opacity: 0; transform: translateY(-18px) rotate(-16deg) scale(0.55); }
+  to { opacity: 1; transform: none; }
+}
+
+.emptyText { font-size: 0.9375rem; line-height: 1.45; color: var(--q-ink-2); max-width: 38ch; }
+
+.list { list-style: none; margin: 0; padding: 0; display: grid; max-height: min(40svh, 360px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.panel[data-variant="form"] .list { max-height: none; overflow: visible; }
+.row { display: grid; grid-template-columns: 22px minmax(0, 1fr) 44px; align-items: center; gap: var(--space-sm); min-height: 48px; border-top: 1px solid var(--q-rule); }
+.rowPatch { width: 22px; height: 22px; border-radius: 3px; }
+.rowText { display: grid; min-width: 0; padding-block: var(--space-xs); }
+.rowName { font-size: 0.9375rem; font-weight: 600; line-height: 1.3; }
+.rowSub { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; font-size: var(--t-sm); line-height: 1.35; color: var(--q-ink-2); }
+.remove {
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 999px;
+  background: transparent; color: var(--q-ink-2); cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+.remove svg { width: 18px; height: 18px; }
+.remove:hover { background: var(--q-hover); color: var(--q-ink); }
+.remove:active { color: var(--color-accent-text); }
+.panel[data-variant="form"] .remove:active { color: var(--color-on-field); }
+
+.go { justify-self: start; }
+
+/* Полоска курака внизу экрана в меню (до 75rem) */
+.bar {
+  display: none; position: sticky; bottom: var(--space-sm); z-index: var(--z-sticky);
+  align-items: center; gap: var(--space-sm); min-height: 60px; padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-sm);
+  border-radius: var(--v13-radius); background: var(--color-ink); color: var(--color-paper);
+}
+@media (max-width: 75rem) { .bar { display: flex; } }
+.barQuilt { display: flex; flex-shrink: 0; }
+.barCell { display: block; width: 28px; height: 28px; animation: v13-sew 560ms var(--ease-out) both; }
+.barText { flex: 1; min-width: 0; font-size: 0.9375rem; font-weight: 600; line-height: 1.25; }
+.barGo {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-md); flex-shrink: 0;
+  border-radius: 999px; background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; font-size: 0.9375rem; text-decoration: none; white-space: nowrap;
+  transition: background-color var(--dur-short) var(--ease-out);
+}
+.barGo:hover { background: var(--color-accent-hover); }
+.barGo:active { background: var(--color-accent-hover); }
+.barGo:focus-visible { outline: 3px solid var(--color-focus-on-field); outline-offset: 2px; }
+@media (max-width: 26rem) { .barCell:nth-child(n + 4) { display: none; } }
+
+@media (max-width: 40rem) { .quilt, .panel[data-variant="form"] .quilt { max-width: 260px; } }
+@media (prefers-reduced-motion: reduce) { .cell, .barCell { animation: none; } .remove, .barGo { transition: none; } }

@@ -1,0 +1,36 @@
+[
+ {
+  "mode": "build",
+  "scope": "page",
+  "shape": "Сборка: banner hero with the plan quiz, pinned patch story sewing the KURAK sign, menu that sews the visitor quilt, loss calculator, cases with quotes, people, rules and steps, request on madder",
+  "theme": "custom",
+  "axes": "light/geometric-sans/chromatic-red",
+  "hero": "Banner: the client sentence across the top, lede, apply, portfolio and share, contacts left, the plan quiz as a sewn card right",
+  "nav": "sticky cream bar, red mark, six anchors, Рус/Кыр, quilt count, red apply; menu under 75rem",
+  "footer": "warm-ink field, red mark with tagline, contacts and address, portfolio and share, sections, language",
+  "imagery": "PhotoSlot places for case photos, leads, review authors, client logos; patches from the logo geometry",
+  "photos": [],
+  "entry": "/v13",
+  "fingerprint": "cream geometric-wide, banner+quiz hero, pinned sign assembly, details menu with sticky quilt, equation calculator, staggered cases, PM-large team, steps with stitch, madder request",
+  "sections": [
+   "hero + plan quiz",
+   "pinned story: eight patches sew KURAK",
+   "menu + bundles + your quilt",
+   "loss calculator + diagnosis",
+   "cases with quotes, figures, clients",
+   "people",
+   "rules, steps, FAQ",
+   "request with the quilt",
+   "footer"
+  ],
+  "signature": "the KURAK sign sewn on scroll from eight direction patches, and the visitor quilt that carries plan, services and som into the request",
+  "waived": [
+   "39b",
+   "44c",
+   "72",
+   "24b"
+  ],
+  "prompt": "Kurak variant 13 Сборка: v3 quiz hero, v2 patch story and menu, v6 calculator, brand colours only, RU and KG",
+  "date": "2026-11-19"
+ }
+]

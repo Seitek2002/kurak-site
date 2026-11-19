@@ -1,0 +1,62 @@
+/* Hallmark · part of the Курак page system, variant 13, stamp and critique in src/app/v13/v13.css · the one scroll pattern: a pinned chapter where eight patches sew the KURAK sign */
+.section { position: relative; background: var(--color-paper-2); }
+.stage {
+  min-height: 100svh; display: grid; align-content: center; gap: clamp(24px, 4svh, 48px);
+  padding-block: calc(var(--v13-header) + var(--space-lg)) var(--space-2xl);
+}
+.head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-lg); }
+.title { max-width: 18ch; }
+
+.signWrap { position: relative; padding-block: clamp(12px, 3svh, 40px); }
+.sign { display: block; width: 100%; height: auto; overflow: visible; }
+.ghost { opacity: 0; }
+.seam { stroke: var(--patch-cream); stroke-width: 0.9; stroke-dasharray: 2.2 1.8; stroke-linecap: round; }
+
+.goals { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 var(--space-lg); }
+.goalItem { min-width: 0; border-top: 1px solid var(--color-rule-strong); transition: opacity var(--dur-long) var(--ease-out), border-color var(--dur-long) var(--ease-out); }
+.goal {
+  display: grid; grid-template-columns: 28px 1.75rem minmax(0, 1fr); grid-template-rows: auto auto; column-gap: var(--space-xs); align-items: start;
+  min-height: 44px; padding-block: var(--space-sm); color: inherit; text-decoration: none;
+  transition: color var(--dur-long) var(--ease-out);
+}
+.goal:hover .goalText { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: var(--color-brand); }
+.goal:active .goalText { color: var(--color-accent-text); }
+.goal:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; border-radius: 4px; }
+.swatch { width: 28px; height: 28px; border-radius: 4px; grid-row: 1 / 3; transition: transform var(--dur-long) var(--ease-out), opacity var(--dur-long) var(--ease-out); }
+.num { font-family: var(--font-display); font-weight: 800; font-size: var(--t-sm); line-height: 1.6; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.goalText { font-weight: 600; line-height: 1.3; }
+.short { grid-column: 3; font-size: var(--t-sm); color: var(--color-muted); }
+
+.finale { max-width: 60ch; font-size: var(--t-lead); line-height: 1.5; color: var(--color-ink-2); text-wrap: pretty; }
+
+/* Живая сцена: пройденные направления в полный цвет, текущее подчёркнуто красным */
+.section[data-live] .goalItem { color: var(--color-muted); }
+.section[data-live] .goalItem .swatch { opacity: 0.28; transform: scale(0.8) rotate(-10deg); }
+.section[data-live] .goalItem[data-on] { color: var(--color-ink); }
+.section[data-live] .goalItem[data-on] .swatch { opacity: 1; transform: none; }
+.section[data-live] .goalItem[data-current] { border-top-color: var(--color-brand); box-shadow: inset 0 2px 0 var(--color-brand); }
+.section[data-live] .goalItem[data-current] .num { color: var(--color-accent-text); }
+
+@media (max-width: 75rem) {
+  .goals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 60rem) {
+  .head { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 40rem) {
+  .stage { gap: var(--space-lg); padding-block: calc(var(--v13-header) + var(--space-md)) var(--space-xl); }
+  .goals { grid-template-columns: minmax(0, 1fr); }
+  .goal { padding-block: var(--space-xs); }
+  /* в закреплённой сцене на телефоне виден только текущий пункт, крупно */
+  .section[data-live] .goals { position: relative; min-height: 5.5rem; }
+  .section[data-live] .goalItem { position: absolute; inset: 0 0 auto; opacity: 0; }
+  .section[data-live] .goalItem[data-current] { opacity: 1; }
+  .section[data-live] .goal { grid-template-columns: 40px 1.75rem minmax(0, 1fr); }
+  .section[data-live] .swatch { width: 40px; height: 40px; }
+  .section[data-live] .goalText { font: 800 1.25rem/1.2 var(--font-display); font-variation-settings: "wdth" 104; letter-spacing: -0.01em; }
+  /* до первого лоскута показываем первое направление */
+  .section[data-live] .goals:not(:has([data-current])) .goalItem:first-child { opacity: 1; }
+  .signWrap { margin-inline: calc(-1 * var(--v13-gutter) + 4px); }
+  .finale { font-size: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { .goal, .goalItem, .swatch { transition: none; } }
