@@ -7,13 +7,13 @@ import s from "./Assembly.module.css";
 const CELLS: (number | "you")[] = [0, 1, 2, 7, "you", 3, 6, 5, 4];
 
 /**
- * Сцена-закрепление: пока человек листает, восемь лоскутов слетаются вокруг «Ваш бизнес»,
+ * Сцена-закрепление на войлоке марены: пока человек листает, восемь лоскутов слетаются вокруг «Ваш бизнес»,
  * подсвечивается текущее направление, в конце нить обшивает полотно.
  * Без движения: одеяло уже собрано, список целиком.
  */
 export function Assembly() {
   return (
-    <section id="sborka" className={s.section} aria-labelledby="sborka-title">
+    <section id="sborka" className={`${s.section} v2-felt`} aria-labelledby="sborka-title">
       <Scene target="sborka" scene="assembly" />
       <div className={`container ${s.stage}`} data-stage>
         <div className={s.copy}>
@@ -23,6 +23,9 @@ export function Assembly() {
           <ol className={s.goals}>
             {CATEGORIES.map((c, i) => (
               <li key={c.id} data-cat={c.id} className={s.goal} data-goal-i={i}>
+                <span className={s.swatch} aria-hidden="true">
+                  <Patch cat={c.id} plain />
+                </span>
                 <span className={s.num}>{c.n}</span>
                 <span className={s.goalText}>{c.goal}</span>
                 <span className={s.short}>{c.short}</span>

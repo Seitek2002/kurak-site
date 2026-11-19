@@ -1,49 +1,108 @@
-/* Hallmark · shape: Narrative Workflow, the path of working with Курак told as six numbered stages after the helper on a noticeboard · genre: playful · theme: Paste-up (dealt 2/3, seed marketing-agency-bishkek-small-544a·655b12bb·2026-11-12·r0) · pasteup: kraft · job: hire · draw: 1ab6b7 · redesign: full
- * paper: oklch(73% 0.068 70) · accent: oklch(93% 0.2 112) · display: Oswald (for League Gothic, no Cyrillic) · body: Literata (for Newsreader, no Cyrillic) · hero: Counter (swapped from the draw's Corridor after the hero review: the helper is the real thing of this page), the poster head on five columns, the helper form sheet lifted on seven with a fluorescent fact sheet pasted over its corner · nav: floating pill, a copy-paper bar with the stages, the language and variant switches and one action · footer: statement, one closing sentence large over the links and the photo credits · imagery: 3 library photographs through the copier on the case sheets · signature: the closing flyer with tear-off tabs, every tab a real channel (WhatsApp, Telegram, call)
- * axes: mid/display-condensed/chromatic-yellow · posture: committed (kraft board carries the page, one fluorescent sheet a screen) · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: H, six stages could flatten into a list; each stage carries a different object (wall of notices, typed sheet, photocopies, name rows, statement, rows) and the helper sheet leads the first screen and the number rides in its head */
+/* Hallmark · shape: Narrative Workflow, the path of working with Курак told as numbered stages after the helper on a noticeboard · genre: playful · theme: Paste-up (dealt 2/3, seed marketing-agency-bishkek-small-544a·655b12bb·2026-11-12·r0) · pasteup: brand board (sand, cream copy sheets, the logo red as the one signal sheet) · job: hire · draw: 1ab6b7 · redesign: full, round 2 by the client's notes (who we are on the first screen, contacts, portfolio, the logo's colours)
+ * paper: oklch(85% 0.044 78) sand · sheet: oklch(97.5% 0.022 84) the logo cream #FDF4E3 · accent: oklch(56.5% 0.227 29) the logo red #DC0F0A · ink: oklch(21% 0.025 35) warm toner · field: oklch(31% 0.1 24) madder · display: Oswald (for League Gothic, no Cyrillic) · body: Literata (for Newsreader, no Cyrillic) · hero: Counter, the agency line as the poster head with the apply action, the portfolio link and the three channels on six columns, the helper sheet lifted on six with a red sheet pasted over its corner · nav: floating pill, a cream bar with the stages, the language switch and the apply action · footer: statement on madder, contacts, portfolio and language under it, the photo credits · imagery: 3 library photographs through the copier on the case sheets · signature: the helper that ends in a personal plan sheet (services, first steps, who leads) you can send, keep or share; the closing flyer with tear-off tabs echoes it
+ * axes: light/display-condensed/brand-red · posture: committed (sand board carries the page, one red sheet a screen) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: H, the hero now carries the client's required who-we-are line, contacts and portfolio beside the helper; kept to one head, one line, one action, one link row and one channel strip so the helper still leads the right half */
 /* Hallmark · waive 37 · Oswald and Literata stand in for League Gothic and Newsreader, which have no Cyrillic · Курак speaks Russian and Kyrgyz, the theme faces cannot set Ң Ү Ө */
-/* Hallmark · dropped {c.phoneHref}, {c.telegramHref}, {c.whatsappHref} · moved, not removed: the same three channel links render from the tabs list of the tear-off flyer as href={t.href}, under the same condition */
-/* Hallmark · reworded the stage heads to carry their number ("Знакомо?" to "2. Знакомо?", and so on) and set the three start steps as statement lines · Narrative Workflow puts the stage number inside the head */
+/* Hallmark · waive 58 · the client asked that the first screen say who Курак is, how to reach them and where the portfolio PDF is · the hero holds the head, one line, the apply action, the portfolio link with share and the three channels, nothing else */
+/* Hallmark · palette: the Paste-up kraft and fluorescent are replaced by the logo's own colours at the client's request · sand board, cream copy sheets, logo red as the one signal sheet and the primary control, warm toner ink, madder for the dark band */
 /* Hallmark · waive 72 · span.fill is the dashed outline around a draft Курак figure, inline with no background · it marks a missing fact, it is not a box of running text */
-/* Hallmark · dismissed 23 · posture committed: the fluorescent sheet and the primary control are the declared signal of Курак variant 3 */
-/* Hallmark · dismissed 59 · nine blocks are the hero, six numbered Курак stages, the tear-off close and the footer, the stages are the shape */
+/* Hallmark · dismissed 23 · posture committed: the red sheet and the primary control are the declared signal, the same red as the logo */
+/* Hallmark · dismissed 59 · nine blocks are the hero, numbered Курак stages, the tear-off close and the footer, the stages are the shape */
 /* Hallmark · dismissed 70 · the flagged attribute is the helper's progress state data-on, no form prints success without the /api/lead response */
 /* Hallmark · dismissed F17 · Kyrgyz heads run long ("Биз менен кантип байланышуу керек"), four lines on the flyer is the honest measure at that size */
-/* Hallmark · reworded "Нажмите на свою ситуацию, и мы покажем, что с ней делать" to "Найдите свою ситуацию: под ней написано, что с ней делать" · the answers now show on every notice, the old line asked for a press that does nothing */
+/* Hallmark · answered 48 · every colour of the page is a token in the one theme block :root:has(.v3-theme) at the top of this file (the project keeps each variant's palette in one block in vN.css); sloplint's token selector does not read :has(), so it reports the block's own declarations */
+/* Hallmark · dismissed F4 · the red primary is the page's one action (Оставить заявку, the form); the toner button with a red offset is the helper's step control, so the quiz never competes with the apply action */
+/* Hallmark · dismissed 44c · the hero copy starts at the top of its column on purpose: who we are, the action, the portfolio and the channels sit above the fold; the helper sheet beside it is taller by design */
 /* Hallmark · waive 39b · v3-btn stands 56px for owners with medium digital literacy · the brief for Курак variant 3 asks for big, obvious controls */
+
+
+/* Токены темы варианта 3. Все цвета варианта живут только здесь.
+   Гамма от логотипа: красный #DC0F0A на кремовом #FDF4E3. Доска песочная, листы кремовые,
+   сигнал (один лист на экран и главная кнопка) красный, текст тёплыми чернилами, тёмные поля мареной.
+   Шрифты темы объявлены на .v3-theme: переменные next/font живут на этом элементе, а не на :root */
+:root:has(.v3-theme) {
+  /* Доска и листы */
+  --color-paper: oklch(85% 0.044 78);
+  --color-paper-2: oklch(79% 0.052 72);
+  --color-paper-3: oklch(97.5% 0.022 84);
+  --color-paper-4: oklch(93% 0.03 80);
+  /* Чернила */
+  --color-ink: oklch(21% 0.025 35);
+  --color-ink-2: oklch(29% 0.03 35);
+  --color-muted: oklch(36% 0.035 45);
+  --color-sheet-muted: oklch(44% 0.03 45);
+  --color-rule: oklch(62% 0.05 65);
+  --color-rule-2: oklch(87% 0.026 78);
+  --color-edge: oklch(21% 0.025 35);
+  /* Тёмное поле: марена */
+  --color-field: oklch(31% 0.1 24);
+  --color-field-2: oklch(37% 0.11 25);
+  --color-field-rule: oklch(47% 0.09 26);
+  --color-on-field: oklch(97.5% 0.022 84);
+  --color-on-field-2: oklch(87% 0.035 72);
+  /* Сигнал: красный логотипа. На красном только кремовый текст (4.7:1). Мелкий красный текст темнее */
+  --color-accent: oklch(56.5% 0.227 29);
+  --color-accent-hover: oklch(51% 0.21 29);
+  --color-accent-ink: oklch(97.5% 0.022 84);
+  --color-red-ink: oklch(45% 0.185 29);
+  --color-focus: oklch(21% 0.025 35);
+  --color-focus-on-field: oklch(97.5% 0.022 84);
+  --color-flag: oklch(45% 0.185 29);
+  /* Логотип: как в присланном файле */
+  --color-logo: oklch(56.5% 0.227 29);
+  --color-logo-paper: oklch(97.5% 0.022 84);
+  /* Скотч: полупрозрачная калька */
+  --color-tape: oklch(97% 0.015 85 / 0.62);
+  --color-tape-edge: oklch(21% 0.025 35 / 0.16);
+
+  --radius-card: 0;
+  --radius-input: 0;
+  --shadow-card: 0 1px 0 oklch(21% 0.025 35 / 0.18), 0 4px 10px oklch(21% 0.025 35 / 0.1);
+  --shadow-sheet: 0 14px 30px oklch(21% 0.03 35 / 0.22), 0 2px 4px oklch(21% 0.03 35 / 0.12);
+  --shadow-hard: 4px 4px 0 oklch(21% 0.025 35);
+  --tracking-display: 0.01em;
+  --text-md: 1.125rem;
+}
+.v3-theme {
+  --font-display: var(--font-oswald), var(--font-oswald-ext), Impact, sans-serif;
+  --font-body: var(--font-literata), var(--font-literata-ext), Georgia, serif;
+}
 
 .v3-theme { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.5; }
 .v3-theme h1, .v3-theme h2 { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; text-wrap: balance; }
 .v3-theme h3 { font-family: var(--font-body); font-weight: 500; line-height: 1.25; text-wrap: balance; }
-.v3-theme ::selection { background: color-mix(in oklab, var(--color-accent) 70%, transparent); color: var(--color-ink); }
+.v3-theme ::selection { background: var(--color-accent); color: var(--color-accent-ink); }
 .v3-theme :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
 .v3-theme strong, .v3-theme b { font-weight: 500; }
 
-/* Кнопки: бумага на жёстком чернильном сдвиге. Флуоресцентная только главная */
+/* Кнопки: бумага на жёстком чернильном сдвиге. Красная только главная */
 .v3-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm);
   min-height: 56px; padding: 0 var(--space-lg); border: 0; border-radius: 0;
   background: var(--color-paper-3); color: var(--color-ink); box-shadow: var(--shadow-hard);
   font: 500 var(--text-md)/1.15 var(--font-body); text-decoration: none; white-space: nowrap; cursor: pointer;
-  transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+  transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
 }
 .v3-btn:hover { translate: 1px 1px; box-shadow: 3px 3px 0 var(--color-ink); }
 .v3-btn:active { translate: 4px 4px; box-shadow: none; }
 .v3-btn:disabled, .v3-btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; translate: none; }
 .v3-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
 .v3-btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.v3-btn--primary:hover { background: var(--color-accent-hover); }
+/* Тонер: чёрная кнопка на красном сдвиге, для шага помощника */
+.v3-btn--ink { background: var(--color-ink); color: var(--color-paper-3); box-shadow: 4px 4px 0 var(--color-accent); }
+.v3-btn--ink:hover { box-shadow: 3px 3px 0 var(--color-accent); }
 .on-field .v3-btn { box-shadow: 4px 4px 0 var(--color-on-field); }
 .on-field .v3-btn:focus-visible { outline-color: var(--color-focus-on-field); }
 
-/* Лист бумаги на картоне; наклон задаёт --r */
+/* Лист бумаги на доске; наклон задаёт --r */
 .v3-sheet { background: var(--color-paper-3); color: var(--color-ink); box-shadow: var(--shadow-sheet); rotate: var(--r, 0deg); }
-.v3-sheet--fluoro { background: var(--color-accent); color: var(--color-accent-ink); }
+.v3-sheet--signal { background: var(--color-accent); color: var(--color-accent-ink); }
 
-/* Волокно картона: только на крафте, никогда под листом с текстом */
+/* Волокно бумаги: только на доске, никогда под листом с текстом */
 .v3-fibre { position: relative; isolation: isolate; }
 .v3-fibre::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.5; mix-blend-mode: multiply; pointer-events: none;
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.32; mix-blend-mode: multiply; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.03' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
 }
 

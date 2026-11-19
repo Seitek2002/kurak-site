@@ -1,5 +1,5 @@
 /* Hallmark · shape: the owner's statement, a page that sells by arithmetic: the loss calculator opens it, then what closes the hole, a comparison, cases, people, answers to "but", and a bill without prices · genre: modern-minimal · theme: custom · job: hire · idea: "Marketing counted in som: the owner types three numbers and sees how much money walks past the till every month" · vibe: "a fintech annual report for a Bishkek shop owner"
- * paper: oklch(98.8% 0.0035 85) · accent: oklch(57.6% 0.226 28.6) · display: IBM Plex Sans at wdth 85 · body: IBM Plex Sans · hero: Ledger, the headline over a one-line equation the visitor edits (inquiries x lost share x average check = som past the till) · nav: report header, red wordmark, six anchors, language pair, one ink action, collapses to a menu under 75rem and to a bottom bar on a phone · footer: ledger, the wordmark and the name story beside contacts, anchors and the language pair · imagery: none, the visitor's own numbers drawn as a chart, portraits from the logo's five shapes · signature: the lost-leads calculator, its result carried into the request as a prefilled task
+ * paper: oklch(96.96% 0.024 83.4), the logo's cream · accent: oklch(56.54% 0.227 29.14), the logo's red · display: IBM Plex Sans at wdth 85 · body: IBM Plex Sans · hero: Letterhead over a ledger sheet, who Курак is and what it does with the request, the portfolio PDF and share on the left, three contact rows on the right, then the one-line equation the visitor edits (inquiries x lost share x average check = som past the till, the year under the rule) on a sand sheet across the width · nav: report header, red wordmark, six anchors, language pair, one ink action, collapses to a menu under 75rem and to a bottom bar on a phone · footer: ledger, the wordmark and who Курак is beside contact rows, the portfolio with share and the request, then anchors, the language pair and the year · imagery: none, the visitor's own numbers drawn as a chart, portraits from the logo's five shapes · signature: the lost-leads calculator, its result carried into the request as a prefilled task
  * axes: light/grotesk-sans/chromatic-red · posture: restrained (red is the loss and the brand mark only) · contrast: pass · fold: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: H, ten blocks the brief requires could flatten into a list of equal sections; each one carries a different object (equation, chart, ledger rows, table, sticky cases, a 30-day scale, portraits, quotes, answers, a bill) and only the calculator speaks in red */
 /* Hallmark · waive 72 · span.fill is the dashed outline around a draft Курак fact, inline with no background · it marks a missing fact, not a box of running text */
@@ -11,6 +11,8 @@
 /* Hallmark · waive 71 · h4.h4 inside a closed details measures 0px over and 12px under · the Курак service cards are hidden until their row opens, open they sit under a 16px rule with room above */
 /* Hallmark · hero-review: fix · 5 findings · 4 resolved (equation as one sum with ink operators, total largest under a double rule, phone shows the total on the first screen, type capped at 1440) · 1 partial (layout moved under the equation; headline kept, it is the brief's concept line for Курак) */
 /* Hallmark · finish-review: subagent · 8 findings · 8 resolved (sample cases and reviews fully dashed, the visitor's calculation carried into the bill and the request, phone bar only after the hero action, comparison cut to short clauses, red kept for loss and wordmark, bundles as sums of menu numbers, heads rewritten, non-breaking hyphens) · gap: none */
+/* Hallmark · noted 58 · client feedback, round 2: the first screen must say who Курак is and what it does, carry the request, the WhatsApp, Telegram and phone rows and the portfolio PDF with share, all above the fold at 1280 x 800 and 375 x 812; the contact rows' head is the third text block before the action, kept because the client asked for contacts on the first screen */
+/* Hallmark · round-2 review: self · first screen rebuilt to the client's hard requirements, the calculator kept as the first-screen interaction and moved onto a sand ledger sheet (labels over the figures, fields drawn as cells, the total counted up and the year under the double rule), palette moved from cool white and blue-black to the logo's cream, red and warm ink · fold measured: 1280 x 800 everything through the total, 375 x 812 everything required through the calculator's head */
 /* Hallmark · noted 48 · the token block below is the one the brief prescribes for Курак variants, selector :root:has(.v6-theme), .v6-theme; sloplint reads only :root, [data-theme] or tokens.css as a token block, so it reports the block's own declarations; no colour or font literal exists outside it */
 
 /* ===================================================================== */
@@ -19,32 +21,33 @@
 /* ===================================================================== */
 :root:has(.v6-theme),
 .v6-theme {
-  /* Бумага: белый с тёплой тенью; чернила: сине-чёрные */
-  --color-paper: oklch(98.8% 0.0035 85);
-  --color-paper-2: oklch(96.4% 0.0055 85);
-  --color-paper-3: oklch(93.4% 0.007 85);
-  --color-ink: oklch(19.5% 0.018 265);
-  --color-ink-hover: oklch(31% 0.02 265);
-  --color-ink-2: oklch(34% 0.016 265);
-  --color-muted: oklch(47.5% 0.013 265);
-  --color-rule: oklch(90% 0.006 85);
-  --color-rule-strong: oklch(80% 0.008 85);
-  --color-edge: oklch(58% 0.012 265);
-  --color-on-ink: oklch(98.8% 0.0035 85);
+  /* Бумага: кремовый фон логотипа (#FDF4E3), песок для вторых поверхностей; чернила тёплые, почти чёрные */
+  --color-paper: oklch(96.96% 0.024 83.4);
+  --color-paper-2: oklch(93.6% 0.032 80);
+  --color-paper-3: oklch(90.4% 0.038 78);
+  --color-field: oklch(98.7% 0.011 85);
+  --color-ink: oklch(21% 0.014 45);
+  --color-ink-hover: oklch(32% 0.02 40);
+  --color-ink-2: oklch(35% 0.018 45);
+  --color-muted: oklch(46.5% 0.022 55);
+  --color-rule: oklch(87.5% 0.028 78);
+  --color-rule-strong: oklch(78.5% 0.032 72);
+  --color-edge: oklch(56% 0.03 60);
+  --color-on-ink: oklch(96.96% 0.024 83.4);
 
-  /* Сигнал: красный Курака (#DC0F0A). Только знак, потери и фокус */
-  --color-accent: oklch(57.6% 0.226 28.6);
-  --color-accent-ink: oklch(98.8% 0.0035 85);
-  --color-accent-text: oklch(50% 0.2 28.6);
-  --color-focus: oklch(55% 0.21 28.6);
-  --color-error: oklch(50% 0.2 28.6);
-  --color-success: oklch(46% 0.11 155);
+  /* Сигнал: красный знака KURAK (#DC0F0A). Только знак, потери и фокус; мелкий текст темнее (5:1 на креме) */
+  --color-accent: oklch(56.54% 0.227 29.14);
+  --color-accent-ink: oklch(96.96% 0.024 83.4);
+  --color-accent-text: oklch(48.5% 0.195 28.5);
+  --color-focus: oklch(52% 0.215 29);
+  --color-error: oklch(48% 0.19 28);
+  --color-success: oklch(46% 0.1 150);
 
   /* Места под фото и логотипы: поле, пунктир, подпись, штриховка */
-  --color-slot: oklch(95.4% 0.006 85);
-  --color-slot-line: oklch(62% 0.012 265);
-  --color-slot-ink: oklch(38% 0.016 265);
-  --color-slot-hatch: oklch(91.6% 0.007 85);
+  --color-slot: oklch(93% 0.03 80);
+  --color-slot-line: oklch(60% 0.03 60);
+  --color-slot-ink: oklch(38% 0.02 45);
+  --color-slot-hatch: oklch(89.5% 0.035 78);
 
   /* Шрифт: один гротеск, IBM Plex Sans; вне страницы варианта откатывается к Onest */
   --font-display: var(--font-v6-plex, var(--font-onest)), ui-sans-serif, system-ui, sans-serif;
@@ -67,6 +70,8 @@
   --v6-title: clamp(1.25rem, 0.5vw + 1.05rem, 1.5rem);
   --v6-section: clamp(2.125rem, 2.4vw + 1.2rem, 3.375rem);
   --v6-display: clamp(2.75rem, 4.6vw + 1rem, 5.125rem);
+  --v6-h1: clamp(2rem, 2.9vw + 1.05rem, 3.5rem);
+  --v6-fig-res: clamp(2.5rem, 4.4vw + 0.6rem, 4.75rem);
   --v6-fig: clamp(2rem, 3.2vw + 0.6rem, 3.5rem);
   --v6-fig-xl: clamp(3rem, 5.4vw + 0.5rem, 5.375rem);
 

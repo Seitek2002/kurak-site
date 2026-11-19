@@ -47,7 +47,7 @@ export function CalcResult({ lang }: { lang: Lang }) {
       <div className={s.res}>
         <div className={s.resMain}>
           <h2 id="calc-title" className={s.h2}>
-            {V6_CALC.title[lang]}
+            {V6_CALC.resultTitle[lang]}
           </h2>
           <p className={s.year} style={{ "--len": groupDigits(year).length } as React.CSSProperties}>
             <span className={s.yearFig}>

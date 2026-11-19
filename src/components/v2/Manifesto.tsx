@@ -4,7 +4,7 @@ import { Patch } from "../Patch";
 import { Scene } from "./Scene";
 import s from "./Manifesto.module.css";
 
-const CATS: CategoryId[] = ["pr", "brand", "events", "sales"];
+const CATS: CategoryId[] = ["smm", "sales", "brand", "team"];
 
 /**
  * Манифест: четыре принципа одной фразой. Слова загораются по мере скролла,

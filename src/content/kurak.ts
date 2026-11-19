@@ -73,7 +73,15 @@ export const UI = {
   toTop: { ru: "Курак, наверх", ky: "Курак, жогору" } as T,
   skip: { ru: "К содержанию", ky: "Мазмунга өтүү" } as T,
   discuss: { ru: "Обсудить задачу", ky: "Тапшырманы талкуулоо" } as T,
-  portfolio: { ru: "Портфолио в PDF", ky: "Портфолио PDF форматында" } as T,
+  portfolio: { ru: "Скачать портфолио (PDF)", ky: "Портфолиону жүктөп алуу (PDF)" } as T,
+  /** Главная кнопка первого экрана по просьбе заказчицы: «кнопка подать заявку» */
+  apply: { ru: "Оставить заявку", ky: "Заявка калтыруу" } as T,
+  share: { ru: "Поделиться", ky: "Бөлүшүү" } as T,
+  shareText: {
+    ru: "Курак — маркетинговое агентство полного цикла в Бишкеке. Портфолио:",
+    ky: "Курак — Бишкектеги толук циклдүү маркетинг агенттиги. Портфолио:",
+  } as T,
+  copied: { ru: "Ссылка скопирована", ky: "Шилтеме көчүрүлдү" } as T,
   add: { ru: "Добавить в заявку", ky: "Заявкага кошуу" } as T,
   added: { ru: "В заявке", ky: "Заявкада" } as T,
   remove: { ru: "Убрать", ky: "Алып салуу" } as T,
@@ -115,6 +123,10 @@ export const ADDRESS = SITE.contacts.address;
 export const EMAIL = SITE.contacts.email;
 /** Ссылка на портфолио: пока PDF нет, ведёт к кейсам на той же странице (#cases) */
 export const PORTFOLIO_HREF = SITE.portfolioPdf.startsWith("#") ? "#cases" : SITE.portfolioPdf;
+/** Портфолио на языке страницы: кыргызская версия лежит рядом с суффиксом -ky. Уже с basePath. */
+export const portfolioHref = (lang: Lang) => (lang === "ky" ? PORTFOLIO_HREF.replace(/\.pdf$/, "-ky.pdf") : PORTFOLIO_HREF);
+/** Имя файла при скачивании (атрибут download) */
+export const PORTFOLIO_FILE: T = { ru: "Kurak-portfolio.pdf", ky: "Kurak-portfolio-ky.pdf" };
 
 /* ------------------------------------------------------------------ */
 /* Меню услуг: категории названы задачами клиента                      */

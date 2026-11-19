@@ -1,40 +1,155 @@
-/* Hallmark · shape: scroll story, the quilt sews itself while the visitor scrolls · genre: playful · theme: custom · job: hire · idea: "Полотно: the page is one long piece of cloth, every scroll stitches another patch of Курак onto it" · vibe: "night felt, bright patches, kinetic type"
- * paper: oklch(16% 0.05 268) · accent: oklch(67% 0.19 29) · display: Dela Gothic One · body: Onest · hero: Ledge, the five shapes of the KURAK logo set as quilted patches, the headline and one magnetic action · nav: floating bar with the red KURAK logo that hides on scroll down · footer: curtain under the page with the quilted KURAK logo · imagery: photo slots for leads, case projects and client logos, the patches are the brand's own geometry · signature: the pinned scene where eight patches fly in and sew themselves around your business
- * axes: dark/display-heavy/chromatic-red · posture: full-palette (night field, eight category roles, red signal, light ink) · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P5 H4 E4 S5 R3 V5 · weakest: R, the client asked for an awwwards-level motion piece; every effect has a reduced-motion end state and the content reads with scripting off */
-/* Hallmark · waive 44a · hero: Ledge in this stamp, the quilted word and the action sit on the floor of the screen · Курак rises from the bottom like a quilt on a frame, the floating patches fill the sky above */
+/* Hallmark · shape: scroll story, the quilt sews itself while the visitor scrolls · genre: playful · theme: custom · job: hire · idea: "Полотно: the page is one long piece of cloth, every scroll stitches another patch of Курак onto it" · vibe: "the KURAK logo itself: red on cream, sewn from patches of madder, sand and ink"
+ * paper: #FDF4E3 (logo cream) · accent: #DC0F0A (logo red) · display: Dela Gothic One · body: Onest · hero: Ledge, the five shapes of the KURAK logo set as red quilted patches, who we are, the apply action, contacts and the portfolio on the floor of the screen · nav: floating cream pill with the red KURAK logo that hides on scroll down · footer: ink curtain under the page with contacts, portfolio and the quilted KURAK logo · imagery: photo slots for leads, case projects and client logos, the patches are the brand's own geometry · signature: the pinned scene on madder felt where eight patches fly in and sew themselves around your business
+ * axes: light/display-heavy/chromatic-red · posture: brand-palette (cream paper, warm ink, red signal, madder felt, eight patches in tones of red, madder, terracotta, sand, cream and ink) · contrast: pass · fold: pass · v2.1.0 */
+/* Hallmark · waive 44a · hero: Ledge in this stamp, the quilted word, who we are, the action, the portfolio and contacts sit on the floor of the screen · Курак rises from the bottom like a quilt on a frame, the floating patches fill the sky above */
 /* Hallmark · waive 49b · a.v2-round is a 152px circle, two lines are its shape · the round Курак action reads as a stamped patch, one line would spill out of it */
 /* Hallmark · dismissed 11 · the hover turns the Курак patch geometry inside a portrait slot, no photograph moves */
 /* Hallmark · waive 2b · quilted letters are conic patch tiles in category tokens, not a hue ramp · the five shapes of the KURAK logo drawn as sewn patches */
 
-/* Тема «Полотно» (ночная ткань) описана в styles/tokens.css: те же токены, общие блоки перекрашиваются сами */
+/* ======================================================================
+   Токены варианта 2 «Полотно». Все цвета варианта — только здесь.
+   Гамма от логотипа: красный #DC0F0A на кремовом #FDF4E3. Производные:
+   тёплые чернила (текст), марена (тёмные поля), песок и лён (вторичные поверхности).
+   Восемь лоскутов-направлений: тона красного, бордо, терракоты, охры, песка,
+   румянца, войлока и чернил. Различаются узором и тоном, не радугой.
+   Контраст текста проверен: ≥ 4.5:1 (цифры в комментариях — к фону, на котором текст стоит).
+   ====================================================================== */
+:root:has(.v2-theme) {
+  /* Бумага и чернила */
+  --color-paper: #FDF4E3;        /* крем логотипа */
+  --color-paper-2: #F6E6C9;      /* лён: вторичные поверхности */
+  --color-paper-3: #EEDAB5;      /* песок светлый */
+  --color-ink: #241510;          /* тёплые чернила: 16.2 : 1 на креме */
+  --color-ink-2: #4B3127;        /* 10.9 : 1 */
+  --color-muted: #6B4F42;        /* 6.8 : 1 на креме, 6.2 на льне */
+  --color-dim: #866754;          /* приглушённое в сценах: 4.7 : 1 на креме */
+  --color-rule: #E4CDAA;
+  --color-edge: #A3826B;         /* рамки полей и кнопок: 3.2 : 1 */
+
+  /* Марена: тёмное поле (заявка, сцена сборки) */
+  --color-field: #4E1410;
+  --color-field-2: #66201A;
+  --color-field-rule: #8A3A2E;
+  --color-on-field: #FDF4E3;     /* 13.4 : 1 */
+  --color-on-field-2: #F1CDB9;   /* 9.9 : 1 */
+
+  /* Сигнал: красный логотипа */
+  --color-accent: #DC0F0A;       /* крем на нём 4.7 : 1 */
+  --color-accent-hover: #B90D08; /* 6.2 : 1 */
+  --color-accent-ink: #FDF4E3;
+  --color-accent-text: #B10E09;  /* красный для мелкого текста: 6.5 : 1 на креме */
+  --color-focus: #B10E09;
+  --color-focus-on-field: #EBCB98;
+  --color-logo: #DC0F0A;
+  --color-logo-paper: #FDF4E3;
+  --color-error: #B10E09;
+  --color-success: #4B3127;
+
+  /* Чернильный подвал */
+  --color-soot: #241510;
+  --color-soot-2: #3A251C;
+  --color-soot-rule: #4F382D;
+  --color-on-soot: #FDF4E3;      /* 16.2 : 1 */
+  --color-on-soot-2: #C2A797;    /* 7.8 : 1 */
+
+  /* Восемь лоскутов. --c-ink (ниже) — цвет текста на лоскуте */
+  --cat-smm: #DC0F0A;      --cat-smm-deep: #8F1712;      /* красный логотипа / марена */
+  --cat-pr: #EBCB98;       --cat-pr-deep: #B9864F;       /* песок / верблюжий */
+  --cat-events: #F2B3A3;   --cat-events-deep: #DC0F0A;   /* румянец / красный */
+  --cat-brand: #2E1C16;    --cat-brand-deep: #DC0F0A;    /* чернила / красный */
+  --cat-sales: #B5472A;    --cat-sales-deep: #6E1D12;    /* терракота / жжёная марена */
+  --cat-digital: #6E1626;  --cat-digital-deep: #3F0B14;  /* бордо / тёмное вино */
+  --cat-team: #D39A58;     --cat-team-deep: #8F4521;     /* охра / ржавчина */
+  --cat-invest: #7A5A48;   --cat-invest-deep: #3A2820;   /* войлок / тёмный войлок */
+  --patch-light: #FDF4E3;
+  --patch-dark: #241510;
+  --stitch: #FDF4E3;
+
+  /* Тень лоскута, лежащего на ткани */
+  --shadow-patch: drop-shadow(0 10px 14px rgb(36 21 16 / 0.16)) drop-shadow(0 2px 3px rgb(36 21 16 / 0.12));
+  --shadow-pill: 0 0 0 1px rgb(36 21 16 / 0.1), 0 10px 30px -12px rgb(36 21 16 / 0.35);
+  --veil: rgb(36 21 16 / 0.55);
+  --toast-shadow: 0 8px 22px -8px rgb(36 21 16 / 0.45);
+}
+
+/* Текст на лоскуте: тёмные чернила на светлых, крем на тёмных (контраст в комментариях) */
+.v2-theme [data-cat] { --c-ink: var(--patch-dark); --c-paper: var(--patch-light); }
+.v2-theme [data-cat="smm"],     /* крем на красном 4.7 */
+.v2-theme [data-cat="brand"],   /* 14.9 */
+.v2-theme [data-cat="sales"],   /* 4.9 */
+.v2-theme [data-cat="digital"], /* 10.7 */
+.v2-theme [data-cat="invest"]   /* 5.7 */ { --c-ink: var(--patch-light); --c-paper: var(--patch-dark); }
+/* pr 11.4 · events 9.9 · team 7.2: чернила на светлом лоскуте */
+
+/* Тёмная секция «войлок марены»: те же роли токенов, сцены перекрашиваются сами */
+.v2-theme .v2-felt {
+  --color-paper: #4E1410;
+  --color-paper-2: #66201A;
+  --color-ink: #FDF4E3;          /* 13.4 : 1 */
+  --color-ink-2: #F1CDB9;        /* 9.9 : 1 */
+  --color-muted: #DDB09C;        /* 7.5 : 1 */
+  --color-dim: #C4927E;          /* 5.4 : 1 */
+  --color-rule: #7A2E24;
+  --color-edge: #B0705C;
+  --color-focus: #EBCB98;
+  --color-accent-text: #F2B3A3;  /* румянец вместо красного для мелкого текста: 8.2 : 1 */
+  --shadow-patch: drop-shadow(0 12px 18px rgb(20 4 2 / 0.4));
+  background: var(--color-paper); color: var(--color-ink);
+}
+/* Чернильная секция (подвал) */
+.v2-theme .v2-soot {
+  --color-paper: #241510;
+  --color-paper-2: #3A251C;
+  --color-ink: #FDF4E3;          /* 16.2 : 1 */
+  --color-ink-2: #E6D3C2;
+  --color-muted: #C2A797;        /* 7.8 : 1 */
+  --color-dim: #9C8272;          /* 4.9 : 1 */
+  --color-rule: #4F382D;
+  --color-edge: #8A6F5F;
+  --color-focus: #EBCB98;
+  --color-accent-text: #F2B3A3;  /* 9.9 : 1 */
+  background: var(--color-paper); color: var(--color-ink);
+}
+/* ========================== конец блока токенов ========================== */
+
 html:has(.v2-theme), html.has-lenis { scroll-behavior: auto; }
 html.has-lenis.lenis-stopped { overflow: clip; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 
 .v2-theme { background: var(--color-paper); color: var(--color-ink); }
 .v2-main { position: relative; z-index: var(--z-raised); background: var(--color-paper); }
+.v2-theme ::selection { background: var(--color-accent); color: var(--color-accent-ink); }
 
 /* Знак KURAK из лоскутов: пять фигур логотипа на своих местах (рамка 443 × 93),
-   каждая сшита из треугольников своего направления. Узор растёт вместе со знаком (cqi) */
+   каждая сшита из треугольников своего направления: тон, глубокий тон и светлый оттенок того же тона,
+   поэтому край фигуры читается и на креме, и на тёмном. Узор растёт вместе со знаком (cqi) */
 .v2-word { position: relative; width: 100%; aspect-ratio: 443 / 93; container-type: inline-size; user-select: none; }
 .v2-letter-mask { position: absolute; left: var(--x); top: var(--y); width: var(--w); height: var(--h); overflow: clip; }
 .v2-letter {
+  --tint: color-mix(in oklab, var(--c) 42%, var(--patch-light));
   display: block; width: 100%; height: 100%;
-  background: conic-gradient(from 45deg, var(--c) 0 25%, var(--c-deep) 0 50%, var(--c) 0 75%, var(--patch-light) 0) 0 0 / 7.4cqi 7.4cqi;
+  background: conic-gradient(from 45deg, var(--c) 0 25%, var(--c-deep) 0 50%, var(--c) 0 75%, var(--tint) 0) 0 0 / 7.4cqi 7.4cqi;
   -webkit-mask: var(--shape) 0 0 / 100% 100% no-repeat; mask: var(--shape) 0 0 / 100% 100% no-repeat;
 }
 
 /* Кнопка-круг: главное действие варианта 2 */
 .v2-round {
-  display: inline-grid; place-items: center; width: clamp(9.5rem, 13vw, 12rem); aspect-ratio: 1; border-radius: 50%;
+  position: relative; display: inline-grid; place-items: center; width: clamp(9.5rem, 13vw, 12rem); aspect-ratio: 1; border-radius: 50%;
   background: var(--color-accent); color: var(--color-accent-ink); text-align: center; padding: var(--space-md);
   font: 600 var(--text-md)/1.15 var(--font-body); text-decoration: none;
   transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
 }
+/* пунктирный стежок по кругу, как у лоскутов */
+.v2-round::after {
+  content: ""; position: absolute; inset: 7px; border-radius: 50%;
+  border: 1.5px dashed color-mix(in oklab, var(--color-accent-ink) 70%, transparent); pointer-events: none;
+}
 .v2-round:hover { background: var(--color-accent-hover); }
 .v2-round:active { transform: scale(0.97); }
 .v2-round:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+
+/* Заявка (общий компонент Brief) встаёт сразу под финалом: лоскуты кольца уходят под марену, а не обрезаются на креме */
+.v2-theme #zayavka { margin-top: 0; }
 
 /* Строки, проявляющиеся из-под маски */
 .v2-line { display: block; overflow: clip; padding-bottom: 0.08em; margin-bottom: -0.08em; }

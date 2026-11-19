@@ -5,6 +5,7 @@
   transform: rotate(var(--a)) translateY(calc(var(--ring) / -2.15)) rotate(calc(-1 * var(--a)));
 }
 .patch > svg { display: block; }
+.patch { filter: var(--shadow-patch); }
 .center { position: relative; display: grid; justify-items: center; gap: var(--space-xl); text-align: center; }
 .title { font-size: clamp(2.75rem, 7vw, 6.5rem); line-height: 0.95; font-weight: 400; letter-spacing: var(--tracking-display); }
 @media (max-width: 40rem) { .section { --ring: 150vw; min-height: 100svh; } }

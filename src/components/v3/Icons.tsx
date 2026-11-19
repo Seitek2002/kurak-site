@@ -32,26 +32,40 @@ export function IconArrow() {
   );
 }
 
-/**
- * Тундук: венец юрты. Здесь он показывает прогресс помощника:
- * каждый отвеченный вопрос закрашивает одну пару перекладин.
- */
-export function Tunduk({ filled, total = 3 }: { filled: number; total?: number }) {
-  const bars = [32, 50, 68].slice(0, total);
+export function IconDownload() {
   return (
-    <svg viewBox="0 0 100 100" className="tunduk" role="img" aria-label={`${filled} / ${total}`}>
-      <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="5" opacity="0.25" />
-      <circle
-        cx="50" cy="50" r="44" fill="none" stroke="var(--color-accent)" strokeWidth="5" strokeLinecap="round"
-        pathLength="100" strokeDasharray={`${(filled / total) * 100} 100`} transform="rotate(-90 50 50)"
-        style={{ transition: "stroke-dasharray 420ms cubic-bezier(0.16, 1, 0.3, 1)" }}
-      />
-      {bars.map((x, i) => (
-        <g key={x} stroke={i < filled ? "var(--color-accent)" : "currentColor"} opacity={i < filled ? 1 : 0.25} strokeWidth="4" strokeLinecap="round" fill="none">
-          <path d={`M${x} ${8 + Math.abs(50 - x) * 0.4} Q ${x + (x - 50) * 0.35} 50 ${x} ${92 - Math.abs(50 - x) * 0.4}`} />
-          <path d={`M${8 + Math.abs(50 - x) * 0.4} ${x} Q 50 ${x + (x - 50) * 0.35} ${92 - Math.abs(50 - x) * 0.4} ${x}`} />
-        </g>
-      ))}
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8z" />
+      <path d="M14 3v5h5M12 11v6M9 14.5l3 3 3-3" />
+    </svg>
+  );
+}
+
+export function IconShare() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="18" cy="5.5" r="2.5" />
+      <circle cx="6" cy="12" r="2.5" />
+      <circle cx="18" cy="18.5" r="2.5" />
+      <path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1" />
+    </svg>
+  );
+}
+
+export function IconSave() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 9V3.5h10V9M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2" />
+      <path d="M7 14h10v6.5H7z" />
+    </svg>
+  );
+}
+
+export function IconRestart() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5" />
+      <path d="M4 3.5v5h5" />
     </svg>
   );
 }

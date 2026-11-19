@@ -10,7 +10,7 @@ import { IconClose, IconMenu } from "./Icons";
 import s from "./V6.module.css";
 
 /**
- * Шапка: знак, разделы, язык и одна кнопка «Обсудить задачу», закреплена сверху.
+ * Шапка: знак, разделы, язык и одна кнопка «Оставить заявку», закреплена сверху.
  * Уже 75rem разделы уходят в меню; на телефоне главная кнопка живёт в нижней панели (MobileBar).
  */
 export function V6Header({ lang }: { lang: Lang }) {
@@ -58,7 +58,7 @@ export function V6Header({ lang }: { lang: Lang }) {
             </a>
           )}
           <a href="#zayavka" className={`v6-btn v6-btn--s ${s.headCta}`}>
-            {UI.discuss[lang]}
+            {UI.apply[lang]}
           </a>
           <button
             ref={btnRef}

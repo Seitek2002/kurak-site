@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelection } from "@/store/selection";
+import { UI } from "@/content/kurak";
 import { KurakLogo } from "../brand/KurakLogo";
 import { MiniQuilt } from "../MiniQuilt";
 import s from "./V2Header.module.css";
@@ -11,7 +12,7 @@ const NAV = [
   { href: "#uslugi", label: "Услуги" },
   { href: "#keisy", label: "Кейсы" },
   { href: "#komanda", label: "Команда" },
-  { href: "#zayavka", label: "Заявка" },
+  { href: "#kontakty", label: "Контакты" },
 ];
 
 function plural(n: number) {
@@ -54,7 +55,7 @@ export function V2Header() {
   return (
     <header className={s.header} data-hidden={hidden || undefined} data-solid={solid || undefined}>
       <div className={`container ${s.row}`}>
-        <Link href="/v2" className={s.logo} aria-label="Курак, вариант 2, наверх">
+        <Link href="/v2" className={s.logo} aria-label={UI.toTop.ru}>
           <KurakLogo className={s.mark} />
         </Link>
         <nav aria-label="Разделы" className={s.nav}>
@@ -74,8 +75,8 @@ export function V2Header() {
             <span className="visually-hidden">{plural(n)}</span>
           </button>
           <a href="#zayavka" className={`btn btn--s ${s.cta}`}>
-            <span className={s.ctaLong}>Обсудить задачу</span>
-            <span className={s.ctaShort} aria-hidden="true">Обсудить</span>
+            <span className={s.ctaLong}>{UI.apply.ru}</span>
+            <span className={s.ctaShort} aria-hidden="true">Заявка</span>
           </a>
         </div>
       </div>

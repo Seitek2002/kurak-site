@@ -1,4 +1,5 @@
-/* Hallmark · part of the Курак page system, variant 2, stamp and critique in src/app/v2/v2.css · theme: custom · posture: full-palette · hero: Ledge · nav: floating bar · footer: curtain */
+/* Hallmark · part of the Курак page system, variant 2, stamp and critique in src/app/v2/v2.css · theme: custom · posture: brand-palette · hero: Ledge · nav: floating pill · footer: curtain */
+/* Секция на войлоке марены (.v2-felt): роли токенов перекрашены в v2.css */
 .section { position: relative; }
 .stage {
   min-height: 100svh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: var(--space-3xl);
@@ -8,20 +9,28 @@
 .title { font-size: var(--text-section); line-height: 1.04; font-weight: 400; letter-spacing: var(--tracking-display); max-width: 14ch; }
 .goals { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2xs); }
 .goal {
-  display: grid; grid-template-columns: 2.5rem minmax(0, 1fr) auto; align-items: baseline; gap: var(--space-md);
+  display: grid; grid-template-columns: 1.125rem 2rem minmax(0, 1fr) auto; align-items: baseline; gap: var(--space-md);
   padding-block: var(--space-xs); border-bottom: 1px solid var(--color-rule);
   transition: color var(--dur-long) var(--ease-out);
 }
-.num { font-family: var(--font-display); font-size: var(--text-sm); color: var(--c); }
+/* лоскут-образец направления: тот же, что слетается в полотно справа */
+.swatch {
+  display: block; width: 1.125rem; aspect-ratio: 1; align-self: center; rotate: 45deg; scale: 0.82;
+  transition: opacity var(--dur-long) var(--ease-out), scale var(--dur-long) var(--ease-out);
+}
+.num { font-family: var(--font-display); font-size: var(--text-sm); color: var(--color-muted); }
 .goalText { font-size: var(--text-lg); font-weight: 600; }
 .short { font-size: var(--text-sm); color: var(--color-muted); }
 
 /* Анимированный режим: непройденные направления приглушены (контраст всё равно не ниже 4.5:1) */
 .section[data-live] .goal { color: var(--color-dim); }
-.section[data-live] .goal .short { color: var(--color-dim); }
+.section[data-live] .goal .short, .section[data-live] .goal .num { color: var(--color-dim); }
+.section[data-live] .goal .swatch { opacity: 0.3; }
 .section[data-live] .goal[data-on] { color: var(--color-ink); }
-.section[data-live] .goal[data-on] .short { color: var(--color-muted); }
-.goal[data-current] .goalText { color: var(--c); }
+.section[data-live] .goal[data-on] .short, .section[data-live] .goal[data-on] .num { color: var(--color-muted); }
+.section[data-live] .goal[data-on] .swatch { opacity: 1; }
+.goal[data-current] .swatch { scale: 1.15; }
+.goal[data-current] .goalText { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.3em; text-decoration-color: var(--color-focus); }
 .finale { font-family: var(--font-display); font-size: var(--text-xl); line-height: 1.3; max-width: 24ch; }
 
 .quiltWrap { display: grid; place-items: center; }
@@ -32,9 +41,18 @@ a.cell:active { filter: brightness(0.95); }
 a.cell:focus-visible { outline: 3px solid var(--color-focus); outline-offset: -3px; z-index: var(--z-raised); }
 .you { display: grid; place-items: center; background: var(--patch-light); color: var(--patch-dark); font-family: var(--font-display); font-size: clamp(1rem, 1.8vw, 1.6rem); line-height: 1.05; text-align: center; padding: var(--space-sm); }
 .thread { position: absolute; inset: -14px; width: calc(100% + 28px); height: calc(100% + 28px); overflow: visible; pointer-events: none; }
-.thread rect { fill: none; stroke: var(--cat-pr); stroke-width: 0.6; stroke-dasharray: 1; stroke-linecap: round; }
+.thread rect { fill: none; stroke: var(--color-focus); stroke-width: 0.6; stroke-dasharray: 1; stroke-linecap: round; }
 .section:not([data-live]) .thread rect { stroke-dasharray: 0.012 0.008; }
 
+/* Невысокий ноутбук (1280 × 800): вся закреплённая сцена, вместе с итоговой фразой, помещается в экран */
+@media (min-width: 60.01rem) and (max-height: 880px) {
+  .stage { padding-block: calc(var(--header-h) + var(--space-sm)) var(--space-lg); }
+  .copy { gap: var(--space-lg); }
+  .title { font-size: var(--text-3xl); }
+  .goal { padding-block: 6px; }
+  .goalText { font-size: var(--text-md); }
+  .finale { font-size: var(--text-lg); }
+}
 @media (max-width: 60rem) {
   .stage { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); align-content: center; }
   .quilt { width: min(100%, 52svh); }
@@ -46,4 +64,8 @@ a.cell:focus-visible { outline: 3px solid var(--color-focus); outline-offset: -3
   .section[data-live] .title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .finale { font-size: var(--text-lg); }
 }
-@media (prefers-reduced-motion: reduce) { .goal, .cell { transition: none; } }
+@media (max-width: 40rem) {
+  .goal { grid-template-columns: 1rem 1.75rem minmax(0, 1fr); gap: var(--space-sm); }
+  .short { grid-column: 3; }
+}
+@media (prefers-reduced-motion: reduce) { .goal, .cell, .swatch { transition: none; } }

@@ -1,36 +1,50 @@
-import { SITE } from "@/content/site";
+import { ADDRESS, BRAND_TEXT, UI } from "@/content/kurak";
 import { Fill } from "../Fill";
 import { QuiltWord } from "./QuiltWord";
+import { Contacts } from "./Contacts";
+import { PortfolioShare } from "./PortfolioShare";
 import s from "./V2Footer.module.css";
 
-/** Подвал-шторка: лежит под страницей и открывается, когда страница уезжает вверх. */
+/** На чернилах знак сшит из светлых и тёплых тонов: красный, терракота, румянец, охра */
+const WORD_CATS = ["smm", "sales", "events", "team", "smm"] as const;
+
+/** Подвал-шторка на чернилах: лежит под страницей и открывается, когда страница уезжает вверх. */
 export function V2Footer() {
-  const c = SITE.contacts;
   return (
-    <footer className={s.footer}>
+    <footer id="kontakty" className={`${s.footer} v2-soot`}>
       <div className={`container ${s.inner}`}>
         <div className={s.grid}>
-          <p className={s.say}>Шьём маркетинг в&nbsp;Бишкеке. Из&nbsp;разных лоскутов одно полотно.</p>
-          <div className={s.col}>
-            <h2 className={s.h}>Связаться</h2>
-            <ul className={s.list}>
-              <li>{c.phoneHref ? <a className="link" href={c.phoneHref}>{c.phone.value}</a> : <Fill value={c.phone} />}</li>
-              <li>Telegram {c.telegramHref ? <a className="link" href={c.telegramHref}>{c.telegram.value}</a> : <Fill value={c.telegram} />}</li>
-              <li>Instagram {c.instagramHref ? <a className="link" href={c.instagramHref}>{c.instagram.value}</a> : <Fill value={c.instagram} />}</li>
-              <li><Fill value={c.address} /></li>
-            </ul>
+          <div className={s.lead}>
+            <p className={s.say}>Шьём маркетинг в&nbsp;Бишкеке. Из&nbsp;разных лоскутов одно полотно.</p>
+            <p className={s.who}>{BRAND_TEXT.oneLine.ru}</p>
+            <a href="#zayavka" className={`btn ${s.cta}`}>
+              {UI.apply.ru}
+            </a>
           </div>
           <div className={s.col}>
-            <h2 className={s.h}>Ещё</h2>
+            <h2 className={s.h}>Связаться</h2>
+            <Contacts layout="column" className={s.contacts} />
+            <p className={s.addr}>
+              <span className={s.addrLabel}>{UI.address.ru}</span>
+              <Fill value={ADDRESS} />
+            </p>
+          </div>
+          <div className={s.col}>
+            <h2 className={s.h}>Портфолио</h2>
+            <p className={s.note}>Сохраните PDF или отправьте ссылку шефу, коллегам и&nbsp;знакомым.</p>
+            <PortfolioShare className={s.files} />
+            <h2 className={`${s.h} ${s.hNext}`}>Разделы</h2>
             <ul className={s.list}>
+              <li><a className="link" href="#uslugi">Услуги</a></li>
+              <li><a className="link" href="#keisy">Кейсы</a></li>
               <li><a className="link" href="#komanda">Команда</a></li>
               <li><a className="link" href="#zayavka">Заявка</a></li>
             </ul>
           </div>
         </div>
-        <QuiltWord className={s.word} />
+        <QuiltWord className={s.word} cats={[...WORD_CATS]} />
         <div className={s.bottom}>
-          <p>Автоматизацию и приложения делаем с проверенными партнёрами.</p>
+          <p>{BRAND_TEXT.partners.ru}</p>
           <p>© {new Date().getFullYear()} Курак</p>
         </div>
       </div>

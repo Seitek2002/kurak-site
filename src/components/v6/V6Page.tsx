@@ -4,11 +4,9 @@ import {
   BUNDLES,
   CASES,
   CATEGORIES,
-  CHANNELS,
   CLIENT_LOGOS,
   EMAIL,
   FAQ,
-  PORTFOLIO_HREF,
   PRINCIPLES,
   RESPONSE_TIME,
   REVIEWS,
@@ -42,15 +40,15 @@ import { Fill } from "../Fill";
 import { AddToggle, BundleButton, PickedCount } from "./AddToggle";
 import { CalcHero } from "./CalcHero";
 import { CalcResult } from "./CalcResult";
+import { Contacts } from "./Contacts";
 import { IconPlus } from "./Icons";
 import { MobileBar } from "./MobileBar";
+import { PortfolioLinks } from "./Portfolio";
 import { Portrait } from "./Portrait";
 import { LangSwitch, V6Header } from "./V6Header";
 import { V6Bill, V6Form } from "./V6Request";
 import s from "./V6.module.css";
 
-/** Пока PDF нет, «Портфолио» ведёт к кейсам этой страницы */
-const PORTFOLIO = PORTFOLIO_HREF.startsWith("#") ? "#keisy" : PORTFOLIO_HREF;
 /** «Руководитель SMM» → «руководитель SMM», но «SMM жетекчиси» остаётся как есть */
 const lcFirst = (x: string) => (/^\p{Lu}\p{Ll}/u.test(x) ? x.charAt(0).toLocaleLowerCase("ru") + x.slice(1) : x);
 /** Фигура логотипа для портрета каждого руководителя */
@@ -86,25 +84,29 @@ export function V6Page({ lang }: { lang: Lang }) {
       <V6Header lang={lang} />
 
       <main id="main">
-        {/* 1. Первый экран: заголовок, расчёт одной строкой, под итогом отличие и одна кнопка */}
-        <section id="raschet" className={s.hero} aria-labelledby="v6-title">
+        {/* 1. Первый экран: кто мы и что делаем, заявка, портфолио, контакты; ниже на том же экране калькулятор */}
+        <section className={s.hero} aria-labelledby="v6-title">
           <div className={`container ${s.heroGrid}`}>
-            <h1 id="v6-title" className={s.h1}>
-              {V6_HERO.title[lang]}
-            </h1>
-            <div className={s.heroCalc}>
-              <CalcHero lang={lang} />
-            </div>
-            <div className={s.heroFoot}>
-              <p className={s.lede}>{nbh(BRAND_TEXT.promise[lang])}</p>
+            <div className={s.heroMain}>
+              <h1 id="v6-title" className={s.h1}>
+                {V6_HERO.title[lang]}
+              </h1>
+              <p className={s.lede}>{nbh(V6_HERO.does[lang])}</p>
               <div className={s.heroActions}>
-                <a id="v6-hero-cta" href="#zayavka" className="v6-btn">
-                  {UI.discuss[lang]}
+                <a id="v6-hero-cta" href="#zayavka" className={`v6-btn ${s.heroCta}`}>
+                  {UI.apply[lang]}
                 </a>
-                <a href={PORTFOLIO} className="v6-link">
-                  {UI.portfolio[lang]}
-                </a>
+                <PortfolioLinks lang={lang} />
               </div>
+            </div>
+            <div className={s.heroReach}>
+              <h2 id="v6-reach" className={s.reachHead}>
+                {V6_HERO.contacts[lang]}
+              </h2>
+              <Contacts lang={lang} />
+            </div>
+            <div id="raschet" className={s.heroCalc}>
+              <CalcHero lang={lang} />
             </div>
           </div>
         </section>
@@ -502,18 +504,13 @@ export function V6Page({ lang }: { lang: Lang }) {
         <div className={`container ${s.footGrid}`}>
           <div className={s.footBrand}>
             <KurakLogo className={s.footLogo} title={BRAND_TEXT.name[lang]} />
-            <p>{BRAND_TEXT.oneLine[lang]}</p>
+            <p className={s.footOne}>{V6_HERO.title[lang]}</p>
             <p className={s.muted}>{BRAND_TEXT.nameStory[lang]}</p>
           </div>
-          <div>
+          <div className={s.footReach}>
             <h2 className={s.footHead}>{V6_FOOTER.contacts[lang]}</h2>
+            <Contacts lang={lang} />
             <dl className={s.footList}>
-              {CHANNELS.map((c) => (
-                <div key={c.id}>
-                  <dt className={s.muted}>{c.label[lang]}</dt>
-                  <dd>{c.href ? <a href={c.href}>{c.value.value}</a> : <Fill value={c.value} />}</dd>
-                </div>
-              ))}
               <div>
                 <dt className={s.muted}>E-mail</dt>
                 <dd>
@@ -528,24 +525,27 @@ export function V6Page({ lang }: { lang: Lang }) {
               </div>
             </dl>
           </div>
-          <div>
-            <h2 className={s.footHead}>{V6_FOOTER.sections[lang]}</h2>
-            <ul className={s.footNav}>
-              {V6_NAV.map((x) => (
-                <li key={x.href}>
-                  <a href={x.href}>{x.label[lang]}</a>
-                </li>
-              ))}
-              <li>
-                <a href="#zayavka">{UI.discuss[lang]}</a>
-              </li>
-            </ul>
+          <div className={s.footPf}>
+            <h2 className={s.footHead}>{V6_FOOTER.portfolio[lang]}</h2>
+            <p className={s.muted}>{V6_FOOTER.portfolioLine[lang]}</p>
+            <PortfolioLinks lang={lang} className={s.pfStack} />
+            <a href="#zayavka" className={`v6-btn v6-btn--s ${s.footCta}`}>
+              {UI.apply[lang]}
+            </a>
           </div>
-          <div>
-            <h2 className={s.footHead}>{V6_FOOTER.lang[lang]}</h2>
-            <LangSwitch lang={lang} />
+          <div className={s.footBase}>
+            <nav aria-label={V6_FOOTER.sections[lang]}>
+              <ul className={s.footNav}>
+                {V6_NAV.map((x) => (
+                  <li key={x.href}>
+                    <a href={x.href}>{x.label[lang]}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <LangSwitch lang={lang} className={s.footLang} />
+            <p className={s.footCopy}>© 2026 {BRAND_TEXT.name[lang]}</p>
           </div>
-          <p className={s.footBase}>© 2026 {BRAND_TEXT.name[lang]}</p>
         </div>
       </footer>
 

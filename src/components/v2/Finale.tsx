@@ -1,4 +1,5 @@
 import { CATEGORIES } from "@/content/services";
+import { UI } from "@/content/kurak";
 import { Patch } from "../Patch";
 import { Magnetic } from "./Magnetic";
 import { Scene } from "./Scene";
@@ -18,12 +19,12 @@ export function Finale() {
       </div>
       <div className={s.center}>
         <h2 id="finale-title" className={s.title}>
-          <span className="v2-line" data-line><span>Ну что,</span></span>
+          <span className="v2-line" data-line><span>Ну что,</span></span>{" "}
           <span className="v2-line" data-line><span>сошьём?</span></span>
         </h2>
         <Magnetic>
           <a href="#zayavka" className="v2-round" data-cursor="Шьём">
-            Обсудить задачу
+            {UI.apply.ru}
           </a>
         </Magnetic>
       </div>

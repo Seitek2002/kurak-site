@@ -8,6 +8,7 @@
     "start": "next start --port 3210",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "build:portfolio": "node scripts/build-portfolio.mjs",
     "deploy:pages": "node scripts/deploy-pages.mjs"
   },
   "dependencies": {

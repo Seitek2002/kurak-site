@@ -47,7 +47,7 @@ export function MobileBar({ lang }: { lang: Lang }) {
   return (
     <div className={s.mobileBar} data-away={away || undefined} data-ready={ready || undefined}>
       <a href="#zayavka" className={`v6-btn ${s.mobileCta}`} tabIndex={away ? -1 : undefined} aria-hidden={away || undefined}>
-        {UI.discuss[lang]}
+        {UI.apply[lang]}
         {picked > 0 && (
           <span className={s.mobileCount}>
             <span className="visually-hidden">, {V6_UI.inRequest[lang]}: </span>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CASES, SITE } from "@/content/site";
+import { ADDRESS, CHANNELS, UI as K } from "@/content/kurak";
 import { CASES3, FAQ3, PAINS, PATH, STEPS3, TEAM3, UI, WORDS, type Lang } from "@/content/v3";
 import { categoryPhoto, clientLogo, SLOT_TEXT } from "@/content/photos";
 import { Fill } from "../Fill";
@@ -9,7 +10,8 @@ import { Wizard } from "./Wizard";
 import { V3Form } from "./V3Form";
 import { PainButton } from "./PainButton";
 import { MobileBar } from "./MobileBar";
-import { IconPhone, IconTelegram, IconWhatsApp } from "./Icons";
+import { Channels, PortfolioLinks } from "./Contact";
+import { IconArrow, IconPhone, IconTelegram, IconWhatsApp } from "./Icons";
 import s from "./V3.module.css";
 
 /** Фото кейсов: библиотека Hallmark (Wikimedia Commons), через «ксерокс» темы */
@@ -76,8 +78,9 @@ export function V3Page({ lang }: { lang: Lang }) {
                   </Link>
                 ))}
               </nav>
-              <a href="#svyaz" className={`v3-btn ${s.headCta}`}>
-                {UI.write[lang]}
+              <a href="#zayavka" className={`v3-btn v3-btn--primary ${s.headCta}`}>
+                <span className={s.ctaLong}>{K.apply[lang]}</span>
+                <span className={s.ctaShort} aria-hidden="true">{UI.applyShort[lang]}</span>
               </a>
             </div>
           </div>
@@ -85,16 +88,23 @@ export function V3Page({ lang }: { lang: Lang }) {
       </header>
 
       <main id="main">
-        {/* Первый экран: афишный заголовок слева, справа сам бланк помощника; на его угол наклеен флуоресцентный лист */}
-        <section className={`${s.hero} v3-fibre`} aria-labelledby="v3-title">
+        {/* Первый экран: слева кто мы, заявка, портфолио и каналы; справа бланк помощника, на его угол наклеен красный лист */}
+        <section id="nachalo" className={`${s.hero} v3-fibre`} aria-labelledby="v3-title">
           <div className={`container ${s.counter}`}>
             <div className={s.heroCopy}>
               <h1 id="v3-title" className={s.heroTitle}>{UI.heroTitle[lang]}</h1>
               <p className={s.heroLede}>{UI.heroLede[lang]}</p>
-              <a href="#svyaz" className={`v3-btn ${s.heroWrite}`}>{UI.write[lang]}</a>
+              <div className={s.heroActions}>
+                <a href="#zayavka" className={`v3-btn v3-btn--primary ${s.heroApply}`}>
+                  {K.apply[lang]}
+                  <IconArrow />
+                </a>
+                <PortfolioLinks lang={lang} />
+              </div>
+              <Channels lang={lang} className={s.heroChannels} />
             </div>
             <div className={s.heroDesk}>
-              <p className={`v3-sheet v3-sheet--fluoro ${s.fact}`} style={{ "--r": "-3deg" } as React.CSSProperties}>
+              <p className={`v3-sheet v3-sheet--signal ${s.fact}`} style={{ "--r": "-3deg" } as React.CSSProperties} aria-hidden="true">
                 {UI.heroNote[lang]}
               </p>
               <Wizard lang={lang} />
@@ -113,7 +123,7 @@ export function V3Page({ lang }: { lang: Lang }) {
               {PAINS.map((p, i) => (
                 <li
                   key={p.id}
-                  className={`v3-sheet ${i === 3 ? "v3-sheet--fluoro" : ""} ${s.notice}`}
+                  className={`v3-sheet ${i === 3 ? "v3-sheet--signal" : ""} ${s.notice}`}
                   style={{ "--r": TILT[i] } as React.CSSProperties}
                 >
                   <h3 className={s.noticeHead}>{p.problem[lang]}</h3>
@@ -292,7 +302,7 @@ export function V3Page({ lang }: { lang: Lang }) {
                 })}
               </ul>
             </div>
-            <div className={`v3-sheet ${s.formSheet}`}>
+            <div className={`v3-sheet ${s.formSheet}`} id="zayavka">
               <V3Form lang={lang} />
             </div>
           </div>
@@ -308,6 +318,32 @@ export function V3Page({ lang }: { lang: Lang }) {
           <p className={s.footStatement}>{UI.footerAbout[lang]}</p>
           <div className={s.footCols}>
             <div>
+              <h2 className={s.footH}>{UI.nav.contact![lang]}</h2>
+              <ul className={s.footList}>
+                {CHANNELS.map((ch) => (
+                  <li key={ch.id} className={s.footChannel}>
+                    <span className={s.footKey}>{ch.label[lang]}</span>
+                    {ch.href ? (
+                      <a className="link" href={ch.href} target={ch.id === "phone" ? undefined : "_blank"} rel="noopener noreferrer">
+                        {ch.value.value}
+                      </a>
+                    ) : (
+                      <Fill value={ch.value} />
+                    )}
+                  </li>
+                ))}
+                <li className={s.footChannel}>
+                  <span className={s.footKey}>{UI.address[lang]}</span>
+                  <Fill value={ADDRESS} />
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h2 className={s.footH}>{UI.portfolioTitle[lang]}</h2>
+              <p className={s.footNote}>{UI.portfolioNote[lang]}</p>
+              <PortfolioLinks lang={lang} onField />
+            </div>
+            <div>
               <h2 className={s.footH}>{UI.langLabel[lang]}</h2>
               <ul className={s.footList}>
                 <li>
@@ -320,7 +356,7 @@ export function V3Page({ lang }: { lang: Lang }) {
             <p className={`${s.footSmall} ${s.footRow}`}>
               {UI.partners[lang]} © {new Date().getFullYear()} Курак
             </p>
-            <p className={s.footSmall} data-credits lang="ru">
+            <p className={`${s.footSmall} ${s.footRow}`} data-credits lang="ru">
               Фото: {CREDITS.map((cr, i) => (
                 <span key={cr.href}>
                   <a className="link" href={cr.href}>{cr.name}</a> ({cr.lic}, Wikimedia Commons){i < CREDITS.length - 1 ? ", " : ""}
@@ -332,12 +368,9 @@ export function V3Page({ lang }: { lang: Lang }) {
       </footer>
 
       {/* Телефон: две главные кнопки всегда под пальцем */}
-      <MobileBar className={s.mobileBar} label={lang === "ru" ? "Быстрые действия" : "Тез аракеттер"}>
-        <a href="#podbor" className="v3-btn v3-btn--primary">{UI.nav.pick![lang]}</a>
-        <a href="#svyaz" className="v3-btn">
-          <IconWhatsApp />
-          {UI.write[lang]}
-        </a>
+      <MobileBar className={s.mobileBar} watch="nachalo" label={lang === "ru" ? "Быстрые действия" : "Тез аракеттер"}>
+        <a href="#zayavka" className="v3-btn v3-btn--primary">{K.apply[lang]}</a>
+        <a href="#podbor" className="v3-btn">{UI.getPlan[lang]}</a>
       </MobileBar>
     </div>
   );

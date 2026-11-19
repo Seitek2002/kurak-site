@@ -1,7 +1,8 @@
 import type { CategoryId } from "@/content/services";
 import { KURAK_PATHS } from "../brand/KurakLogo";
 
-const CATS: CategoryId[] = ["smm", "pr", "events", "brand", "sales"];
+/** Тона букв по умолчанию: знак читается как красный логотип, сшитый из лоскутов красного, терракоты и бордо */
+const CATS: CategoryId[] = ["smm", "sales", "smm", "digital", "smm"];
 
 /** Рамки пяти фигур знака в координатах логотипа 443 × 93: x, y, ширина, высота */
 const BOX: [number, number, number, number][] = [
@@ -26,7 +27,7 @@ function shape(i: number) {
  * Фигуры стоят на своих местах внутри рамки 443 × 93, поэтому знак не искажается;
  * каждая сидит в своей маске .v2-letter-mask, чтобы сцены могли двигать их по отдельности.
  */
-export function QuiltWord({ className, letterClass }: { className?: string; letterClass?: string }) {
+export function QuiltWord({ className, letterClass, cats = CATS }: { className?: string; letterClass?: string; cats?: CategoryId[] }) {
   return (
     <div className={["v2-word", className].filter(Boolean).join(" ")} aria-hidden="true">
       {BOX.map(([x, y, w, h], i) => (
@@ -37,7 +38,7 @@ export function QuiltWord({ className, letterClass }: { className?: string; lett
         >
           <span
             className={["v2-letter", letterClass].filter(Boolean).join(" ")}
-            data-cat={CATS[i]}
+            data-cat={cats[i % cats.length]}
             style={{ "--i": i, "--shape": shape(i) } as React.CSSProperties}
           />
         </span>

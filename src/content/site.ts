@@ -33,8 +33,12 @@ export const SITE = {
     address: d("Бишкек, адрес офиса", "адрес"),
     email: d("hello@kurak.kg", "почта"),
   },
-  /** Ссылки, которых пока нет: ведут на раздел этой страницы, который делает больше всего того же */
-  portfolioPdf: "#keisy",
+  /**
+   * Портфолио в PDF (демо из src/app/portfolio, собирается scripts/build-portfolio.mjs).
+   * Пришлёт агентство своё: замените файл public/portfolio/kurak-portfolio.pdf, путь не меняется.
+   * basePath нужен для GitHub Pages: ссылки на файл обычные <a>, а не next/link.
+   */
+  portfolioPdf: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/portfolio/kurak-portfolio.pdf`,
 };
 
 export const STATS: { value: Draft; label: string }[] = [

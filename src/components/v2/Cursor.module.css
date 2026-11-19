@@ -1,15 +1,17 @@
 .cursor { position: fixed; left: 0; top: 0; z-index: var(--z-tooltip); pointer-events: none; display: none; }
 .cursor[data-on="true"] { display: block; }
+/* Красная точка-напёрсток: тонкое кремовое кольцо снаружи держит её видимой и на марене */
 .dot {
   position: absolute; left: -9px; top: -9px; width: 18px; height: 18px; border-radius: 50%;
-  border: 1.5px solid var(--cat-pr); transition: transform var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out);
+  border: 1.5px solid var(--color-accent); box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-paper) 55%, transparent);
+  transition: transform var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out);
 }
 .label {
   position: absolute; left: 0; top: 0; translate: -50% -50%; white-space: nowrap;
-  font-size: var(--text-xs); font-weight: 600; color: var(--patch-dark); opacity: 0; transition: opacity var(--dur-short) var(--ease-out);
+  font-size: var(--text-xs); font-weight: 600; color: var(--color-accent-ink); opacity: 0; transition: opacity var(--dur-short) var(--ease-out);
 }
-.cursor[data-state="hover"] .dot { transform: scale(2.2); background: color-mix(in oklch, var(--cat-pr) 18%, transparent); }
-.cursor[data-state="label"] .dot { transform: scale(5.2); background: var(--cat-pr); border-color: var(--cat-pr); }
+.cursor[data-state="hover"] .dot { transform: scale(2.2); background: color-mix(in oklab, var(--color-accent) 16%, transparent); }
+.cursor[data-state="label"] .dot { transform: scale(5.2); background: var(--color-accent); border-color: var(--color-accent); }
 .cursor[data-state="label"] .label { opacity: 1; }
 .cursor[data-state="away"] .dot { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .cursor { display: none !important; } }

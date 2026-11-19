@@ -105,104 +105,191 @@
 }
 
 /* ====================================================================== */
-/* Первый экран: заголовок, формула, под итогом отличие и кнопка          */
+/* Первый экран: кто мы, что делаем, заявка, портфолио и связь; ниже калькулятор */
 /* ====================================================================== */
 
-.hero { padding-block: var(--space-2xl) var(--space-xl); }
-.heroGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-xl); }
-.h1 { grid-column: 1 / 11; font-size: var(--v6-display); line-height: 0.96; letter-spacing: -0.03em; max-width: 12em; }
-.heroCalc { grid-column: 1 / -1; }
-.heroFoot {
-  grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-md);
-  align-items: center;
+.hero { padding-block: clamp(1.5rem, 4.2vh, 3rem) var(--space-xl); }
+.heroGrid {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: clamp(1.5rem, 4vh, 2.5rem);
+  align-items: end;
 }
-.lede { grid-column: 1 / 7; font-size: var(--v6-lead); line-height: 1.45; color: var(--color-ink-2); max-width: 40ch; text-wrap: pretty; }
-.heroActions { grid-column: 7 / 13; justify-self: end; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-lg); }
+.heroMain { grid-column: 1 / 9; display: grid; gap: var(--space-md); align-content: end; min-width: 0; }
+.h1 { font-size: var(--v6-h1); line-height: 1.02; letter-spacing: -0.028em; max-width: 21em; }
+.lede { font-size: var(--v6-lead); line-height: 1.45; color: var(--color-ink-2); max-width: 60ch; text-wrap: pretty; }
+.heroActions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-lg); margin-top: var(--space-xs); }
+.heroReach { grid-column: 9 / 13; justify-self: end; width: min(100%, 22.5rem); }
+.heroCalc { grid-column: 1 / -1; min-width: 0; }
+
+/* ---------- Связь: три строки счёта, значок, канал, номер ---------- */
+.reachHead { font: 600 var(--text-sm)/1.3 var(--font-body); font-stretch: 100%; letter-spacing: 0; margin-bottom: var(--space-xs); }
+.reach { display: grid; border-top: 1px solid var(--color-ink); }
+.reach > li { border-bottom: 1px solid var(--color-rule-strong); }
+.reachRow {
+  display: grid; grid-template-columns: 20px auto minmax(0, 1fr); align-items: center; gap: var(--space-sm);
+  min-height: 48px; color: var(--color-ink); text-decoration: none;
+}
+.reachIcon { display: grid; color: var(--color-ink-2); }
+.reachName { font-size: var(--text-sm); color: var(--color-ink-2); white-space: nowrap; }
+.reachValue { justify-self: end; font-size: var(--text-sm); font-weight: 600; white-space: nowrap; }
+a.reachRow { transition: background-color var(--dur-short) var(--ease-out); }
+a.reachRow:hover { background: var(--color-paper-2); }
+a.reachRow:hover .reachValue { text-decoration: underline; text-underline-offset: 0.24em; text-decoration-thickness: 1px; }
+a.reachRow:active { background: var(--color-paper-3); }
+a.reachRow:focus-visible { outline-offset: -2px; }
+
+/* ---------- Портфолио: ссылка на PDF и маленькая «Поделиться» ---------- */
+.pf { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-md); }
+.pfLink { gap: var(--space-xs); font-weight: 600; text-decoration-color: var(--color-ink); }
+.pfLink:hover { text-decoration-color: var(--color-accent); }
+.pfLink svg { flex-shrink: 0; }
+.pfShare { position: relative; display: inline-flex; }
+.shareBtn {
+  display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; padding: 0 var(--space-sm);
+  border: 1px solid var(--color-rule-strong); border-radius: 22px; background: transparent; color: var(--color-ink);
+  font: 400 var(--text-sm)/1 var(--font-body); white-space: nowrap; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.shareBtn svg { flex-shrink: 0; }
+.shareBtn:hover { background: var(--color-paper-2); border-color: var(--color-ink); }
+.shareBtn:active { transform: translateY(1px); background: var(--color-paper-3); }
+.shareBtn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.shareBtn[data-on] { border-color: var(--color-ink); }
+.shareBtn:disabled { opacity: 0.55; cursor: not-allowed; }
+/* «Ссылка скопирована»: ярлык над кнопкой, не сдвигает строку */
+.shareLive { position: absolute; left: 50%; bottom: calc(100% + var(--space-2xs)); z-index: var(--z-raised); width: max-content; }
+.shareStatus {
+  display: block;
+  padding: var(--space-2xs) var(--space-sm); border-radius: var(--v6-radius);
+  background: var(--color-ink); color: var(--color-on-ink); font-size: var(--text-xs); line-height: 1.3; white-space: nowrap;
+  transform: translateX(-50%); pointer-events: none;
+  transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+}
+/* Ярлык появляется только после копирования и всплывает на 4px */
+@starting-style { .shareStatus { opacity: 0; transform: translate(-50%, 4px); } }
+/* Без скрипта поделиться нечем: остаётся ссылка на PDF */
+:global(html:not(.js)) .pfShare { display: none; }
 
 @media (max-width: 75rem) {
-  .h1 { grid-column: 1 / -1; }
-  .lede, .heroActions { grid-column: 1 / -1; justify-self: start; }
+  .heroMain { grid-column: 1 / -1; }
+  .heroReach { grid-column: 1 / -1; justify-self: start; width: min(100%, 28rem); }
 }
 @media (max-width: 40rem) {
-  .hero { padding-top: var(--space-lg); }
+  .hero { padding-top: var(--space-md); }
   .heroGrid { row-gap: var(--space-lg); }
+  .heroMain { gap: var(--space-sm); }
+  .h1 { line-height: 1.04; }
+  .lede { font-size: var(--text-md); line-height: 1.45; }
+  .heroActions { display: grid; gap: var(--space-2xs); margin-top: var(--space-2xs); }
+  .heroCta { width: 100%; }
+  .pf { justify-content: space-between; gap: 0 var(--space-sm); }
+  .pfLink { font-size: var(--text-sm); }
+  .heroReach { width: 100%; }
+  .reachHead { margin-bottom: var(--space-2xs); }
+  .reachRow { min-height: 44px; }
 }
 
-/* ---------- Формула: обращения × доля × чек = мимо кассы ---------- */
-/* Читается одной строкой слева направо: знаки в размер цифр, у итога двойная черта, как в бухгалтерской книге */
-.eq { border-top: 1px solid var(--color-ink); padding-top: var(--space-md); }
-.eqLegend { font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-lg); max-width: 72ch; }
-.eqRow { display: flex; flex-wrap: nowrap; align-items: baseline; gap: var(--space-lg); }
-.eqCell { display: flex; align-items: baseline; gap: var(--space-lg); min-width: 0; }
-.eqOp { flex-shrink: 0; font: 400 calc(var(--v6-fig) * 0.8)/1 var(--font-display); color: var(--color-ink); }
-.term { min-width: 0; display: grid; justify-items: start; }
+/* ---------- Калькулятор: лист из бухгалтерской книги ---------- */
+/* Подписи столбцов сверху, цифры в клетках, знаки в размер цифр, у итога двойная черта. Красный только у итога */
+.calc {
+  padding: var(--space-lg) clamp(1.5rem, 3vw, 2.5rem) var(--space-lg);
+  background: var(--color-paper-2); border-top: 2px solid var(--color-ink);
+  border-radius: 0 0 var(--v6-radius) var(--v6-radius);
+}
+.calcHead {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-xs) var(--gap-columns); align-items: baseline;
+  margin-bottom: var(--space-lg);
+}
+.calcTitle { font-size: var(--v6-title); line-height: 1.15; }
+.eqLegend { font-size: var(--text-sm); line-height: 1.45; color: var(--color-muted); max-width: 62ch; }
+
+.eqRow {
+  display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); grid-template-rows: auto auto auto;
+  column-gap: clamp(1.25rem, 2.6vw, 2.75rem); align-items: baseline;
+}
+.eqCell {
+  grid-row: span 3; display: grid; grid-template-rows: subgrid; grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(1.25rem, 2.6vw, 2.75rem); align-items: baseline; min-width: 0;
+}
+.eqCell:first-child { grid-template-columns: minmax(0, 1fr); }
+.termLabel, .termFig, .slider, .resultBox, .resultYear { grid-column: -2 / -1; }
+.eqOp { grid-column: 1; grid-row: 2; font: 300 calc(var(--v6-fig) * 0.78)/1 var(--font-display); color: var(--color-ink); }
+.termLabel { grid-row: 1; align-self: end; display: block; font-size: var(--text-sm); line-height: 1.3; color: var(--color-ink-2); white-space: nowrap; padding-bottom: var(--space-xs); }
 .termFig {
-  display: flex; align-items: baseline; gap: 0.12em;
+  grid-row: 2; display: flex; align-items: baseline; gap: 0.14em;
   font: 600 var(--v6-fig)/1 var(--font-display); font-stretch: 85%; letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums lining-nums; color: var(--color-ink);
 }
-.termUnit { font: 400 0.42em/1 var(--font-body); font-stretch: 100%; letter-spacing: 0; color: var(--color-ink-2); }
+.termUnit { font: 400 0.4em/1 var(--font-body); font-stretch: 100%; letter-spacing: 0; color: var(--color-ink-2); }
+/* Клетка, куда пишут цифру: светлое поле с чертой снизу, как графа в счёте */
 .num {
-  width: calc(var(--chars) * 1ch + 0.3ch); max-width: 100%;
-  padding: 0 0 var(--space-3xs); margin: 0;
-  border: 0; border-bottom: 1px solid var(--color-edge); border-radius: 0;
-  background: transparent; color: var(--color-ink);
-  font: inherit; line-height: normal; font-stretch: 85%; letter-spacing: inherit; font-variant-numeric: inherit;
-  outline: 2px solid transparent; outline-offset: 3px; caret-color: var(--color-accent);
-  transition: border-color var(--dur-short) var(--ease-out);
+  width: calc(var(--chars) * 1ch + 0.1em); max-width: 100%; box-sizing: content-box;
+  padding: 0.06em 0.14em 0.04em; margin: 0 0 0 -0.14em;
+  border: 0; border-bottom: 2px solid var(--color-ink); border-radius: var(--v6-radius) var(--v6-radius) 0 0;
+  background: var(--color-field); color: var(--color-ink);
+  font: inherit; line-height: 1; font-stretch: 85%; letter-spacing: inherit; font-variant-numeric: inherit;
+  outline: 2px solid transparent; outline-offset: 2px; caret-color: var(--color-accent);
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
 }
-.num:hover { border-bottom-color: var(--color-ink); }
-.num:focus-visible { outline-color: var(--color-focus); }
+.num:hover { background: var(--color-paper); }
+.num:focus-visible { outline-color: var(--color-focus); background: var(--color-paper); }
 .num:disabled { opacity: 0.55; cursor: not-allowed; }
 
-/* Итог: самая крупная цифра экрана, красная, под двойной чертой */
-.termResult .termFig { font-size: min(var(--v6-display), calc(36vw / (var(--len, 4) * 0.58 + 1.1))); color: var(--color-accent); }
-.resultFig { display: inline-block; line-height: normal; padding-bottom: var(--space-3xs); border-bottom: 3px double var(--color-ink); }
-.termResult .termUnit { color: var(--color-accent-text); }
-
 .slider {
-  -webkit-appearance: none; appearance: none; display: block; width: 100%; min-width: 7.5rem; max-width: 11rem; height: 28px;
-  margin: var(--space-2xs) 0; background: transparent; cursor: pointer;
+  grid-row: 3; -webkit-appearance: none; appearance: none; display: block; width: 100%; min-width: 9rem; height: 32px;
+  margin: var(--space-2xs) 0 0; background: transparent; cursor: pointer; touch-action: pan-y;
 }
-.slider::-webkit-slider-runnable-track { height: 2px; background: linear-gradient(to right, var(--color-ink) var(--p), var(--color-rule-strong) var(--p)); }
+.slider::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--color-ink) var(--p), var(--color-rule-strong) var(--p)); }
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none; appearance: none; width: 18px; height: 18px; margin-top: -8px;
-  border: 1.5px solid var(--color-ink); border-radius: 50%; background: var(--color-paper);
+  -webkit-appearance: none; appearance: none; width: 20px; height: 20px; margin-top: -8px;
+  border: 2px solid var(--color-ink); border-radius: 50%; background: var(--color-field);
+  transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
 }
-.slider::-moz-range-track { height: 2px; background: var(--color-rule-strong); }
-.slider::-moz-range-progress { height: 2px; background: var(--color-ink); }
-.slider::-moz-range-thumb { width: 16px; height: 16px; border: 1.5px solid var(--color-ink); border-radius: 50%; background: var(--color-paper); }
-.slider:hover::-webkit-slider-thumb { background: var(--color-paper-3); }
-.slider:active::-webkit-slider-thumb { background: var(--color-ink); }
+.slider::-moz-range-track { height: 4px; border-radius: 2px; background: var(--color-rule-strong); }
+.slider::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--color-ink); }
+.slider::-moz-range-thumb { width: 18px; height: 18px; border: 2px solid var(--color-ink); border-radius: 50%; background: var(--color-field); }
+.slider:hover::-webkit-slider-thumb { transform: scale(1.12); }
+.slider:active::-webkit-slider-thumb { background: var(--color-ink); transform: scale(1.12); }
+.slider:active::-moz-range-thumb { background: var(--color-ink); }
 
-.termLabel { display: block; font-size: var(--text-sm); line-height: 1.35; color: var(--color-ink-2); white-space: nowrap; }
-.termResult .termLabel { margin-top: var(--space-sm); color: var(--color-ink); }
+/* Итог: самая крупная цифра экрана, красная, под двойной чертой; ниже год */
+.resultLabel { color: var(--color-ink); font-weight: 600; }
+.resultBox { grid-row: 2; container-type: inline-size; min-width: 0; }
+.termFig.resultFig {
+  font-size: min(var(--v6-fig-res), calc(100cqi / (var(--len, 9) * 0.5 + 0.5)));
+  color: var(--color-accent); letter-spacing: -0.03em; white-space: nowrap;
+}
+.resultNum { display: inline-block; padding-bottom: 0.06em; border-bottom: 4px double var(--color-ink); }
+.resultFig .termUnit { color: var(--color-accent-text); }
+.resultYear { grid-row: 3; align-self: start; padding-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-ink-2); }
+.resultYear strong { font-weight: 600; color: var(--color-ink); }
 
 /* Узкие экраны: формула становится чеком, строка за строкой, цифры по правому краю */
 @media (max-width: 75rem) {
-  .eqRow { flex-direction: column; align-items: stretch; gap: 0; max-width: 40rem; }
+  .calcHead { grid-template-columns: minmax(0, 1fr); margin-bottom: var(--space-sm); }
+  .eqRow { display: block; max-width: 44rem; }
   .eqCell {
-    display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); align-items: center; gap: var(--space-sm);
-    padding-block: var(--space-xs); border-top: 1px solid var(--color-rule);
+    grid-template-rows: none; grid-template-columns: 1.25rem minmax(0, 1fr) auto; grid-template-areas: "op label fig" ". slider slider";
+    align-items: baseline; column-gap: var(--space-sm); padding-block: var(--space-sm) var(--space-2xs); border-top: 1px solid var(--color-rule-strong);
   }
-  .eqCell:first-child { border-top: 0; padding-top: 0; }
-  .eqCell:first-child .term { grid-column: 2; }
-  .eqOp { font-size: var(--text-lg); line-height: 1; }
-  .term {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label fig" "slider slider";
-    align-items: center; column-gap: var(--space-md); justify-items: stretch;
-  }
-  .termFig { grid-area: fig; justify-self: end; font-size: clamp(1.75rem, 4vw + 0.5rem, 2.5rem); }
-  .termLabel { grid-area: label; white-space: normal; font-size: var(--text-md); color: var(--color-ink); }
-  .slider { grid-area: slider; max-width: none; height: 24px; }
+  .eqCell:first-child { grid-template-columns: 1.25rem minmax(0, 1fr) auto; border-top: 0; padding-top: 0; }
+  .eqOp { grid-area: op; font-size: var(--text-lg); font-weight: 400; color: var(--color-ink-2); }
+  .termLabel { grid-area: label; align-self: baseline; padding-bottom: 0; white-space: normal; font-size: var(--text-md); color: var(--color-ink); }
+  .termFig { grid-area: fig; justify-self: end; font-size: clamp(1.75rem, 3vw + 0.9rem, 2.5rem); }
+  .termUnit { font-size: max(0.45em, var(--text-xs)); }
   .num { text-align: right; }
-  .eqCellResult { border-top: 1px solid var(--color-ink); padding-top: var(--space-sm); }
-  .termResult { grid-template-areas: "label" "fig"; grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2xs); container-type: inline-size; }
-  .termResult .termFig { justify-self: start; font-size: min(clamp(2.5rem, 8vw + 0.5rem, 4rem), calc(100cqi / (var(--len, 4) * 0.58 + 1.1))); }
-  .termResult .termLabel { margin-top: 0; }
+  .slider { grid-area: slider; height: 32px; margin: 0; }
+  .eqCellResult {
+    grid-template-columns: 1.25rem minmax(0, 1fr); grid-template-areas: "op label" "op fig" ". year";
+    margin-top: var(--space-xs); padding-top: var(--space-sm); border-top: 2px solid var(--color-ink); align-items: baseline;
+  }
+  .resultBox { grid-area: fig; display: grid; justify-items: end; }
+  .resultYear { grid-area: year; justify-self: end; text-align: right; padding-top: var(--space-2xs); }
+  .eqCellResult .eqOp { grid-area: op; align-self: start; padding-top: 0.15em; }
+  .termFig.resultFig { font-size: min(clamp(2.75rem, 7vw + 1rem, 4.25rem), calc(100cqi / (var(--len, 9) * 0.5 + 0.5))); }
 }
 @media (max-width: 40rem) {
-  .eqLegend { margin-bottom: var(--space-sm); }
+  .calc { margin-inline: calc(-1 * var(--gutter)); padding: var(--space-md) var(--gutter) var(--space-lg); border-radius: 0; }
+  .calcTitle { font-size: var(--text-lg); }
 }
 
 /* ====================================================================== */
@@ -699,38 +786,47 @@
 }
 
 /* ====================================================================== */
-/* Подвал                                                                  */
+/* Подвал: кто мы, связь, портфолио; внизу разделы, язык и год               */
 /* ====================================================================== */
 
 .footer { padding-block: var(--space-3xl) var(--space-xl); background: var(--color-paper-2); border-top: 1px solid var(--color-rule); }
-.footGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-xl) var(--gap-columns); }
-.footBrand { grid-column: 1 / 5; display: grid; gap: var(--space-md); align-content: start; max-width: 46ch; }
+.footGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-2xl) var(--gap-columns); align-items: start; }
+.footBrand { grid-column: 1 / 5; display: grid; gap: var(--space-md); align-content: start; max-width: 44ch; }
 .footLogo { width: 168px; height: auto; color: var(--color-accent); margin-bottom: var(--space-xs); }
-.footGrid > :nth-child(2) { grid-column: 5 / 8; }
-.footGrid > :nth-child(3) { grid-column: 8 / 11; }
-.footGrid > :nth-child(4) { grid-column: 11 / 13; }
-.footHead { font: 600 var(--text-sm)/1.3 var(--font-body); font-stretch: 100%; letter-spacing: 0; margin-bottom: var(--space-sm); }
-.footList { display: grid; gap: var(--space-sm); }
-.footList > div { display: grid; gap: var(--space-3xs); }
-.footList dt { font-size: var(--text-sm); }
-.footNav { display: grid; }
+.footOne { font: 600 var(--v6-title)/1.2 var(--font-display); font-stretch: 85%; letter-spacing: -0.015em; text-wrap: balance; }
+.footReach { grid-column: 6 / 10; display: grid; gap: var(--space-md); align-content: start; }
+.footReach .reach { border-top-color: var(--color-ink); }
+.footPf { grid-column: 10 / 13; display: grid; gap: var(--space-sm); align-content: start; justify-items: start; }
+.pfStack { flex-direction: column; align-items: flex-start; gap: var(--space-2xs); }
+.footCta { margin-top: var(--space-sm); }
+.footHead { font: 600 var(--text-sm)/1.3 var(--font-body); font-stretch: 100%; letter-spacing: 0; }
+.footList { display: grid; gap: var(--space-sm); padding-top: var(--space-xs); }
+.footList > div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: var(--space-sm); font-size: var(--text-sm); }
+.footBase {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-xs) var(--space-xl);
+  padding-top: var(--space-md); border-top: 1px solid var(--color-rule-strong);
+}
+.footNav { display: flex; flex-wrap: wrap; gap: 0 var(--space-lg); }
 .footNav a {
-  display: inline-flex; align-items: center; min-height: 40px; color: var(--color-ink); text-decoration: none; white-space: nowrap;
+  display: inline-flex; align-items: center; min-height: 44px; font-size: var(--text-sm); color: var(--color-ink); text-decoration: none; white-space: nowrap;
   text-underline-offset: 0.24em; text-decoration-thickness: 1px;
 }
 .footNav a:hover { text-decoration-line: underline; }
 .footNav a:active { color: var(--color-ink-2); }
-.footGrid .lang { margin-left: calc(-1 * var(--space-sm)); }
-.footBase { grid-column: 1 / -1; padding-top: var(--space-lg); border-top: 1px solid var(--color-rule-strong); font-size: var(--text-sm); color: var(--color-muted); }
+.footLang { margin-left: auto; }
+.footCopy { font-size: var(--text-sm); color: var(--color-muted); }
 
-@media (max-width: 60rem) {
+@media (max-width: 75rem) {
   .footBrand { grid-column: 1 / -1; }
-  .footGrid > :nth-child(2) { grid-column: 1 / 7; }
-  .footGrid > :nth-child(3) { grid-column: 7 / 13; }
-  .footGrid > :nth-child(4) { grid-column: 1 / -1; }
+  .footReach { grid-column: 1 / 8; }
+  .footPf { grid-column: 8 / 13; }
 }
-@media (max-width: 40rem) {
-  .footGrid > :nth-child(2), .footGrid > :nth-child(3) { grid-column: 1 / -1; }
+@media (max-width: 48rem) {
+  .footGrid { row-gap: var(--space-xl); }
+  .footReach, .footPf { grid-column: 1 / -1; }
+  .footBase { display: grid; justify-content: stretch; gap: var(--space-xs); }
+  .footNav { gap: 0 var(--space-md); }
+  .footLang { margin-left: calc(-1 * var(--space-sm)); }
 }
 
 /* ====================================================================== */
@@ -759,5 +855,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bar, .splitLost, .svcIcon, .faqIcon, .mobileBar, .num, .svcSum, .input, .navLink, .langOpt, .menuBtn, .billRemove, .faqQ { transition: none; }
+  .bar, .splitLost, .svcIcon, .faqIcon, .mobileBar, .num, .svcSum, .input, .navLink, .langOpt, .menuBtn, .billRemove, .faqQ, .shareBtn, .shareStatus, a.reachRow { transition: none; }
+  .slider::-webkit-slider-thumb { transition: none; }
+  .shareBtn:active { transform: none; }
 }

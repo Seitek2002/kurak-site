@@ -222,7 +222,7 @@ export function Brief() {
 
               <div className={s.submitRow}>
                 <button type="submit" className="btn" aria-busy={status.kind === "sending" || undefined} disabled={status.kind === "sending"}>
-                  {status.kind === "sending" ? "Отправляем" : "Обсудить задачу"}
+                  {status.kind === "sending" ? "Отправляем" : "Отправить заявку"}
                 </button>
                 <p className={s.fine}>Контакты нужны только для ответа на заявку. Черновик хранится на этом устройстве.</p>
               </div>

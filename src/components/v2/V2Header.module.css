@@ -4,25 +4,25 @@
 }
 .header[data-hidden] { transform: translateY(-120%); }
 .header:focus-within { transform: none; }
+/* Кремовая «бирка» с красным логотипом: та же пара цветов, что в логотипе, над любой секцией */
 .row {
   display: flex; align-items: center; gap: var(--space-lg); min-height: 60px;
   padding-block: var(--space-xs); border-radius: var(--radius-pill);
-  background: color-mix(in oklch, var(--color-field) 0%, transparent);
+  background: color-mix(in oklab, var(--color-paper) 0%, transparent); color: var(--color-ink);
   transition: background-color var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out);
 }
 .header[data-solid] .row {
-  background: color-mix(in oklch, var(--color-field) 86%, transparent);
-  box-shadow: 0 0 0 1px var(--color-field-rule);
+  background: color-mix(in oklab, var(--color-paper) 92%, transparent);
+  box-shadow: var(--shadow-pill);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
 }
-/* Логотип KURAK: фирменный красный на ночной ткани */
 .logo { display: inline-flex; align-items: center; padding-block: var(--space-xs); color: var(--color-logo); text-decoration: none; flex-shrink: 0; border-radius: 4px; }
 .mark { width: auto; height: 26px; aspect-ratio: 443 / 93; }
 .nav { flex: 1; min-width: 0; }
 .nav ul { display: flex; gap: var(--space-lg); list-style: none; margin: 0; padding: 0; }
 .link {
-  display: inline-flex; align-items: center; min-height: 44px; color: var(--color-ink-2); text-decoration: none; font-size: var(--text-sm);
-  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 10px) / 0 1.5px no-repeat;
+  display: inline-flex; align-items: center; min-height: 44px; color: var(--color-ink-2); text-decoration: none; font-size: var(--text-sm); font-weight: 500;
+  background: linear-gradient(var(--color-accent), var(--color-accent)) 0 calc(100% - 10px) / 0 1.5px no-repeat;
   transition: color var(--dur-short) var(--ease-out), background-size var(--dur-short) var(--ease-out);
 }
 .link:hover { color: var(--color-ink); background-size: 100% 1.5px; }
@@ -30,10 +30,10 @@
 .actions { display: flex; align-items: center; gap: var(--space-sm); margin-left: auto; }
 .pick {
   display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 44px; padding: 0 var(--space-md);
-  border: 1px solid var(--color-field-rule); border-radius: var(--radius-pill); background: transparent; color: var(--color-ink);
+  border: 1px solid var(--color-edge); border-radius: var(--radius-pill); background: transparent; color: var(--color-ink);
   font-size: var(--text-sm); cursor: pointer; transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
 }
-.pick:hover { border-color: var(--color-ink-2); background: var(--color-field-2); }
+.pick:hover { border-color: var(--color-ink); background: var(--color-paper-2); }
 .pick:active { transform: translateY(1px); }
 .count { min-width: 1.5em; font-weight: 600; text-align: center; font-variant-numeric: tabular-nums; }
 .cta { flex-shrink: 0; }
@@ -41,7 +41,7 @@
 
 @media (max-width: 68rem) { .nav { display: none; } }
 @media (max-width: 40rem) {
-  .row { gap: var(--space-sm); padding-inline: var(--space-sm); background: color-mix(in oklch, var(--color-field) 92%, transparent); box-shadow: 0 0 0 1px var(--color-field-rule); }
+  .row { gap: var(--space-sm); padding-inline: var(--space-sm) var(--space-xs); background: color-mix(in oklab, var(--color-paper) 94%, transparent); box-shadow: var(--shadow-pill); }
   .header { padding-inline: var(--space-xs); }
   .mark { height: 21px; }
   .pickLabel, .ctaLong { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

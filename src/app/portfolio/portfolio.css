@@ -1,0 +1,97 @@
+/*
+ * Демо-портфолио Курак: печатная вёрстка 16:9 (338.67 × 190.5 мм = 1280 × 720 px), она же экранная.
+ * Все цвета — токены этого блока: гамма логотипа (красный на креме) и производные.
+ * Контраст: красный #DC0F0A на креме 4.67:1 — только для крупного текста; мелкий красный текст — --pf-red-ink (≈7:1).
+ */
+:root:has(.pf-theme),
+.pf-theme {
+  --pf-cream: #fdf4e3;
+  --pf-red: #dc0f0a;
+  --pf-red-ink: #a80c08;
+  --pf-madder: #5a0f0c;
+  --pf-sand: #f2e1c1;
+  --pf-ink: #24160f;
+  --pf-ink-2: #46342a;
+  --pf-muted: #6e5a4d;
+  --pf-line: color-mix(in oklab, var(--pf-ink) 16%, transparent);
+  --pf-on-dark-2: color-mix(in oklab, var(--pf-cream) 80%, var(--pf-madder));
+  --pf-desk: #e8d6b6;
+  --pf-shadow: color-mix(in oklab, var(--pf-madder) 22%, transparent);
+}
+
+:root:has(.pf-theme) body {
+  background: var(--pf-desk);
+  color: var(--pf-ink);
+}
+
+.pf-theme {
+  font-family: var(--font-pf), system-ui, sans-serif;
+  font-optical-sizing: auto;
+  color: var(--pf-ink);
+}
+.pf-theme,
+.pf-theme * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.pf-theme h1,
+.pf-theme h2,
+.pf-theme h3 {
+  font-family: inherit;
+}
+.pf-theme :focus-visible {
+  outline: 2px solid var(--pf-red-ink);
+  outline-offset: 2px;
+}
+
+/* Образец, ждущий настоящих данных: пунктир толщиной по кеглю, но не толще 3 px */
+.pf-theme .fill {
+  padding: 0 0.16em;
+  border: clamp(1px, 0.055em, 3px) dashed currentColor;
+  border-radius: 0.12em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Плейсхолдеры фото в материале портфолио */
+.pf-theme [data-photo-slot] {
+  --ph-bg: var(--pf-sand);
+  --ph-line: color-mix(in oklab, var(--pf-madder) 45%, transparent);
+  --ph-ink: var(--pf-ink-2);
+  --ph-hatch: color-mix(in oklab, var(--pf-madder) 9%, transparent);
+}
+
+/* Лоскуты: цвета фона и фигуры по data-атрибутам */
+.pf-theme [data-bg="red"] { --bg: var(--pf-red); }
+.pf-theme [data-bg="sand"] { --bg: var(--pf-sand); }
+.pf-theme [data-bg="madder"] { --bg: var(--pf-madder); }
+.pf-theme [data-bg="ink"] { --bg: var(--pf-ink); }
+.pf-theme [data-bg="cream"] { --bg: var(--pf-cream); }
+.pf-theme [data-fg="red"] { --fg: var(--pf-red); }
+.pf-theme [data-fg="sand"] { --fg: var(--pf-sand); }
+.pf-theme [data-fg="madder"] { --fg: var(--pf-madder); }
+.pf-theme [data-fg="ink"] { --fg: var(--pf-ink); }
+.pf-theme [data-fg="cream"] { --fg: var(--pf-cream); }
+.pf-theme .pf-bg { fill: var(--bg); }
+.pf-theme .pf-fg { fill: var(--fg); }
+
+/* ---------- Печать ---------- */
+/* 1280 × 720 px = 338.67 × 190.5 мм; в px, чтобы страница не съезжала на долю пикселя */
+@page {
+  size: 1280px 720px;
+  margin: 0;
+}
+@media print {
+  :root:has(.pf-theme),
+  :root:has(.pf-theme) body {
+    background: var(--pf-cream);
+  }
+  :root:has(.pf-theme) .skip,
+  :root:has(.pf-theme) nextjs-portal {
+    display: none !important;
+  }
+  /* Штриховка плейсхолдера в PDF превращается в растровые картинки (+1 МБ): в печати оставляем пунктир и подпись */
+  .pf-theme [data-photo-slot] {
+    background-image: none;
+  }
+}

@@ -15,14 +15,15 @@
   display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); grid-template-rows: minmax(0, 1fr) auto;
   grid-template-areas: "media art" "title body"; gap: var(--space-xl); align-items: end;
   min-height: min(76svh, 660px); padding: var(--space-2xl); border-radius: calc(var(--radius-card) * 4); overflow: clip;
-  background: var(--c); color: var(--patch-dark); transform-origin: 50% 0;
+  background: var(--c); color: var(--c-ink); transform-origin: 50% 0;
 }
-.shade { position: absolute; inset: 0; background: var(--patch-dark); opacity: 0; pointer-events: none; z-index: 2; }
+/* нижняя карточка уходит в тень марены, а не в серый */
+.shade { position: absolute; inset: 0; background: var(--color-field); opacity: 0; pointer-events: none; z-index: 2; }
 .media { grid-area: media; position: relative; align-self: stretch; min-height: 12rem; border-radius: calc(var(--radius-card) * 2); overflow: clip; }
 .photo {
-  --ph-bg: color-mix(in oklch, var(--patch-light) 72%, var(--c));
-  --ph-hatch: color-mix(in oklch, var(--c-deep) 24%, transparent);
-  --ph-line: color-mix(in oklch, var(--patch-dark) 55%, transparent);
+  --ph-bg: color-mix(in oklab, var(--patch-light) 72%, var(--c));
+  --ph-hatch: color-mix(in oklab, var(--c-deep) 24%, transparent);
+  --ph-line: color-mix(in oklab, var(--patch-dark) 55%, transparent);
   --ph-ink: var(--patch-dark);
   border-radius: inherit;
 }
@@ -36,7 +37,7 @@
 .body { grid-area: body; position: relative; display: grid; gap: var(--space-md); }
 .client { font-weight: 600; font-size: var(--text-lg); }
 .story { display: grid; gap: var(--space-sm); margin: 0; }
-.story div { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--space-md); padding-top: var(--space-sm); border-top: 1.5px dashed color-mix(in oklch, var(--patch-dark) 45%, transparent); }
+.story div { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--space-md); padding-top: var(--space-sm); border-top: 1.5px dashed color-mix(in oklab, var(--c-ink) 45%, transparent); }
 .story dt { font-size: var(--text-sm); }
 .story dd { margin: 0; }
 .cats { font-size: var(--text-sm); font-weight: 600; }
@@ -51,7 +52,7 @@
   --ph-bg: var(--color-paper-2);
   --ph-line: var(--color-edge);
   --ph-ink: var(--color-muted);
-  --ph-hatch: color-mix(in oklch, var(--color-ink) 5%, transparent);
+  --ph-hatch: color-mix(in oklab, var(--color-ink) 5%, transparent);
 }
 img.logoSlot { object-fit: contain; }
 

@@ -1,18 +1,19 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Lang } from "@/content/kurak";
 import { V6_CALC } from "@/content/v6";
-import { CALC_LIMITS, groupDigits, monthLoss, useCalc, type CalcValues } from "./calc";
+import { CALC_LIMITS, groupDigits, monthLoss, som, useCalc, type CalcValues } from "./calc";
 import s from "./V6.module.css";
 
 type Key = keyof CalcValues;
 
 /**
- * Первый экран: расчёт одной строкой, как формула в отчёте.
- * обращения × доля потерянных × средний чек = сколько уходит мимо кассы в месяц.
- * Поля печатаются с клавиатуры (стрелки вверх и вниз меняют на шаг, с Shift на десять шагов),
- * ползунок под полем для прикидки пальцем. Без скрипта видны значения по умолчанию и их итог.
+ * Калькулятор первого экрана: расчёт одной строкой, как формула в бухгалтерской книге.
+ * обращения × доля потерянных × средний чек = сколько уходит мимо кассы в месяц (и за год под чертой).
+ * Над каждой цифрой подпись, под ней ползунок. Поля печатаются с клавиатуры (стрелки вверх и вниз меняют на шаг,
+ * с Shift на десять шагов). Итог «досчитывается» до нового значения, как счётчик купюр; без движения сразу.
+ * Без скрипта видны значения по умолчанию и их итог.
  */
 export function CalcHero({ lang }: { lang: Lang }) {
   const leads = useCalc((st) => st.leads);
@@ -20,6 +21,7 @@ export function CalcHero({ lang }: { lang: Lang }) {
   const check = useCalc((st) => st.check);
   const set = useCalc((st) => st.set);
   const month = monthLoss({ leads, pct, check });
+  const shown = useCountUp(month);
 
   const terms: { key: Key; value: number; unit?: string; name: string }[] = [
     { key: "leads", value: leads, name: V6_CALC.leads[lang] },
@@ -28,10 +30,16 @@ export function CalcHero({ lang }: { lang: Lang }) {
   ];
 
   return (
-    <div className={s.eq} role="group" aria-labelledby="v6-eq-legend">
-      <p id="v6-eq-legend" className={s.eqLegend}>
-        {V6_CALC.legend[lang]}
-      </p>
+    <div className={s.calc} role="group" aria-labelledby="v6-calc-title" aria-describedby="v6-eq-legend">
+      <div className={s.calcHead}>
+        <h2 id="v6-calc-title" className={s.calcTitle}>
+          {V6_CALC.title[lang]}
+        </h2>
+        <p id="v6-eq-legend" className={s.eqLegend}>
+          {V6_CALC.legend[lang]}
+        </p>
+      </div>
+
       <div className={s.eqRow}>
         {terms.map((t, i) => (
           <div key={t.key} className={s.eqCell}>
@@ -40,40 +48,75 @@ export function CalcHero({ lang }: { lang: Lang }) {
                 ×
               </span>
             )}
-            <div className={s.term}>
-              <div className={s.termFig}>
-                <NumField id={`v6-${t.key}`} k={t.key} value={t.value} onChange={(n) => set({ [t.key]: n })} />
-                {t.unit && <span className={s.termUnit}>{t.unit}</span>}
-              </div>
-              <Slider k={t.key} value={t.value} onChange={(n) => set({ [t.key]: n })} />
-              <label htmlFor={`v6-${t.key}`} className={s.termLabel}>
-                {t.name}
-              </label>
+            <label htmlFor={`v6-${t.key}`} className={s.termLabel}>
+              {t.name}
+            </label>
+            <div className={s.termFig}>
+              <NumField id={`v6-${t.key}`} k={t.key} value={t.value} onChange={(n) => set({ [t.key]: n })} />
+              {t.unit && <span className={s.termUnit}>{t.unit}</span>}
             </div>
+            <Slider k={t.key} value={t.value} onChange={(n) => set({ [t.key]: n })} />
           </div>
         ))}
+
         <div className={`${s.eqCell} ${s.eqCellResult}`}>
           <span className={s.eqOp} aria-hidden="true">
             =
           </span>
-          <div className={`${s.term} ${s.termResult}`}>
+          <label htmlFor="v6-month" className={`${s.termLabel} ${s.resultLabel}`}>
+            {V6_CALC.result[lang]}
+          </label>
+          <div className={s.resultBox}>
             <output
               id="v6-month"
               htmlFor="v6-leads v6-pct v6-check"
-              className={s.termFig}
-              style={{ "--len": groupDigits(month).length + 1.5 } as React.CSSProperties}
+              className={`${s.termFig} ${s.resultFig}`}
+              style={{ "--len": groupDigits(month).length + 2 } as React.CSSProperties}
             >
-              <span className={s.resultFig}>{groupDigits(month)}</span>{" "}
-              <span className={s.termUnit}>{V6_CALC.som[lang]}</span>
+              <span aria-hidden="true" className={s.resultNum}>
+                {groupDigits(shown)}
+              </span>
+              <span aria-hidden="true" className={s.termUnit}>
+                {V6_CALC.som[lang]}
+              </span>
+              <span className="visually-hidden">{som(month)}</span>
             </output>
-            <label htmlFor="v6-month" className={s.termLabel}>
-              {V6_CALC.result[lang]}
-            </label>
           </div>
+          <p className={`${s.resultYear} v6-num`}>
+            {V6_CALC.perYear[lang]} <strong>{som(shown * 12)}</strong>
+          </p>
         </div>
       </div>
     </div>
   );
+}
+
+/**
+ * Итог догоняет новое значение за 0,45 с, как счётчик купюр. При «уменьшить движение» сразу.
+ * На сервере и при первой отрисовке значение итоговое, поэтому гидрация совпадает.
+ */
+function useCountUp(target: number) {
+  const [shown, setShown] = useState(target);
+  const current = useRef(target);
+  useEffect(() => {
+    const from = current.current;
+    if (from === target) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const dur = reduce ? 0 : 450;
+    const start = performance.now();
+    let raf = 0;
+    const step = (now: number) => {
+      const p = dur === 0 ? 1 : Math.min(1, (now - start) / dur);
+      const eased = 1 - (1 - p) ** 3;
+      const v = p >= 1 ? target : Math.round(from + (target - from) * eased);
+      current.current = v;
+      setShown(v);
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target]);
+  return shown;
 }
 
 /** Числовое поле с группами разрядов. Каретка остаётся после той же цифры, что и до форматирования. */
