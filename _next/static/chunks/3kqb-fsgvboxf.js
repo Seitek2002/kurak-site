@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,90154,t=>{"use strict";async function e(t,e){return"offline"}t.i(47167),t.s(["V",0,e,"O",0,function(t){let e=t.trim();return e.replace(/\D/g,"").length>=9||/^@[\w.]{4,}$/.test(e)},"K",0,function(t){return t.trim().length>=2}])}]);
