@@ -1,6 +1,6 @@
 /**
- * Вариант 9: подача креативного агентства (чёрный экран, гигантский вордмарк, широкий гротеск капсом,
- * один кислотный акцент и светлые секции). Акцент здесь красный логотипа, светлая заливка его крем.
+ * Вариант 9: подача креативного агентства (гигантский вордмарк, крупные блоки, контрастные секции),
+ * голос заголовков как в меню услуг варианта 2 (Kurak Display + Onest). Тёмный и светлый режимы в гамме логотипа.
  * Тексты концепции на двух языках. Общие факты (услуги, кейсы, цифры, команда) берутся из kurak.ts.
  * Кыргызские тексты перед запуском должен вычитать носитель языка.
  */
@@ -29,8 +29,18 @@ export const V9 = {
   navLabel: tt("Разделы страницы", "Барактын бөлүмдөрү"),
   inRequest: tt("услуг в заявке", "кызмат заявкада"),
 
+  /* Режим */
+  themeLight: tt("Светлая тема", "Жарык тема"),
+
   /* Первый экран */
-  caption: tt("Маркетинговое агентство полного цикла", "Толук циклдүү маркетинг агенттиги"),
+  heroTitle: tt("Курак — маркетинговое агентство полного цикла в Бишкеке", "Курак — Бишкектеги толук циклдүү маркетинг агенттиги"),
+  dirsLabel: tt("Что делаем", "Эмне кылабыз"),
+  contactsTitle: tt("Напишите или позвоните", "Жазыңыз же чалыңыз"),
+  contactsNote: tt("Ответим в рабочее время", "Иш убактысында жооп беребиз"),
+  shareFailed: tt("Не получилось. Скопируйте адрес из строки браузера.", "Болбой калды. Даректи браузердин сабынан көчүрүңүз."),
+
+  /* Бегущая лента */
+  ribbonLabel: tt("Во что мы верим", "Эмнеге ишенебиз"),
 
   /* Утверждение красным */
   statement: tt(
@@ -84,6 +94,7 @@ export const V9 = {
   task: tt("Задача", "Тапшырма"),
   did: tt("Что сделали", "Эмне кылдык"),
   sampleCase: tt("Образец кейса", "Кейстин үлгүсү"),
+  topicPhoto: tt("Фото по теме, не из проекта", "Тема боюнча сүрөт, долбоордон эмес"),
 
   /* Цифры */
   statsLabel: tt("Курак в цифрах", "Курак сандар менен"),
@@ -112,7 +123,7 @@ export const V9 = {
   processTitle: tt("Как мы работаем", "Кантип иштейбиз"),
 
   /* Заявка */
-  formTitle: tt("Обсудить задачу", "Тапшырманы талкуулоо"),
+  formTitle: tt("Оставить заявку", "Заявка калтыруу"),
   stepsTitle: tt("Что будет после заявки", "Заявкадан кийин эмне болот"),
   removeFrom: tt("Убрать из заявки", "Заявкадан алып салуу"),
 
@@ -121,6 +132,11 @@ export const V9 = {
   toTop: tt("Главная", "Башкы бет"),
   rights: tt("Курак, Бишкек", "Курак, Бишкек"),
   footerNav: tt("Разделы", "Бөлүмдөр"),
+  photoBy: tt("Фото по теме", "Тема боюнча сүрөт"),
+  credits: tt(
+    "Фото по теме с Wikimedia Commons, не из проектов агентства:",
+    "Wikimedia Commons сайтынан тема боюнча сүрөттөр, агенттиктин долбоорлорунан эмес:",
+  ),
 } satisfies Record<string, T | Record<string, T>>;
 
 /** Разделы для меню шапки и подвала */
@@ -133,3 +149,80 @@ export const SECTIONS = [
 ] as const;
 
 export type { Lang };
+
+/* ------------------------------------------------------------------ */
+/* Фото по теме (Wikimedia Commons). Не фото проектов агентства:        */
+/* так и подписаны на плитках кейсов и в подвале. Файлы в public/v9.   */
+/* ------------------------------------------------------------------ */
+
+export type V9Photo = { file: string; w: number; h: number; alt: T; topic: T; author: string; license: string; page: string; pos?: string };
+
+export const PHOTOS = {
+  coffee: {
+    topic: tt("кофемашина", "кофе машинасы"),
+    file: "espresso.jpg",
+    w: 1068,
+    h: 1600,
+    alt: tt("Эспрессо льётся из кофемашины в две чашки", "Кофе машинасынан эки чыныга эспрессо куюлуп жатат"),
+    author: "Shixart1985",
+    license: "CC BY 2.0",
+    page: "https://commons.wikimedia.org/wiki/File:Espresso_coffee_pouring_from_retro_espresso_machine.jpg",
+    pos: "50% 62%",
+  },
+  forum: {
+    topic: tt("концертный зал", "концерттик зал"),
+    file: "hall.jpg",
+    w: 1600,
+    h: 996,
+    alt: tt("Концертный зал с деревянными рядами кресел", "Жыгач отургучтар катарлары бар концерттик зал"),
+    author: "北京驱动文化传媒有限公司",
+    license: "CC BY-SA 3.0",
+    page: "https://commons.wikimedia.org/wiki/File:Tianjin_Grand_Theater_Concert_Hall.jpg",
+  },
+  clinic: {
+    topic: tt("стетоскоп", "стетоскоп"),
+    file: "clinic.jpg",
+    w: 1600,
+    h: 1067,
+    alt: tt("Стетоскоп перед ноутбуком на столе врача", "Дарыгердин үстөлүндө ноутбуктун алдында стетоскоп"),
+    author: "Daniel Sone",
+    license: "Public domain",
+    page: "https://commons.wikimedia.org/wiki/File:Stethoscope_and_Laptop_Computer_-_Nci-vol-9713-300.jpg",
+  },
+  food: {
+    topic: tt("сыроварня", "сыр жасоочу жай"),
+    file: "cheese.jpg",
+    w: 1600,
+    h: 1200,
+    alt: tt("Головки сыра на деревянных полках в камере созревания", "Бышыруучу бөлмөдөгү жыгач текчелерде сыр тегеректери"),
+    author: "Emil76",
+    license: "CC BY-SA 3.0",
+    page: "https://commons.wikimedia.org/wiki/File:Sheep_cheese_production.jpg",
+  },
+  print: {
+    topic: tt("трафаретная печать", "трафарет басма"),
+    file: "screen-print.jpg",
+    w: 1600,
+    h: 1067,
+    alt: tt("Руки протягивают ракель с красной краской по трафаретной раме", "Колдор кызыл боёк менен ракелди трафарет рамасынан тартып жатат"),
+    author: "Ahmad Ali Karim",
+    license: "CC0",
+    page: "https://commons.wikimedia.org/wiki/File:Screen_printing_demonstration_at_TEDxUTM.jpg",
+  },
+  camera: {
+    topic: tt("оператор", "оператор"),
+    file: "camera.jpg",
+    w: 1600,
+    h: 1289,
+    alt: tt("Оператор снимает на плечевую камеру на штативе", "Оператор штативдеги ийин камерасы менен тартып жатат"),
+    author: "Jacek Halicki",
+    license: "CC BY-SA 4.0",
+    page: "https://commons.wikimedia.org/wiki/File:2016_Operator_kamery_w_czasie_pracy.JPG",
+    pos: "36% 16%",
+  },
+} satisfies Record<string, V9Photo>;
+
+export type PhotoId = keyof typeof PHOTOS;
+
+/** Фото по теме для кейсов-образцов, пока агентство не прислало фото проектов (content/photos.ts) */
+export const CASE_TOPIC: Record<string, PhotoId> = { coffee: "coffee", forum: "forum", clinic: "clinic", food: "food" };

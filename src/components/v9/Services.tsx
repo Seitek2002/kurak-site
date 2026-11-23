@@ -7,6 +7,8 @@ import { V9 } from "@/content/v9";
 import { useSelection } from "@/store/selection";
 import { Fill } from "../Fill";
 import { Shape } from "./Shape";
+import { KBadge } from "./KBadge";
+import { IconArrowDownRight, IconArrowOut } from "./Icons";
 import s from "./V9.module.css";
 
 const OPEN_EVENT = "v9:open-category";
@@ -28,7 +30,7 @@ export function OpenCategory({ id, className, children }: { id: CategoryId; clas
   );
 }
 
-/** «МЫ ДЕЛАЕМ»: восемь тёмных карточек 01–08, по клику справа выезжает лист направления */
+/** «Мы делаем»: восемь карточек 01–08 с курак-значком направления, по клику справа выезжает лист направления */
 export function ServiceCards({ lang }: { lang: Lang }) {
   const picked = useSelection((st) => st.picked);
   const [openId, setOpenId] = useState<CategoryId | null>(null);
@@ -54,7 +56,7 @@ export function ServiceCards({ lang }: { lang: Lang }) {
   return (
     <>
       <ul className={s.cards}>
-        {CATEGORIES.map((c, i) => {
+        {CATEGORIES.map((c) => {
           const n = c.services.filter((x) => picked.includes(x.id)).length;
           return (
             <li key={c.id} className={s.card}>
@@ -66,9 +68,7 @@ export function ServiceCards({ lang }: { lang: Lang }) {
               <p className={s.cardSub}>
                 {c.short[lang]}: {c.services.map((x) => lowerFirst(x.title[lang])).join(", ")}
               </p>
-              <span className={s.arrow} aria-hidden="true">
-                ↗
-              </span>
+              <IconArrowOut className={s.arrow} />
               <div className={s.cardFoot}>
                 <span className={s.cardNum}>{c.n}</span>
                 {n > 0 && (
@@ -76,8 +76,8 @@ export function ServiceCards({ lang }: { lang: Lang }) {
                     {n} {V9.pickedHere[lang]}
                   </span>
                 )}
+                <KBadge id={c.id} className={s.cardBadge} stitched />
               </div>
-              <Shape i={i} className={s.cardShape} />
             </li>
           );
         })}
@@ -88,9 +88,7 @@ export function ServiceCards({ lang }: { lang: Lang }) {
             </a>
           </h3>
           <p className={s.cardSub}>{V9.notFoundText[lang]}</p>
-          <span className={s.arrow} aria-hidden="true">
-            ↘
-          </span>
+          <IconArrowDownRight className={s.arrow} />
           <Shape i={3} className={s.cardShape} />
         </li>
       </ul>
@@ -116,7 +114,6 @@ function Sheet({ c, lang, onClose }: { c: Category; lang: Lang; onClose: () => v
   const picked = useSelection((st) => st.picked);
   const toggle = useSelection((st) => st.toggle);
   const total = picked.length;
-  const idx = CATEGORIES.findIndex((x) => x.id === c.id);
 
   return (
     <div className={s.sheetInner}>
@@ -130,7 +127,7 @@ function Sheet({ c, lang, onClose }: { c: Category; lang: Lang; onClose: () => v
       </div>
 
       <div className={s.sheetHead}>
-        <Shape i={idx} className={s.sheetShape} />
+        <KBadge id={c.id} className={s.sheetBadge} stitched />
         <p className={s.sheetShort}>
           {V9.sheetLabel[lang]}: {c.short[lang]}
         </p>

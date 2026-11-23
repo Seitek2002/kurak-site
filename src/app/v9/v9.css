@@ -1,90 +1,150 @@
 /*
- * Вариант 9: подача креативного агентства. Чёрный экран, белый текст, один акцент (красный логотипа),
- * светлая заливка секций (крем логотипа). Острые углы у кнопок, лёгкое скругление у карточек.
- * Все цвета варианта только здесь, в одном блоке токенов: фирменные цвета пришлют, меняются в этом блоке.
- * Блок объявлен и на :root:has(.v9-theme), чтобы фон body и полоса прокрутки брали те же токены.
+ * Вариант 9: подача креативного агентства в гамме логотипа. Два режима:
+ * тёмный (по умолчанию): чёрный экран, крем логотипа текстом и вордмарком, контрастные секции кремом;
+ * светлый: крем логотипа фоном, тёплые чернила текстом, красный знак, контрастные секции чернилами.
+ * Все цвета варианта только здесь, в одном блоке токенов (режим = атрибут data-mode на .v9-theme,
+ * его ставит скрипт в layout до отрисовки). Блок объявлен и на :root:has(...), чтобы фон body и
+ * полоса прокрутки брали те же токены. Фирменные цвета пришлют: меняются в этом блоке.
  */
-:root:has(.v9-theme),
-.v9-theme {
-  /* ---------- Цвет ---------- */
-  --v9-black: #000000;
-  --v9-card: #181818;
-  --v9-card-2: #222222;
-  --v9-line: #333333;
-  --v9-line-strong: #5c5c5c;
-  --v9-white: #ffffff;
-  --v9-grey: #a3a3a3;          /* подписи на чёрном: 8.3:1, на карточке 6.5:1 */
-  --v9-red: #dc0f0a;           /* красный логотипа: знак, заливки, кнопка заявки (белый текст 5.1:1) */
-  --v9-red-deep: #a80b07;
-  --v9-accent: #ff3b2e;        /* тот же красный, высветленный для текста на чёрном: 5.9:1 (логотипный даёт 4.1:1) */
-  --v9-cream: #fdf4e3;         /* крем логотипа: светлые секции */
-  --v9-on-cream: #000000;
-  --v9-on-cream-2: #5c554b;    /* вторичный текст на креме: 6.7:1 */
-  --v9-red-on-cream: #dc0f0a;  /* 4.7:1 */
-  --v9-focus: #ff3b2e;
-  --v9-focus-on-cream: #000000;
-  --v9-error: #ff6b5e;
+.v9-theme[data-mode="dark"],
+:root:has(.v9-theme[data-mode="dark"]) {
+  --v9-bg: #000000;
+  --v9-fg: #fdf4e3;             /* крем логотипа: 18.6:1 */
+  --v9-fg-2: #aba195;           /* подписи: 8.3:1 на чёрном, 7.1:1 на карточке */
+  --v9-card: #1a1612;
+  --v9-card-2: #26201b;
+  --v9-line: #342c26;
+  --v9-line-strong: #62574d;
+  --v9-field-line: #8a7e72;     /* граница поля: 4.6:1 */
+  --v9-brand: #dc0f0a;          /* красный логотипа: кнопка заявки, лента, знак */
+  --v9-brand-hover: #b30c08;
+  --v9-on-brand: #fff8ee;       /* 5:1 на красном */
+  --v9-accent: #ff5245;         /* красный для текста на чёрном: 6.5:1 */
+  --v9-inv: #fdf4e3;            /* контрастные секции: крем */
+  --v9-on-inv: #1f140f;         /* 16.9:1 */
+  --v9-on-inv-2: #5e4c40;       /* 7.5:1 */
+  --v9-accent-inv: #b10e09;     /* 6.5:1 на креме */
+  --v9-wordmark: #fdf4e3;
+  --v9-focus: #ff5245;
+  --v9-focus-inv: #1f140f;
+  --v9-error: #ff7a6e;
+  --v9-scrim: rgb(0 0 0 / 0.72);
+  --v9-glass: rgb(0 0 0 / 0.84);
+  --v9-sheet: #120f0c;
+  --v9-sheet-line: #2e2620;
+  --v9-photo-filter: saturate(0.9) brightness(0.88);
+  --v9-iris-hi: rgb(255 255 255 / 0.8);
+  --v9-bubble-core: rgb(253 244 227 / 0.04);
+  --v9-scheme: dark;
+}
 
-  /* Промо ивентов: тёплые глубокие тона вместо фиолетово-синего */
+.v9-theme[data-mode="light"],
+:root:has(.v9-theme[data-mode="light"]) {
+  --v9-bg: #fdf4e3;             /* крем логотипа */
+  --v9-fg: #1f140f;             /* тёплые чернила: 16.9:1 */
+  --v9-fg-2: #6b574a;           /* 6.2:1 на креме, 5.4:1 на карточке */
+  --v9-card: #f5e7cd;           /* лён */
+  --v9-card-2: #efdcba;
+  --v9-line: #e3cdaa;
+  --v9-line-strong: #b69a80;
+  --v9-field-line: #8c7360;     /* граница поля: 4.2:1 */
+  --v9-brand: #dc0f0a;
+  --v9-brand-hover: #b30c08;
+  --v9-on-brand: #fff8ee;
+  --v9-accent: #b10e09;         /* красный для текста на креме: 6.5:1 */
+  --v9-inv: #1f140f;            /* контрастные секции: чернила */
+  --v9-on-inv: #fdf4e3;
+  --v9-on-inv-2: #cdb8a5;       /* 9.4:1 */
+  --v9-accent-inv: #ff6b5e;     /* 6.6:1 на чернилах */
+  --v9-wordmark: #dc0f0a;       /* знак как в оригинале: красный на креме */
+  --v9-focus: #b10e09;
+  --v9-focus-inv: #fdf4e3;
+  --v9-error: #b10e09;
+  --v9-scrim: rgb(31 20 15 / 0.55);
+  --v9-glass: rgb(253 244 227 / 0.9);
+  --v9-sheet: #fdf4e3;
+  --v9-sheet-line: #e3cdaa;
+  --v9-photo-filter: saturate(0.95);
+  --v9-iris-hi: rgb(255 255 255 / 0.95);
+  --v9-bubble-core: rgb(31 20 15 / 0.03);
+  --v9-scheme: light;
+}
+
+/* Общее для обоих режимов: цвета, которые не меняются, шрифт, сетка */
+.v9-theme,
+:root:has(.v9-theme) {
+  /* Промо ивентов: глубокий блок марены в обоих режимах */
   --v9-ember-0: #1c0503;
   --v9-ember-1: #4a0c07;
   --v9-ember-2: #8f1a0d;
-  --v9-ember-3: #c2461a;   /* центр свечения: белый текст на нём 5:1 */
-  --v9-pill-bg: #ffffff;
-  --v9-pill-ink: #000000;
+  --v9-ember-3: #b8401a;        /* центр свечения: крем на нём 5:1 */
+  --v9-on-ember: #fdf4e3;
+  --v9-pill-bg: #fdf4e3;
+  --v9-pill-ink: #1f140f;
 
-  /* Обложки кейсов: насыщенные цвета курака и шырдака, на каждой свой цвет фигуры и текста */
-  --v9-case-1: #dc0f0a; --v9-case-1-shape: #a80b07; --v9-case-1-ink: #ffffff;
-  --v9-case-2: #1f3bd1; --v9-case-2-shape: #ff3b2e; --v9-case-2-ink: #ffffff;
-  --v9-case-3: #0b6b47; --v9-case-3-shape: #f2a900; --v9-case-3-ink: #ffffff;
-  --v9-case-4: #f2a900; --v9-case-4-shape: #dc0f0a; --v9-case-4-ink: #000000;
+  /* Плитки кейсов: глубокие тона в гамме логотипа (марена, чернильный, хвойный, охра) */
+  --v9-case-1: #6e2217; --v9-case-1-ink: #fdf4e3;   /* марена: 9.6:1 */
+  --v9-case-2: #252a36; --v9-case-2-ink: #fdf4e3;   /* чернильный: 13.4:1 */
+  --v9-case-3: #1e3a31; --v9-case-3-ink: #fdf4e3;   /* хвойный: 11.5:1 */
+  --v9-case-4: #b4843f; --v9-case-4-ink: #1f140f;   /* охра: 5.6:1 */
+  --v9-note-bg: rgb(20 12 8 / 0.72);                  /* подпись «фото по теме» поверх фото */
+  --v9-note-fg: #fdf4e3;
 
-  /* Мыльные пузыри клиентов: переливы плёнки и блик */
-  --v9-iris-1: #ff8fc8;
-  --v9-iris-2: #8fe3ff;
-  --v9-iris-3: #d9ff8f;
-  --v9-iris-4: #b79bff;
-  --v9-iris-5: #ffd38f;
-  --v9-bubble-hi: rgb(255 255 255 / 0.85);
-  --v9-bubble-core: rgb(255 255 255 / 0.04);
+  /* Курак-значки: основа красная, марена или песок, узоры кремом */
+  --v9-kb-red: #dc0f0a;
+  --v9-kb-deep: #7e1710;
+  --v9-kb-sand: #e2b977;
+  --v9-kb-paper: #fdf4e3;
+  --v9-kb-stitch: rgb(253 244 227 / 0.8);
+
+  /* Пузыри клиентов: переливы плёнки в тонах логотипа */
+  --v9-iris-1: #dc0f0a;
+  --v9-iris-2: #e2b977;
+  --v9-iris-3: #fdf4e3;
+  --v9-iris-4: #8f1a12;
+  --v9-iris-5: #c98a3c;
   --v9-mask-solid: #000000;
   --v9-mask-soft: rgb(0 0 0 / 0.18);
 
-  --v9-scrim: rgb(0 0 0 / 0.72);
-  --v9-glass: rgb(0 0 0 / 0.82);
-  --v9-sheet: #111111;
-  --v9-sheet-line: #2a2a2a;
-
-  /* ---------- Шрифт ---------- */
-  --v9-font-display: var(--font-v9-display), "Arial Black", system-ui, sans-serif;
+  /* ---------- Шрифт: голос заголовков как в меню услуг варианта 2 ---------- */
+  --v9-font-display: var(--font-kurak-display), "Arial Black", system-ui, sans-serif;
   --v9-font-text: var(--font-v9-text), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --v9-wide: 200%;           /* ширина капса заголовков по оси wdth */
-  --v9-wide-mid: 140%;
-  /* Ширина буквы капса в em при этой ширине (замерено, с запасом): по ней заголовок подгоняется под самое длинное слово */
-  --v9-char-wide: 1.7;
-  --v9-char-mid: 1.31;
-  --v9-fs-caps: 0.8125rem;   /* 13 px: меню, метки капсом */
+  /* Средняя ширина строчной буквы Kurak Display в em (замерено, с запасом): по ней заголовок подгоняется под самое длинное слово */
+  --v9-char: 0.8;
+  --v9-fs-xs: 0.8125rem;
   --v9-fs-sm: 0.9375rem;
-  --v9-fs-md: 1.0625rem;
-  --v9-fs-lg: 1.25rem;
-  --v9-fs-xl: clamp(1.375rem, 0.9vw + 1.05rem, 1.875rem);
-  --v9-fs-2xl: clamp(1.75rem, 1.6vw + 1.1rem, 2.75rem);
-  --v9-fs-statement: clamp(1.625rem, 2.5vw + 0.65rem, 3.375rem);
-  --v9-fs-mega: clamp(2.25rem, 7.4vw, 8.25rem);
+  --v9-fs-md: clamp(1.0625rem, 0.25vw + 0.85rem, 1.25rem);
+  --v9-fs-lg: clamp(1.125rem, 0.35vw + 0.95rem, 1.5rem);
+  --v9-fs-xl: clamp(1.25rem, 0.8vw + 0.95rem, 2.125rem);
+  --v9-fs-2xl: clamp(1.625rem, 1.5vw + 1rem, 3.25rem);
+  --v9-fs-h1: clamp(1.625rem, 3.1vw + 0.35rem, 6.5rem);
+  --v9-fs-statement: clamp(1.5rem, 2.2vw + 0.55rem, 4.25rem);
+  --v9-fs-mega: clamp(2.5rem, 7vw, 11rem);
 
   /* ---------- Сетка и ритм ---------- */
   --v9-max: 1600px;
-  --v9-gutter: clamp(16px, 3.3vw, 48px);
-  --v9-gap: clamp(12px, 1.2vw, 20px);
-  --v9-section: clamp(88px, 10vw, 168px);
+  --v9-gutter: clamp(16px, 3.3vw, 72px);
+  --v9-gap: clamp(12px, 1.2vw, 24px);
+  --v9-section: clamp(88px, 9vw, 200px);
   --v9-radius-card: 12px;
   --v9-head: 76px;
   --v9-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Большие мониторы: контейнер шире, чтобы первый экран и сетки не тонули в полях */
+@media (min-width: 112.5rem) {
+  :root:has(.v9-theme), .v9-theme { --v9-max: 1880px; --v9-head: 84px; }
+}
+@media (min-width: 150rem) {
+  :root:has(.v9-theme), .v9-theme { --v9-max: 2320px; --v9-head: 96px; }
+}
+@media (max-width: 60rem) {
+  :root:has(.v9-theme), .v9-theme { --v9-head: 64px; }
+}
+
 .v9-theme {
-  background: var(--v9-black);
-  color: var(--v9-white);
+  background: var(--v9-bg);
+  color: var(--v9-fg);
   font-family: var(--v9-font-text);
   font-size: var(--v9-fs-md);
   line-height: 1.55;
@@ -92,26 +152,30 @@
 }
 
 :root:has(.v9-theme) {
-  background: var(--v9-black);
-  color-scheme: dark;
-  scrollbar-color: var(--v9-line-strong) var(--v9-black);
+  background: var(--v9-bg);
+  color-scheme: var(--v9-scheme);
+  scrollbar-color: var(--v9-line-strong) var(--v9-bg);
   scroll-padding-top: 96px;
 }
-:root:has(.v9-theme) body { background: var(--v9-black); color: var(--v9-white); }
+:root:has(.v9-theme) body { background: var(--v9-bg); color: var(--v9-fg); }
 :root:has(.v9-theme dialog[open]) { overflow: hidden; }
 
-@media (max-width: 60rem) {
-  :root:has(.v9-theme), .v9-theme { --v9-wide: 165%; --v9-wide-mid: 125%; --v9-char-wide: 1.47; --v9-char-mid: 1.21; --v9-head: 64px; --v9-fs-mega: 11vw; }
-}
-@media (max-width: 30rem) {
-  :root:has(.v9-theme), .v9-theme { --v9-wide: 120%; --v9-wide-mid: 112%; --v9-char-wide: 1.19; --v9-char-mid: 1.15; --v9-fs-mega: 12.5vw; }
-}
+/* Смена режима: короткая растворка через View Transitions (только без «уменьшить движение», см. ThemeToggle) */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 280ms; }
 
-/* Базовые правила без веса (:where), чтобы классы модулей их перекрывали. Шрифт заголовков классы V9.module.css задают явно:
-   общий base.css ставит h1–h3 свой --font-display. Пунктир черновика в цветах варианта. */
-:where(.v9-theme) ::selection { background: var(--v9-red); color: var(--v9-white); }
+/* Базовые правила без веса (:where), чтобы классы модулей их перекрывали. Шрифт заголовков классы V9.module.css
+   задают явно: общий base.css ставит h1–h3 свой --font-display. У Kurak Display одно начертание: без жирного синтеза. */
+:where(.v9-theme) ::selection { background: var(--v9-brand); color: var(--v9-on-brand); }
 :where(.v9-theme) :focus-visible { outline: 2px solid var(--v9-focus); outline-offset: 3px; }
-:where(.v9-theme) :where(h1, h2, h3, h4) { font-family: var(--v9-font-display); font-weight: 700; }
+:where(.v9-theme) :where(h1, h2, h3, h4) { font-family: var(--v9-font-display); font-weight: 400; font-synthesis: none; }
 :where(.v9-theme) a { text-underline-offset: 0.22em; }
 
 :where(.v9-theme) .fill { border-radius: 3px; border-width: 1.5px; }
+
+/* Курак-значки (KBadge.tsx): цвета лоскутов */
+:where(.v9-theme .kb) { display: block; flex: none; }
+.v9-theme .kb-red { fill: var(--v9-kb-red); }
+.v9-theme .kb-deep { fill: var(--v9-kb-deep); }
+.v9-theme .kb-sand { fill: var(--v9-kb-sand); }
+.v9-theme .kb-paper { fill: var(--v9-kb-paper); }
+.v9-theme .kb-stitch { fill: none; stroke: var(--v9-kb-stitch); stroke-width: 0.9; stroke-dasharray: 2 1.6; }

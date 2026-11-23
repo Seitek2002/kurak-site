@@ -1,18 +1,12 @@
-import { Golos_Text, Science_Gothic } from "next/font/google";
+import { Onest } from "next/font/google";
 
 /**
- * Вариант 9. Дисплей: Science Gothic, широкий геометрический гротеск с осью ширины 50–200
- * (капс заголовков ставим на 160–200 %), его прямоугольные формы рифмуются с блоками логотипа.
- * Текст: Golos Text, нейтральный гротеск. У обоих есть cyrillic-ext: Ң ң Ү ү Ө ө своими глифами
- * (Unbounded проверяли: кыргызские буквы у него падают в системный шрифт).
+ * Вариант 9, текст: Onest, как в меню услуг варианта 2 (типографику оттуда отметила заказчица).
+ * У Onest есть cyrillic-ext: Ң ң Ү ү Ө ө своими глифами (проверено на /v9/kg).
+ * Дисплей варианта: Kurak Display из ./kurakDisplay (Dela Gothic One с дорисованными кыргызскими буквами),
+ * подключается в layout варианта.
  */
-export const v9Display = Science_Gothic({
-  subsets: ["cyrillic", "cyrillic-ext", "latin"],
-  axes: ["wdth"],
-  variable: "--font-v9-display",
-  display: "swap",
-});
-export const v9Text = Golos_Text({
+export const v9Text = Onest({
   subsets: ["cyrillic", "cyrillic-ext", "latin"],
   variable: "--font-v9-text",
   display: "swap",

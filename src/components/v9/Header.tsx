@@ -6,6 +6,8 @@ import { LANGS, UI, variantPath, type Lang } from "@/content/kurak";
 import { SECTIONS, V9 } from "@/content/v9";
 import { useSelection } from "@/store/selection";
 import { KMark } from "./Shape";
+import { KBadge } from "./KBadge";
+import { ThemeToggle } from "./ThemeToggle";
 import s from "./V9.module.css";
 
 export function LangSwitch({ lang, className }: { lang: Lang; className?: string }) {
@@ -42,8 +44,8 @@ export function PickedCount({ lang }: { lang: Lang }) {
 }
 
 /**
- * Шапка как у референса: слева знак K (фиксирован), по центру таблетка-анонс, справа меню капсом.
- * При скролле анонс и меню уходят, остаются знак, «Обсудить задачу» и кнопка «Меню».
+ * Шапка как у референса: слева знак K (фиксирован), рядом таблетка-анонс, справа меню, язык, режим и заявка.
+ * При скролле анонс, меню и язык уходят, остаются знак, переключатель режима, «Оставить заявку» и «Меню».
  */
 export function Header({ lang }: { lang: Lang }) {
   const [scrolled, setScrolled] = useState(false);
@@ -79,7 +81,7 @@ export function Header({ lang }: { lang: Lang }) {
         </Link>
 
         <p className={`${s.announce} ${s.fade}`}>
-          <span className={s.dot} aria-hidden="true" />
+          <KBadge id="pr" />
           {V9.announce[lang]}
         </p>
 
@@ -96,8 +98,9 @@ export function Header({ lang }: { lang: Lang }) {
             </ul>
           </nav>
           <LangSwitch lang={lang} className={s.fade} />
+          <ThemeToggle lang={lang} />
           <a href="#form" className={`${s.btn} ${s.btnS} ${s.headCta}`}>
-            {UI.discuss[lang]}
+            {UI.apply[lang]}
             <PickedCount lang={lang} />
           </a>
           <button
@@ -142,9 +145,12 @@ export function Header({ lang }: { lang: Lang }) {
             </ul>
           </nav>
           <div className={s.menuFoot}>
-            <LangSwitch lang={lang} />
+            <div className={s.menuFootRow}>
+              <LangSwitch lang={lang} />
+              <ThemeToggle lang={lang} />
+            </div>
             <a href="#form" className={`${s.btn} ${s.btnRed}`} onClick={closeMenu}>
-              {UI.discuss[lang]}
+              {UI.apply[lang]}
               <PickedCount lang={lang} />
             </a>
           </div>
